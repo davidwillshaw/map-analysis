@@ -1,5 +1,4 @@
-function params = select_point_positions(params)
-
+function params = select_point_positions(params, direction)
 %Selects params.numpoints point centres on the colliculus. At least 1/3 of
 %the points within params.coll_radius must be active (though not the chosen
 %point). Point centres must be separated by min_spacing though this is
@@ -10,26 +9,43 @@ function params = select_point_positions(params)
 %
 %Returns: params.coll_points
 
-
-    [y_inellipse,x_inellipse] = find(params.pixels_in_ellipse);
-    num_ellipse_pixels = length(x_inellipse);
-    [y_active, x_active] = find(params.active_pixels);
-    min_spacing = 0.75*sqrt(pi*params.ellipse.ra*params.ellipse.rb/ ...
-        params.numpoints);
-    max_trials = params.numpoints*100;
+    if strcmp(direction, 'CTOF')
+        [y_eligible,x_eligible] = find(params.pixels_in_ellipse);
+        numpoints = params.CTOF.numpoints;
+        area = pi*params.ellipse.ra*params.ellipse.rb;
+        radius = params.coll_radius;
+        min_points=(pi*radius^2)/3;
+        x_active = params.full_coll(:,1);
+        y_active = params.full_coll(:,2);
+    end
+    
+    if strcmp(direction, 'FTOC')
+        x_eligible = params.full_field(:,1);
+        y_eligible = params.full_field(:,2);
+        numpoints = params.FTOC.numpoints;
+        area = (max(y_eligible) - min(y_eligible))* ...
+            (max(x_eligible) - min(x_eligible));
+        radius = params.field_radius;
+        min_points = 10;
+        x_active = params.full_field(:,1);
+        y_active = params.full_field(:,2);
+    end
+    
+    num_ellipse_pixels = length(x_eligible);
+    min_spacing = 0.75*sqrt(area/numpoints);
+    max_trials = numpoints*100;
     rand('twister', params.ranstart);
-    min_points=(pi*params.coll_radius^2)/3;
     num_points_selected = 0;
     
-    while num_points_selected < params.numpoints
-        chosen = zeros(params.numpoints,2);
+    while num_points_selected < numpoints
+        chosen = zeros(numpoints,2);
         min_spacing = 0.95*min_spacing;
         num_points_selected = 0;
         ntry = 0;
-        potential_points_x = x_inellipse;
-        potential_points_y = y_inellipse;
+        potential_points_x = x_eligible;
+        potential_points_y = y_eligible;
         num_potential_points = num_ellipse_pixels;
-        while num_points_selected < params.numpoints && ntry <= max_trials ...
+        while num_points_selected < numpoints && ntry <= max_trials ...
                 && num_potential_points > 0
             
             chosen_point = round(rand*(num_potential_points-1))+1;
@@ -41,7 +57,7 @@ function params = select_point_positions(params)
             %Check there are enough active points within the radius with
             %chosen centre
             num_active_within_radius = sum(distance_from_chosen_point < ...
-                params.coll_radius);
+                radius);
             if num_active_within_radius < min_points
                 potential_points_x(chosen_point) = [];
                 potential_points_y(chosen_point) = [];
@@ -63,7 +79,14 @@ function params = select_point_positions(params)
     
     [~, sort_index] = sort(chosen(:,1));
     chosen = chosen(sort_index,:);
-    params.CTOF.coll_points = chosen;
+    
+    if strcmp(direction, 'CTOF')
+        params.CTOF.coll_points = chosen;
+    end
+    
+    if strcmp(direction, 'FTOC')
+        params.FTOC.field_points = chosen;
+    end
             
         
     
