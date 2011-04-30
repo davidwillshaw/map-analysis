@@ -5,7 +5,7 @@ function params = find_active_pixels(params)
 %ones for active pixels and zeros for inactive pixels. 
 %
 %Needs: params.ellipse, params.elev_amp, params.azim_amp, params.thresh
-%Adds: params.pixels_in_ellipse, params.active_pixels to the structure
+%Adds: params.pixels_in_ellipse, params.active_pixels and num_active_pixels
 
     [size_i,size_j] = size(params.elev_amp);
     [x_coord, y_coord] = meshgrid(1:size_j,1:size_i);
@@ -56,6 +56,7 @@ function params = find_active_pixels(params)
      
      params.pixels_in_ellipse = pixels_in_ellipse;
      params.active_pixels = active_pixels;
+     params.num_active_pixels = length(find(active_pixels == 1));
      
      
     

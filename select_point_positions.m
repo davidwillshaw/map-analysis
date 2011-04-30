@@ -63,7 +63,7 @@ function params = select_point_positions(params)
     
     [~, sort_index] = sort(chosen(:,1));
     chosen = chosen(sort_index,:);
-    params.coll_points = chosen;
+    params.CTOF.coll_points = chosen;
             
         
     
