@@ -13,7 +13,7 @@ for n=1:num_triangles
     AC = side_lengths(1,3);
     BC = side_lengths(2,3);
     
-    cosine(1) = (AB^2+AC^2 - BC(2,3)^2)/(2*AB*AC);
+    cosine(1) = (AB^2+AC^2 - BC^2)/(2*AB*AC);
     cosine(2) = (AB^2+BC^2 - AC^2)/(2*AB*BC);
     cosine(3) = (AC^2+BC^2 - AB^2)/(2*AC*BC);
     angles = acosd(cosine(:));

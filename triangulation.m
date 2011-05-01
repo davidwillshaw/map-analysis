@@ -4,11 +4,13 @@ function params  = triangulation(params, direction)
     if strcmp(direction,'CTOF')
         positions = params.CTOF.coll_points;
         takeout = params.CTOF.takeout;
+        numpoints = params.CTOF.numpoints;
     end
 
     if strcmp(direction,'FTOC')
         positions = params.FTOC.field_points;
         takeout = params.FTOC.takeout;
+        numpoints = params.FTOC.numpoints;
     end
 
     positions(takeout) = [];
@@ -16,7 +18,7 @@ function params  = triangulation(params, direction)
     triangles = delaunay(positions(:,1),positions(:,2));
     triangles = cleanup(triangles,positions,params.tolerance);
     num_triangles = size(triangles,1);
-    neighbours = zeros(num_triangles);
+    neighbours = zeros(numpoints);
 
     for i=1:num_triangles,
         neighbours(triangles(i,1),triangles(i,2)) = 1;
