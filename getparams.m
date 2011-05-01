@@ -158,3 +158,4 @@ function params = getparams(id)
     params.FTOC.takeout = [];
     params.comments = '';
     params.anchors = 8;
+    params.tolerance = 150;
