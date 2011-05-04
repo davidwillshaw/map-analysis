@@ -10,6 +10,8 @@ params = getparams(id)
      params = triangulation(params,'FTOC')
      params = find_crossings(params, 'CTOF')
      params = find_crossings(params, 'FTOC')
+      params = find_largest_subgraph(params,'CTOF')
+       params = find_largest_subgraph(params,'FTOC')
      
 
    imagesc(params.elev_amp)
