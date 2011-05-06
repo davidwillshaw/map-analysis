@@ -5,8 +5,8 @@ function params = create_projection(params, direction)
     if strcmp(direction, 'FTOC')
         set_points = params.FTOC.field_points;
         set_points(params.FTOC.takeout,:) = [];
-        mapping_from = params.full_field;
-        mapping_to = params.full_coll;
+        from_coords = params.full_field;
+        to_coords = params.full_coll;
         num_points = params.FTOC.numpoints;
         radius = params.field_radius;
     end
@@ -14,8 +14,8 @@ function params = create_projection(params, direction)
     if strcmp(direction, 'CTOF')
         set_points = params.CTOF.coll_points;
         set_points(params.CTOF.takeout,:) = [];
-        mapping_from = params.full_coll;
-        mapping_to = params.full_field;
+        from_coords = params.full_coll;
+        to_coords = params.full_field;
         radius = params.coll_radius;
         num_points = params.CTOF.numpoints;
     end
@@ -23,11 +23,9 @@ function params = create_projection(params, direction)
     projected_points = zeros(num_points,2);
     
     for point = 1:num_points
-        selected_point = set_points(point,:);
-        dists = sqrt((mapping_from(:,1) - selected_point(1)).^2 + ...
-            (mapping_from(:,2) - selected_point(2)).^2);
-        [points_in_radius,~] = find(dists<radius);
-        mean_projection = mean(mapping_to(points_in_radius,:));
+        centre = set_points(point,:);
+        all_projected_points = find_projection(centre,radius,from_coords,to_coords);
+        mean_projection = mean(all_projected_points);
         projected_points(point,:) = mean_projection;
     end
     
