@@ -1,0 +1,11 @@
+function [] = print_links(list_of_points, coords, list_of_neighbours, color)
+
+    
+    point1_x = coords(list_of_neighbours(:,1),1)';
+    point2_x = coords(list_of_neighbours(:,2),1)';
+    point1_y = coords(list_of_neighbours(:,1),2)';
+    point2_y = coords(list_of_neighbours(:,2),2)';
+
+    plot([point1_x;point2_x],[point1_y;point2_y],'Color',color)
+
+    
