@@ -1,4 +1,4 @@
-function [h, x, y,k, x0, y0]=error_ellipse(varargin)
+function [x, y,k, x0, y0]=error_ellipse(varargin)
 % ERROR_ELLIPSE - plot an error ellipse, or ellipsoid, defining confidence region
 %    ERROR_ELLIPSE(C22) - Given a 2x2 covariance matrix, plot the
 %    associated error ellipse, at the origin. It returns a graphics handle
@@ -133,17 +133,17 @@ elseif r==2 & c==2
   end
 
   [x,y,z] = getpoints(C,prop.clip);
-  h1=plot(scale*(x0+k*x),scale*(y0+k*y),prop.style);
-  set(h1,'zdata',z+1)
+  %h1=plot(scale*(x0+k*x),scale*(y0+k*y),prop.style);
+  %set(h1,'zdata',z+1)
   if nargout
-    h=h1;
+    %h=h1;
   end
 else
   error('C (covariance matrix) must be specified as a 2x2 or 3x3 matrix)')
 end
 %axis equal
 
-set(gca,'nextplot',hold_state);
+%set(gca,'nextplot',hold_state);
 
 %---------------------------------------------------------------
 % getpoints - Generate x and y points that define an ellipse, given a 2x2

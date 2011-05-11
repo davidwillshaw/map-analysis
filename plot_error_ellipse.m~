@@ -2,11 +2,11 @@ function [angle,x_radius,y_radius] = plot_error_ellipse(coords,colour)
 
     covariance_mat = cov(coords);
     %conf set at 1 standard deviation (68.2%)
-    [h,x,y,k,x0,y0] = error_ellipse(covariance_mat,mean(coords),'conf',0.682,'style',colour);
+    [~,y,k,x0,y0] = error_ellipse(covariance_mat,mean(coords),'conf',0.682,'style',colour);
     tan_2angle = 2*covariance_mat(1,2)/(covariance_mat(2,2)-covariance_mat(1,1));
     angle = atan(tan_2angle)/2;
     
-    p = [angle,angle+pi/2];
+    p = [0,pi/2];
     [eigvec,eigval] = eig(covariance_mat); % Compute eigen-stuff
     xy = [cos(p'),sin(p')] * sqrt(eigval) * eigvec'; % Transformation
     x = xy(:,1);

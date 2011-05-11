@@ -56,7 +56,7 @@ function params = select_point_positions(params, direction)
                 (y_chosen - y_active).^2);
             %Check there are enough active points within the radius with
             %chosen centre
-            num_active_within_radius = sum(distance_from_chosen_point < ...
+            num_active_within_radius = sum(distance_from_chosen_point <= ...
                 radius);
             if num_active_within_radius < min_points
                 potential_points_x(chosen_point) = [];
@@ -69,7 +69,7 @@ function params = select_point_positions(params, direction)
             chosen(num_points_selected,2) = y_chosen;
             distance_from_chosen = sqrt((potential_points_x - x_chosen).^2 + ...
                 (potential_points_y-y_chosen).^2);
-            points_in_radius = find(distance_from_chosen < min_spacing);
+            points_in_radius = find(distance_from_chosen <= min_spacing);
             potential_points_x(points_in_radius) = [];
             potential_points_y(points_in_radius) = [];
             num_points_in_radius = length(points_in_radius);
