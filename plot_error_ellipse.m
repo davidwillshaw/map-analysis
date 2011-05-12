@@ -4,7 +4,11 @@ function [angle,x_radius,y_radius] = plot_error_ellipse(coords)
     %conf set at 1 standard deviation (68.2%)
     [~,~,k,~,~] = error_ellipse(covariance_mat,mean(coords),'conf',0.682,'style','k');
     tan_2angle = 2*covariance_mat(1,2)/(covariance_mat(2,2)-covariance_mat(1,1));
-    angle = atan(tan_2angle)/2;
+    if isnan(tan_2angle)
+        angle = 0;
+    else
+        angle = atan(tan_2angle)/2;
+    end
     
     p = [0,pi/2];
     [eigvec,eigval] = eig(covariance_mat); % Compute eigen-stuff

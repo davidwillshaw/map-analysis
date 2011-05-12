@@ -24,7 +24,7 @@ function params = create_projection(params, direction)
     
     for point = 1:num_points
         centre = set_points(point,:);
-        all_projected_points = find_projection(centre,radius,from_coords,to_coords);
+        [~,all_projected_points] = find_projection(centre,radius,from_coords,to_coords);
         mean_projection = mean(all_projected_points);
         projected_points(point,:) = mean_projection;
     end

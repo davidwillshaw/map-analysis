@@ -10,7 +10,8 @@ function params = select_point_positions(params, direction)
 %Returns: params.coll_points
 
     if strcmp(direction, 'CTOF')
-        [y_eligible,x_eligible] = find(params.pixels_in_ellipse);
+        x_eligible = params.full_coll(:,1);
+        y_eligible = params.full_coll(:,2);
         numpoints = params.CTOF.numpoints;
         area = pi*params.ellipse.ra*params.ellipse.rb;
         radius = params.coll_radius;
