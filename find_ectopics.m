@@ -8,7 +8,7 @@ function params = find_ectopics(params)
     full_coll_coords = params.full_coll;
     takeout = params.FTOC.takeout;
     radius = params.field_radius;
-    major_projection = zeros(numpoints,2);
+    major_projection = params.FTOC.coll_points;
     minor_projection = zeros(numpoints,2);
     
     for point = 1:numpoints
