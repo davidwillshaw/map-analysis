@@ -16,4 +16,4 @@ function params = run_data(id)
     params = find_largest_subgraph(params,'FTOC');
     plot_figure2(params)
     plot_figure3(params)
-    plot_figure6(params, 'FTOC')
+    plot_figure6(params)

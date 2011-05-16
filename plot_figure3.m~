@@ -45,14 +45,16 @@ function [] = plot_figure3(params)
     title('Colliculus');
     
     subplot(2,3,3)
-    plot(coll_centred_points(:,1),coll_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
+    N = hist3(coll_centred_points,'edges', {(1:113)', (1:113)'});
+    imagesc(N')
+%    plot(coll_centred_points(:,1),coll_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
     hold on
     [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(coll_centred_points);
     ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1)),mean(coll_centred_points(:,2)),'m');
     
     axis ij
-    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-17,0,17] , 'XTickLabel', {'-150','0','150'}, 'YTick',[-20,0,20],'YTickLabel', {'-150','0','150'} )
-    axis([-17,17,-17,17])
+    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
+    axis([1,113,1,113])
     %CTOF
     
     num_points = params.CTOF.numpoints;
@@ -95,4 +97,4 @@ function [] = plot_figure3(params)
     ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1)),mean(field_centred_points(:,2)),'k');
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-20,0,20] , 'YTick',[-20,0,20] )
-    axis(
+    axis([-20,20,-20,20])
