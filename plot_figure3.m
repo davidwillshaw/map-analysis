@@ -51,8 +51,8 @@ function [] = plot_figure3(params)
     ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1)),mean(coll_centred_points(:,2)),'m');
     
     axis ij
-    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-17,0,17] , 'XTickLabel', {'-150','0','150'}, 'YTick',[-17,0,17],'YTickLabel', {'-150','0','150'} )
-    axis([-17,17,-17,17])
+    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-34,0,34] , 'XTickLabel', {'-300','0','300'}, 'YTick',[-34,0,34],'YTickLabel', {'-300','0','300'} )
+    axis([-34,34,-34,34])
     %CTOF
     
     num_points = params.CTOF.numpoints;
