@@ -42,8 +42,12 @@ function [] = plot_figure2(params)
    
    %FTOC circ_plot
    subplot(2,3,3)
-   angles = find_rel_angles(list_of_neighbours,field_coords,coll_coords);
-   circ_plot(angles,'hist',color,40,false,true,'linewidth',2,'color',color)     
+   angles = params.FTOC.angles;
+   norm_links = params.FTOC.norm_links;
+   flipped_links = params.FTOC.flipped_links;
+   circ_plot(angles(norm_links>0),'hist',color,40,false,true,'linewidth',2,'color',color)
+   hold on
+   circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r')
     title(params.datalabel);    
    
    %CTOF
@@ -83,8 +87,12 @@ function [] = plot_figure2(params)
    
    %CTOF circ_plot
    subplot(2,3,6)
-   angles = find_rel_angles(list_of_neighbours,coll_coords,field_coords);
-   circ_plot(angles,'hist',color,40,false,true,'linewidth',2,'color',color)
+   angles = params.CTOF.angles;
+   norm_links = params.CTOF.norm_links;
+   flipped_links = params.CTOF.flipped_links;
+   circ_plot(angles(norm_links>0),'hist',color,40,false,true,'linewidth',2,'color',color)
+   hold on
+   circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r')
    
 
    

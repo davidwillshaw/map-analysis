@@ -14,6 +14,9 @@ function params = run_data(id)
     params = find_crossings(params, 'FTOC');
     params = find_largest_subgraph(params,'CTOF');
     params = find_largest_subgraph(params,'FTOC');
+    params = find_link_angles(params,'FTOC');
+    params = find_link_angles(params,'CTOF');
+    
     plot_figure2(params)
     plot_figure3(params)
     plot_figure6(params, 'FTOC')
