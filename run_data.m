@@ -12,6 +12,7 @@ function params = run_data(id)
     params = triangulation(params,'FTOC');
     params = find_crossings(params, 'CTOF');
     params = find_crossings(params, 'FTOC');
+    params = find_ectopics(params);
     params = find_largest_subgraph(params,'CTOF');
     params = find_largest_subgraph(params,'FTOC');
     params = find_link_angles(params,'FTOC');
@@ -20,3 +21,5 @@ function params = run_data(id)
     plot_figure2(params)
     plot_figure3(params)
     plot_figure6(params, 'FTOC')
+    figure
+    plot_ectopics(params)

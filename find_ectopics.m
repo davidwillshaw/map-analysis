@@ -14,15 +14,10 @@ function params = find_ectopics(params)
     for point = 1:numpoints
         centre = field_points(point,:);
         [~,projection_points] = find_projection(centre,radius,full_field_coords,full_coll_coords);
-        [IDX1, C1, SUMD1] = kmeans(projection_points,1);
-        [IDX2, C2, SUMD2] = kmeans(projection_points,2, 'replicates',5);
+        [IDX2, C2] = kmeans(projection_points,2, 'replicates',5);
         I1=find(IDX2==1);
         I2=find(IDX2==2);
-        mean_single = mean(projection_points);
-        sd_single = sqrt(sum(std(projection_points).^2));
-        mean_1 = mean(projection_points(I1,:));
         sd_1 = sqrt(sum(std(projection_points(I1,:)).^2));
-        mean_2 = mean(projection_points(I2,:));
         sd_2 = sqrt(sum(std(projection_points(I2,:)).^2));
         if length(I1)>4 && length(I2)>4 && ...
                 sd_1+sd_2 < FRAC_SPREAD*dist(C2(1,:),C2(2,:)')
