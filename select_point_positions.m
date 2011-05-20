@@ -80,22 +80,19 @@ function params = select_point_positions(params, direction)
     
     [~, sort_index] = sort(chosen(:,1));
     chosen = chosen(sort_index,:);
-    point_dists = dist(chosen,chosen');
-    point_dists = sort(point_dists);
-    mean_min_dists = mean(point_dists(2,:));
-    std_min_dists = std(point_dists(2,:));
+    [~,area] = convhull(chosen(:,1),chosen(:,2));
     
     
     if strcmp(direction, 'CTOF')
         params.CTOF.coll_points = chosen;
-        params.CTOF.mean_min_dists = mean_min_dists;
-        params.CTOF.std_min_dists = std_min_dists;
+        %convert to mm^2
+        area = area*(9*10^-3)^2;
+        params.stats.CTOF.coll_area = area;
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.field_points = chosen;
-        params.FTOC.mean_min_dists = mean_min_dists;
-        params.FTOC.std_min_dists = std_min_dists;
+        params.stats.FTOC.field_area = area;
     end
             
         

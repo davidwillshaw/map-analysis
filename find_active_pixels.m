@@ -57,6 +57,7 @@ function params = find_active_pixels(params)
      params.pixels_in_ellipse = pixels_in_ellipse;
      params.active_pixels = active_pixels;
      params.num_active_pixels = length(find(active_pixels == 1));
+     params.stats.num_active_pixels = length(find(active_pixels == 1));
      
      
     

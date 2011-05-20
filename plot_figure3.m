@@ -1,10 +1,10 @@
-function [] = plot_figure3(params)
+function params = plot_figure3(params)
 
 
     xmean_coll = params.ellipse.x0;
     ymean_coll = params.ellipse.y0;
     figure(3)
-    
+    clf
     %FTOC
     
     num_points = params.FTOC.numpoints;
@@ -55,6 +55,12 @@ function [] = plot_figure3(params)
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
     axis([1,113,1,113])
+    
+    params.stats.CTOF.dispersion_angle = angle_c;
+    params.stats.CTOF.dispersion_xrad = x_radius_c;
+    params.stats.CTOF.dispersion_yrad = y_radius_c;
+    
+    
     %CTOF
     
     num_points = params.CTOF.numpoints;
@@ -100,3 +106,9 @@ function [] = plot_figure3(params)
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,21,41] ,'XTickLabel',{'-20','0','20'}, 'YTick',[1,21,41],'YTickLabel',{'-20','0','20'} )
     axis([1,41,1,41])
+    
+    params.stats.FTOC.dispersion_angle = angle_f;
+    params.stats.FTOC.dispersion_xrad = x_radius_f;
+    params.stats.FTOC.dispersion_yrad = y_radius_f;
+    
+    

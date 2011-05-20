@@ -5,6 +5,7 @@ function params = find_link_angles(params,direction)
         from_coords = params.FTOC.field_points;
         to_coords = params.FTOC.coll_points;
         triangles = params.FTOC.triangles;
+        takeout = params.FTOC.takeout;
     end
     
     if strcmp(direction, 'CTOF')
@@ -12,7 +13,11 @@ function params = find_link_angles(params,direction)
         from_coords = params.CTOF.coll_points;
         to_coords = params.CTOF.field_points;
         triangles = params.CTOF.triangles;
+        takeout = params.CTOF.takeout;
     end
+    
+    active_list = remove_links_including_nodes(link_list, nodes)
+    
     num_links = length(list_of_neighbours);
     angles = find_rel_angles(list_of_neighbours,from_coords,to_coords);
     orientations = find_flipped_triangles(triangles,from_coords,to_coords);
@@ -22,15 +27,15 @@ function params = find_link_angles(params,direction)
     for link = 1:num_links
         active_link = list_of_neighbours(link,:);
         nodes_in_triangles = ismember(triangles,active_link);
-        link_in_triangles = sum(nodes_in_triangles,2) > 2;
+        link_in_triangles = sum(nodes_in_triangles,2) >= 2;
         link_member_of = orientations(link_in_triangles);
         num_el = length(link_member_of);
         if sum(link_member_of) < num_el
-            flipped_links(active_link) = 1;
+            flipped_links(link) = 1;
         end
         
         if sum(link_member_of) > 0
-            norm_links(active_link) = 1;
+            norm_links(link) = 1;
         end
     end
     
@@ -39,6 +44,18 @@ function params = find_link_angles(params,direction)
         params.FTOC.norm_links = norm_links;
         params.FTOC.angles = angles;
         params.FTOC.orientations = orientations;
+        params.stats.FTOC.map_orientation_mean = circ_mean(angles);
+        params.stats.FTOC.map_orientation_std = circ_std(angles);
+    end
+    
+    if strcmp(direction, 'CTOF')
+        params.CTOF.flipped_links = flipped_links;
+        params.CTOF.norm_links = norm_links;
+        params.CTOF.angles = angles;
+        params.CTOF.orientations = orientations;
+        params.stats.CTOF.map_orientation_mean = circ_mean(angles);
+        params.stats.CTOF.map_orientation_std = circ_std(angles);
+    end
             
         
         

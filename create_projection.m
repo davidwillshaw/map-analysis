@@ -29,12 +29,18 @@ function params = create_projection(params, direction)
         projected_points(point,:) = mean_projection;
     end
     
+    [~,area] = convhull(projected_points(:,1),projected_points(:,2));
+    
     if strcmp(direction, 'FTOC')
         params.FTOC.coll_points = projected_points;
+        %convert to mm^2
+        area = area*(9*10^-3)^2;
+        params.stats.FTOC.coll_area = area;
     end
     
     if strcmp(direction, 'CTOF')
         params.CTOF.field_points = projected_points;
+        params.stats.CTOF.field_area = area;
     end
     
 

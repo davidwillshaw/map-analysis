@@ -1,8 +1,8 @@
 function params = select_point_positions_2(params, direction)
 %Selects params.numpoints point centres on the colliculus. At least 1/3 of
 %the points within params.coll_radius must be active (though not the chosen
-%point). Point centres must be separated by min_spacing though this is
-%decreased enough points can't be found within max_trials.
+%point). Point centres must be separated by 2*radius and points are added
+%until no more elligible points exist.
 %
 %Needs: params.pixels_in_ellipse,params.active_pixels, params.ellipse, 
 %params.numpoints, params.coll_radius
@@ -12,8 +12,6 @@ function params = select_point_positions_2(params, direction)
     if strcmp(direction, 'CTOF')
         x_eligible = params.full_coll(:,1);
         y_eligible = params.full_coll(:,2);
-        numpoints = params.CTOF.numpoints;
-        area = pi*params.ellipse.ra*params.ellipse.rb;
         radius = params.coll_radius;
         min_points=(pi*radius^2)/3;
         x_active = params.full_coll(:,1);
@@ -23,9 +21,6 @@ function params = select_point_positions_2(params, direction)
     if strcmp(direction, 'FTOC')
         x_eligible = params.full_field(:,1);
         y_eligible = params.full_field(:,2);
-        numpoints = params.FTOC.numpoints;
-        area = (max(y_eligible) - min(y_eligible))* ...
-            (max(x_eligible) - min(x_eligible));
         radius = params.field_radius;
         min_points = 10;
         x_active = params.full_field(:,1);
@@ -35,7 +30,6 @@ function params = select_point_positions_2(params, direction)
     num_ellipse_pixels = length(x_eligible);
     min_spacing = radius*2;
     rand('twister', params.ranstart);
-    num_points_selected = 0;
     
   
         chosen = zeros(500,2);
@@ -78,24 +72,24 @@ function params = select_point_positions_2(params, direction)
     chosen = chosen(1:(endpoint-1),:);
     [~, sort_index] = sort(chosen(:,1));
     chosen = chosen(sort_index,:);
-    point_dists = dist(chosen,chosen');
-    point_dists = sort(point_dists);
-    mean_min_dists = mean(point_dists(2,:));
-    std_min_dists = std(point_dists(2,:));
+    [~,area] = convhull(chosen(:,1),chosen(:,2));
+    
     
     
     if strcmp(direction, 'CTOF')
         params.CTOF.numpoints = length(chosen);
+        params.stats.CTOF.numpoints = length(chosen);
         params.CTOF.coll_points = chosen;
-        params.CTOF.mean_min_dists = mean_min_dists;
-        params.CTOF.std_min_dists = std_min_dists;
+        %convert to mm^2
+        area = area*(9*10^-3)^2;
+        params.stats.CTOF.coll_area = area;
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.numpoints = length(chosen);
+        params.stats.FTOC.numpoints = length(chosen);
         params.FTOC.field_points = chosen;
-        params.FTOC.mean_min_dists = mean_min_dists;
-        params.FTOC.std_min_dists = std_min_dists;
+        params.stats.FTOC.field_area = area;
     end
             
         

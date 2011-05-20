@@ -37,6 +37,12 @@ function params = find_ectopics(params)
     params.FTOC.major_projection = major_projection;
     params.FTOC.minor_projection = minor_projection;
     params.FTOC.optimal_position = optimal_position;
+    ect = find(minor_projection(:,1));
+    params.stats.num_ectopics = length(ect);
+    ect_dists = diag(dist(major_projection(ect,:),minor_projection(ect,:)'));
+    params.stats.ect_dist_mean = mean(ect_dists);
+    params.stats.ect_dist_std = std(ect_dists);
+    
     
             
             

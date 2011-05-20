@@ -44,11 +44,13 @@ function params = find_largest_subgraph(params,direction)
     if strcmp(direction, 'CTOF')
         params.CTOF.points_in_subgraph = points_in_subgraph;
         params.CTOF.points_not_in_subgraph = points_not_in_subgraph;
+        params.stats.CTOF.num_nodes_in_subgraph = length(points_in_subgraph);
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.points_in_subgraph = points_in_subgraph;
         params.FTOC.points_not_in_subgraph = points_not_in_subgraph;
+        params.stats.FTOC.num_nodes_in_subgraph = length(points_in_subgraph);
     end
     
     

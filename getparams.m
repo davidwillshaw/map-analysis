@@ -159,3 +159,5 @@ function params = getparams(id)
     params.comments = '';
     params.anchors = 8;
     params.tolerance = 150;
+    
+    params.stats.id = id;
