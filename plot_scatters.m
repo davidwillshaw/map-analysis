@@ -20,9 +20,9 @@ function [] = plot_scatters(params)
         x_radius_c = x_radius_c/sqrt(num_projection);
         y_radius_c = y_radius_c/sqrt(num_projection);
         subplot(2,2,1)
-        ellipse(x_radius_f,y_radius_f,-angle_f,mean(from_points(:,1)),mean(from_points(:,2)),'m');
+        ellipse(x_radius_f,y_radius_f,-angle_f,mean(from_points(:,1)),mean(from_points(:,2)),'k');
         subplot(2,2,2)
-        ellipse(x_radius_c,y_radius_c,-angle_c,mean(projection_points(:,1)),mean(projection_points(:,2)),'m');
+        ellipse(x_radius_c,y_radius_c,-angle_c,mean(projection_points(:,1)),mean(projection_points(:,2)),'k');
     end
     
     subplot(2,2,1)
@@ -49,9 +49,9 @@ function [] = plot_scatters(params)
         x_radius_c = x_radius_c/sqrt(num_projection);
         y_radius_c = y_radius_c/sqrt(num_projection);
         subplot(2,2,3)
-        ellipse(x_radius_f,y_radius_f,-angle_f,mean(projection_points(:,1)),mean(projection_points(:,2)),'k');
+        ellipse(x_radius_f,y_radius_f,-angle_f,mean(projection_points(:,1)),mean(projection_points(:,2)),'b');
         subplot(2,2,4)
-        ellipse(x_radius_c,y_radius_c,-angle_c,mean(from_points(:,1)),mean(from_points(:,2)),'k');
+        ellipse(x_radius_c,y_radius_c,-angle_c,mean(from_points(:,1)),mean(from_points(:,2)),'b');
     end
     
     subplot(2,2,3)

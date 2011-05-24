@@ -1,0 +1,38 @@
+function [] = plot_indiv_scatters(params)
+
+    num_points = params.FTOC.numpoints;
+    field_points = params.FTOC.field_points;
+    ect = find(params.FTOC.minor_projection(:,1));
+    from_coords = params.full_field;
+    to_coords = params.full_coll;
+    radius = params.field_radius;
+    max_scatter = 0;
+    min_scatter = 100;
+    
+    
+    for point = 1:num_points
+        centre = field_points(point,:);
+        [~,projection_points] = find_projection(centre,radius,from_coords,to_coords)
+        scatter = sqrt(sum(var(projection_points)));
+        if scatter > max_scatter && ~ismember(point,ect)
+            max_scatter = scatter;
+            max_point_to_plot = point;
+            max_projection = projection_points;
+        end
+        
+        if scatter < min_scatter && ~ismember(point,ect)
+            min_scatter = scatter;
+            min_point_to_plot = point;
+            min_projection = projection_points;
+        end
+        
+        if point == ect(1)
+            ect_projection = projection_points;
+        end
+    end
+    
+    figure(7)
+    subplot(1,2,1)
+    plot(field_points(min,1),field_points(min,
+    
+    

@@ -68,4 +68,4 @@ function summary_stats = get_summary_stats()
         summary_stats(i,40) = params.stats.CTOF.scatter_mean_out;
     end
         
-    csvwrite('summary_stats',summary_stats);
+    csvwrite('summary_stats.cvs',summary_stats);

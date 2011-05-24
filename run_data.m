@@ -36,8 +36,8 @@ function params = run_data(id)
         params = ectopic_order_stats(params);
     end
     
-    %plot_figure2(params)
+    plot_figure2(params)
     params = plot_figure3(params);
-    %plot_figure6(params, 'FTOC')
-    %figure
-    %plot_ectopics(params)
+    plot_figure6(params, 'FTOC')
+    figure
+    plot_ectopics(params)

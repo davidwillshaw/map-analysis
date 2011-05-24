@@ -9,7 +9,7 @@ function [] = plot_figure6(params,direction)
         points_in_subgraph = params.CTOF.points_in_subgraph;
         list_of_neighbours = params.CTOF.list_of_neighbours;
         num_points = params.CTOF.numpoints;
-        color = 'k';
+        color = 'b';
         sets_of_intersections = params.CTOF.sets_of_intersections;
         points_not_in_subgraph = params.CTOF.points_not_in_subgraph;
     end
@@ -20,7 +20,7 @@ function [] = plot_figure6(params,direction)
         points_in_subgraph = params.FTOC.points_in_subgraph;
         list_of_neighbours = params.FTOC.list_of_neighbours;
         num_points = params.FTOC.numpoints;
-        color = 'm';
+        color = 'k';
         sets_of_intersections = params.FTOC.sets_of_intersections;
         points_not_in_subgraph = params.FTOC.points_not_in_subgraph;
     end
@@ -55,7 +55,7 @@ subplot(1,3,1)
     subplot(1,3,3)
     print_links(points_in_subgraph, coll_coords, list_of_neighbours, color);
    hold on
-   plot(coll_coords(points_not_in_subgraph,1),coll_coords(points_not_in_subgraph,2),'ok')
+   plot(coll_coords(points_not_in_subgraph,1),coll_coords(points_not_in_subgraph,2),'or')
    [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
    plot_anchors(coll_coords,params.anchors,anchors);

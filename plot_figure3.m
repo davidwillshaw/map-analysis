@@ -27,9 +27,9 @@ function params = plot_figure3(params)
         centred_points = projection_points - repmat(mean(projection_points),num_projection,1);
         coll_centred_points = [coll_centred_points; centred_points];
         subplot(2,3,1)
-        ellipse(x_radius_f,y_radius_f,-angle_f,mean(from_points(:,1)),mean(from_points(:,2)),'m');
+        ellipse(x_radius_f,y_radius_f,-angle_f,mean(from_points(:,1)),mean(from_points(:,2)),'k');
         subplot(2,3,2)
-        ellipse(x_radius_c,y_radius_c,-angle_c,mean(projection_points(:,1)),mean(projection_points(:,2)),'m');
+        ellipse(x_radius_c,y_radius_c,-angle_c,mean(projection_points(:,1)),mean(projection_points(:,2)),'k');
     end
     
     subplot(2,3,1)
@@ -50,15 +50,15 @@ function params = plot_figure3(params)
 %    plot(coll_centred_points(:,1),coll_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
     hold on
     [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(coll_centred_points);
-    ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+56,mean(coll_centred_points(:,2))+56,'m');
+    ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+56,mean(coll_centred_points(:,2))+56,'w');
     
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
     axis([1,113,1,113])
     
-    params.stats.CTOF.dispersion_angle = angle_c;
-    params.stats.CTOF.dispersion_xrad = x_radius_c;
-    params.stats.CTOF.dispersion_yrad = y_radius_c;
+    params.stats.FTOC.dispersion_angle = angle_c;
+    params.stats.FTOC.dispersion_xrad = x_radius_c;
+    params.stats.FTOC.dispersion_yrad = y_radius_c;
     
     
     %CTOF
@@ -80,9 +80,9 @@ function params = plot_figure3(params)
         field_centred_points = [field_centred_points; centred_points];
        
         subplot(2,3,4)
-        ellipse(x_radius_f,y_radius_f,-angle_f,mean(projection_points(:,1)),mean(projection_points(:,2)),'k');
+        ellipse(x_radius_f,y_radius_f,-angle_f,mean(projection_points(:,1)),mean(projection_points(:,2)),'b');
         subplot(2,3,5)
-        ellipse(x_radius_c,y_radius_c,-angle_c,mean(from_points(:,1)),mean(from_points(:,2)),'k');
+        ellipse(x_radius_c,y_radius_c,-angle_c,mean(from_points(:,1)),mean(from_points(:,2)),'b');
     end
     
     subplot(2,3,4)
@@ -102,13 +102,13 @@ function params = plot_figure3(params)
     %plot(field_centred_points(:,1),field_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
     hold on
     [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(field_centred_points);
-    ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+20,mean(field_centred_points(:,2))+20,'k');
+    ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+20,mean(field_centred_points(:,2))+20,'w');
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,21,41] ,'XTickLabel',{'-20','0','20'}, 'YTick',[1,21,41],'YTickLabel',{'-20','0','20'} )
     axis([1,41,1,41])
     
-    params.stats.FTOC.dispersion_angle = angle_f;
-    params.stats.FTOC.dispersion_xrad = x_radius_f;
-    params.stats.FTOC.dispersion_yrad = y_radius_f;
+    params.stats.CTOF.dispersion_angle = angle_f;
+    params.stats.CTOF.dispersion_xrad = x_radius_f;
+    params.stats.CTOF.dispersion_yrad = y_radius_f;
     
     
