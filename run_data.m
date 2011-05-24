@@ -41,3 +41,4 @@ function params = run_data(id)
     plot_figure6(params, 'FTOC')
     figure
     plot_ectopics(params)
+    plot_indiv_scatters(params)

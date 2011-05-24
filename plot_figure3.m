@@ -50,7 +50,7 @@ function params = plot_figure3(params)
 %    plot(coll_centred_points(:,1),coll_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
     hold on
     [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(coll_centred_points);
-    ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+56,mean(coll_centred_points(:,2))+56,'w');
+    ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+57,mean(coll_centred_points(:,2))+57,'w');
     
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
@@ -102,7 +102,7 @@ function params = plot_figure3(params)
     %plot(field_centred_points(:,1),field_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
     hold on
     [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(field_centred_points);
-    ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+20,mean(field_centred_points(:,2))+20,'w');
+    ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+21,mean(field_centred_points(:,2))+21,'w');
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,21,41] ,'XTickLabel',{'-20','0','20'}, 'YTick',[1,21,41],'YTickLabel',{'-20','0','20'} )
     axis([1,41,1,41])
