@@ -1,6 +1,6 @@
 function [] = plot_summary_stats()
     
-    summary_stats = load('summary_stats.cvs','cvs');
+    summary_stats = load('summary_stats.csv','csv');
     num_datasets = size(summary_stats,1);
     new_column = zeros(num_datasets,1);
     summary_stats = [new_column,summary_stats];
@@ -30,6 +30,11 @@ function [] = plot_summary_stats()
     het = find(summary_stats(:,1) == 3);
     hom = find(summary_stats(:,1) == 4);
     
+    num_wt = length(wt);
+    num_b2 = length(b2);
+    num_het = length(het);
+    num_hom = length(hom);
+    
  
 %------------------------------------------------------------------
 %             Dispersions
@@ -41,9 +46,9 @@ clf
 subplot(1,2,1)
 
 % column in summary_stats table
-disp_angle = 37;
-disp_xrad = 38;
-disp_yrad = 39;
+disp_angle = 51+1;
+disp_xrad = 52+1;
+disp_yrad = 53+1;
 
 wt_mean_disp_angle = mean(summary_stats(wt,disp_angle))*2*pi/360;
 wt_mean_disp_xrad = mean(summary_stats(wt,disp_xrad));
@@ -79,9 +84,9 @@ set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-20,0,20], 'YTick
 %FTOC coll scatter
 subplot(1,2,2)
 
-disp_angle = 12;
-disp_xrad = 13;
-disp_yrad = 14;
+disp_angle = 18+1;
+disp_xrad = 19+1;
+disp_yrad = 20+1;
 
 wt_mean_disp_angle = mean(summary_stats(wt,disp_angle))*2*pi/360;
 wt_mean_disp_xrad = mean(summary_stats(wt,disp_xrad));
@@ -122,7 +127,7 @@ clf
 
 subplot(1,2,1)
 
-num_ect = 17;
+num_ect = 23+1;
 
 wt_ect = summary_stats(wt,num_ect);
 b2_ect = summary_stats(b2,num_ect);
@@ -131,11 +136,11 @@ hom_ect = summary_stats(hom,num_ect);
 
 
 
-plot(ones(5,1),wt_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
+plot(ones(num_wt,1),wt_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
 hold on
-plot(2*ones(5,1),b2_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
-plot(3*ones(5,1),het_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
-plot(4*ones(5,1),hom_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
+plot(2*ones(num_b2,1),b2_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
+plot(3*ones(num_het,1),het_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
+plot(4*ones(num_hom,1),hom_ect,'ok','MarkerSize',8, 'MarkerFaceColor','k')
 set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,2,3,4], 'XTickLabel',{'WT','b2','Het','Hom'},'LineWidth',2)
 axis([0.5,4.5,0,80])
 
@@ -143,41 +148,51 @@ ylabel('Number of Ectopics')
 
 subplot(1,2,2)
 %FTOC
-nodes_in_subgraph = 9;
-nodes_in_major = 20;
-nodes_in_minor = 21;
+nodes_in_subgraph = 14+1;
+nodes_in_major = 26+1;
+nodes_in_minor = 27+1;
+nodes_in_subgraph_baseline = 15+1;
+total_nodes = 2+1;
 
-wt_subgraph = mean(summary_stats(wt,nodes_in_subgraph));
-b2_subgraph = mean(summary_stats(b2,nodes_in_subgraph));
-het_subgraph = mean(summary_stats(het,nodes_in_subgraph));
-hom_subgraph = mean(summary_stats(hom,nodes_in_subgraph));
+summary_subgraph = (summary_stats(:,nodes_in_subgraph) - summary_stats(:,nodes_in_subgraph_baseline))/ ...
+    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
+summary_subgraph_major = (summary_stats(:,nodes_in_major) - summary_stats(:,nodes_in_subgraph_baseline))/ ...
+    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
+summary_subgraph_minor = (summary_stats(:,nodes_in_minor) - summary_stats(:,nodes_in_subgraph_baseline))/ ...
+    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
 
-wt_subgraph_std = std(summary_stats(wt,nodes_in_subgraph));
-b2_subgraph_std = std(summary_stats(b2,nodes_in_subgraph));
-het_subgraph_std = std(summary_stats(het,nodes_in_subgraph));
-hom_subgraph_std = std(summary_stats(hom,nodes_in_subgraph));
+
+wt_subgraph = mean(summary_subgraph(wt));
+b2_subgraph = mean(summary_subgraph(b2));
+het_subgraph = mean(summary_subgraph(het));
+hom_subgraph = mean(summary_subgraph(hom));
+
+wt_subgraph_std = std(summary_subgraph(wt));
+b2_subgraph_std = std(summary_subgraph(b2));
+het_subgraph_std = std(summary_subgraph(het));
+hom_subgraph_std = std(summary_subgraph(hom));
 
 %major
-wt_subgraph_major = mean(summary_stats(wt(wt_ect>5),nodes_in_major));
-b2_subgraph_major = mean(summary_stats(b2(b2_ect>5),nodes_in_major));
-het_subgraph_major = mean(summary_stats(het(het_ect>5),nodes_in_major));
-hom_subgraph_major = mean(summary_stats(hom(hom_ect>5),nodes_in_major));
+wt_subgraph_major = mean(summary_subgraph_major(wt(wt_ect>5)));
+b2_subgraph_major = mean(summary_subgraph_major(b2(b2_ect>5)));
+het_subgraph_major = mean(summary_subgraph_major(het(het_ect>5)));
+hom_subgraph_major = mean(summary_subgraph_major(hom(hom_ect>5)));
 
-wt_subgraph_major_std = std(summary_stats(wt(wt_ect>5),nodes_in_major));
-b2_subgraph_major_std = std(summary_stats(b2(b2_ect>5),nodes_in_major));
-het_subgraph_major_std = std(summary_stats(het(het_ect>5),nodes_in_major));
-hom_subgraph_major_std = std(summary_stats(hom(hom_ect>5),nodes_in_major));
+wt_subgraph_major_std = std(summary_subgraph_major(wt(wt_ect>5)));
+b2_subgraph_major_std = std(summary_subgraph_major(b2(b2_ect>5)));
+het_subgraph_major_std = std(summary_subgraph_major(het(het_ect>5)));
+hom_subgraph_major_std = std(summary_subgraph_major(hom(hom_ect>5)));
 
 %minor
-wt_subgraph_minor = mean(summary_stats(wt(wt_ect>5),nodes_in_minor));
-b2_subgraph_minor = mean(summary_stats(b2(b2_ect>5),nodes_in_minor));
-het_subgraph_minor = mean(summary_stats(het(het_ect>5),nodes_in_minor));
-hom_subgraph_minor = mean(summary_stats(hom(hom_ect>5),nodes_in_minor));
+wt_subgraph_minor = mean(summary_subgraph_minor(wt(wt_ect>5)));
+b2_subgraph_minor = mean(summary_subgraph_minor(b2(b2_ect>5)));
+het_subgraph_minor = mean(summary_subgraph_minor(het(het_ect>5)));
+hom_subgraph_minor = mean(summary_subgraph_minor(hom(hom_ect>5)));
 
-wt_subgraph_minor_std = std(summary_stats(wt(wt_ect>5),nodes_in_minor));
-b2_subgraph_minor_std = std(summary_stats(b2(b2_ect>5),nodes_in_minor));
-het_subgraph_minor_std = std(summary_stats(het(het_ect>5),nodes_in_minor));
-hom_subgraph_minor_std = std(summary_stats(hom(hom_ect>5),nodes_in_minor));
+wt_subgraph_minor_std = std(summary_subgraph_minor(wt(wt_ect>5)));
+b2_subgraph_minor_std = std(summary_subgraph_minor(b2(b2_ect>5)));
+het_subgraph_minor_std = std(summary_subgraph_minor(het(het_ect>5)));
+hom_subgraph_minor_std = std(summary_subgraph_minor(hom(hom_ect>5)));
 
 errorbar(1,wt_subgraph,wt_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
 hold on
