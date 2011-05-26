@@ -1,4 +1,4 @@
-function params = run_data(id)
+function params = run_data(id, plotting)
 
     params = getparams(id);
     disp('Loading data...')
@@ -36,9 +36,13 @@ function params = run_data(id)
         params = ectopic_order_stats(params);
     end
     
-    plot_figure2(params)
-    params = plot_figure3(params);
-    plot_figure6(params, 'FTOC')
-    figure
-    plot_ectopics(params)
-    %plot_indiv_scatters(params)
+    params = plot_figure3(params, plotting);
+    
+    if plotting == 1
+        plot_figure2(params)
+        
+        plot_figure6(params, 'FTOC')
+        figure
+        plot_ectopics(params)
+        %plot_indiv_scatters(params)
+    end
