@@ -114,7 +114,7 @@ hold on
 plot(x_ell_b2,y_ell_b2,'b','LineWidth',2)
 plot(x_ell_het,y_ell_het,'r','LineWidth',2)
 plot(x_ell_hom,y_ell_hom,'g','LineWidth',2)
-
+legend('WT','\beta2-/-', 'Het TKO', 'Hom TKO')
 set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-28,0,28], 'XTickLabel',{'-250','0','250'},'YTick',[-28,0,28],'YTickLabel',{'-250','0','250'},'LineWidth',2)
 axis([-30,30,-30,30])
 
@@ -148,98 +148,59 @@ ylabel('Number of Ectopics')
 
 subplot(1,2,2)
 %FTOC
-nodes_in_subgraph = 16+1;
-nodes_in_major = 28+1;
-nodes_in_minor = 29+1;
-nodes_in_subgraph_baseline = 17+1;
+nodes_in_subgraph_FTOC = 16+1;
+nodes_in_subgraph_baseline_FTOC = 17+1;
 total_nodes = 2+1;
+nodes_in_subgraph_CTOF = 50+1;
+nodes_in_subgraph_baseline_CTOF = 51+1;
 
-summary_subgraph = (summary_stats(:,nodes_in_subgraph) - summary_stats(:,nodes_in_subgraph_baseline))./ ...
-    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
-summary_subgraph_major = (summary_stats(:,nodes_in_major) - summary_stats(:,nodes_in_subgraph_baseline))./ ...
-    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
-summary_subgraph_minor = (summary_stats(:,nodes_in_minor) - summary_stats(:,nodes_in_subgraph_baseline))./ ...
-    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
+summary_subgraph_FTOC = (summary_stats(:,nodes_in_subgraph_FTOC) - summary_stats(:,nodes_in_subgraph_baseline_FTOC))./ ...
+    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline_FTOC));
+summary_subgraph_CTOF = (summary_stats(:,nodes_in_subgraph_CTOF) - summary_stats(:,nodes_in_subgraph_baseline_CTOF))./ ...
+    (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline_CTOF));
 
 
-wt_subgraph = mean(summary_subgraph(wt));
-b2_subgraph = mean(summary_subgraph(b2));
-het_subgraph = mean(summary_subgraph(het));
-hom_subgraph = mean(summary_subgraph(hom));
+wt_subgraph_FTOC = mean(summary_subgraph_FTOC(wt));
+b2_subgraph_FTOC = mean(summary_subgraph_FTOC(b2));
+het_subgraph_FTOC = mean(summary_subgraph_FTOC(het));
+hom_subgraph_FTOC = mean(summary_subgraph_FTOC(hom));
 
-wt_subgraph_std = std(summary_subgraph(wt));
-b2_subgraph_std = std(summary_subgraph(b2));
-het_subgraph_std = std(summary_subgraph(het));
-hom_subgraph_std = std(summary_subgraph(hom));
+wt_subgraph_std_FTOC = std(summary_subgraph_FTOC(wt));
+b2_subgraph_std_FTOC = std(summary_subgraph_FTOC(b2));
+het_subgraph_std_FTOC = std(summary_subgraph_FTOC(het));
+hom_subgraph_std_FTOC = std(summary_subgraph_FTOC(hom));
 
-%major
-wt_subgraph_major = mean(summary_subgraph_major(wt(wt_ect>5)));
-b2_subgraph_major = mean(summary_subgraph_major(b2(b2_ect>5)));
-het_subgraph_major = mean(summary_subgraph_major(het(het_ect>5)));
-hom_subgraph_major = mean(summary_subgraph_major(hom(hom_ect>5)));
+wt_subgraph_CTOF = mean(summary_subgraph_CTOF(wt));
+b2_subgraph_CTOF = mean(summary_subgraph_CTOF(b2));
+het_subgraph_CTOF = mean(summary_subgraph_CTOF(het));
+hom_subgraph_CTOF = mean(summary_subgraph_CTOF(hom));
 
-wt_subgraph_major_std = std(summary_subgraph_major(wt(wt_ect>5)));
-b2_subgraph_major_std = std(summary_subgraph_major(b2(b2_ect>5)));
-het_subgraph_major_std = std(summary_subgraph_major(het(het_ect>5)));
-hom_subgraph_major_std = std(summary_subgraph_major(hom(hom_ect>5)));
+wt_subgraph_std_CTOF = std(summary_subgraph_CTOF(wt));
+b2_subgraph_std_CTOF = std(summary_subgraph_CTOF(b2));
+het_subgraph_std_CTOF = std(summary_subgraph_CTOF(het));
+hom_subgraph_std_CTOF = std(summary_subgraph_CTOF(hom));
 
-%minor
-wt_subgraph_minor = mean(summary_subgraph_minor(wt(wt_ect>5)));
-b2_subgraph_minor = mean(summary_subgraph_minor(b2(b2_ect>5)));
-het_subgraph_minor = mean(summary_subgraph_minor(het(het_ect>5)));
-hom_subgraph_minor = mean(summary_subgraph_minor(hom(hom_ect>5)));
-
-wt_subgraph_minor_std = std(summary_subgraph_minor(wt(wt_ect>5)));
-b2_subgraph_minor_std = std(summary_subgraph_minor(b2(b2_ect>5)));
-het_subgraph_minor_std = std(summary_subgraph_minor(het(het_ect>5)));
-hom_subgraph_minor_std = std(summary_subgraph_minor(hom(hom_ect>5)));
-
-errorbar(1,wt_subgraph,wt_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
+errorbar(1,wt_subgraph_FTOC,wt_subgraph_std_FTOC,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
 hold on
-errorbar(2,b2_subgraph,b2_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-errorbar(3,het_subgraph,het_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-errorbar(4,hom_subgraph,hom_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
+errorbar(2,b2_subgraph_FTOC,b2_subgraph_std_FTOC,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
+errorbar(3,het_subgraph_FTOC,het_subgraph_std_FTOC,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
+errorbar(4,hom_subgraph_FTOC,hom_subgraph_std_FTOC,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
 
-errorbar(1,wt_subgraph_major,wt_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(2,b2_subgraph_major,b2_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(3,het_subgraph_major,het_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(4,hom_subgraph_major,hom_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-
-errorbar(1,wt_subgraph_minor,wt_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(2,b2_subgraph_minor,b2_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(3,het_subgraph_minor,het_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(4,hom_subgraph_minor,hom_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(1,wt_subgraph,wt_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
+errorbar(1,wt_subgraph_CTOF,wt_subgraph_std_CTOF,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
 hold on
-errorbar(2,b2_subgraph,b2_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-errorbar(3,het_subgraph,het_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-errorbar(4,hom_subgraph,hom_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
+errorbar(2,b2_subgraph_CTOF,b2_subgraph_std_CTOF,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
+errorbar(3,het_subgraph_CTOF,het_subgraph_std_CTOF,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
+errorbar(4,hom_subgraph_CTOF,hom_subgraph_std_CTOF,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
 
-errorbar(1,wt_subgraph_major,wt_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(2,b2_subgraph_major,b2_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(3,het_subgraph_major,het_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(4,hom_subgraph_major,hom_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-
-errorbar(1,wt_subgraph_minor,wt_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(2,b2_subgraph_minor,b2_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(3,het_subgraph_minor,het_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(4,hom_subgraph_minor,hom_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(1,wt_subgraph,wt_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-hold on
-errorbar(2,b2_subgraph,b2_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-errorbar(3,het_subgraph,het_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-errorbar(4,hom_subgraph,hom_subgraph_std,'ok', 'MarkerFaceColor', 'k', 'MarkerSize',10)
-
-errorbar(1,wt_subgraph_major,wt_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(2,b2_subgraph_major,b2_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(3,het_subgraph_major,het_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-errorbar(4,hom_subgraph_major,hom_subgraph_major_std,'ob', 'MarkerFaceColor', 'b', 'MarkerSize',10)
-
-errorbar(1,wt_subgraph_minor,wt_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(2,b2_subgraph_minor,b2_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(3,het_subgraph_minor,het_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
-errorbar(4,hom_subgraph_minor,hom_subgraph_minor_std,'og', 'MarkerFaceColor', 'g', 'MarkerSize',6)
 
 set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,2,3,4], 'XTickLabel',{'WT','b2','Het','Hom'},'YTick',[0,.25,.50,.75,1],'YTickLabel', {'0','.25','.50','.75','1'},'LineWidth',2)
 ylabel('% nodes included in ordered submap');
 axis([0.5,4.5,0,1])
+
+    figure(8)
+    filename = 'summary_stats_fig8.pdf';
+    print(8,'-dpdf',filename)
+    
+    figure(9)
+    filename = 'summary_stats_fig9.pdf';
+    print(9,'-dpdf',filename)

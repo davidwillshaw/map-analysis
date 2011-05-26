@@ -76,3 +76,7 @@ subplot(2,2,1)
    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+70]);
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,'YTickLabel',{'0','0.5','1'})
     title('Colliculus');
+    
+     figure(6)
+    filename = [num2str(params.id),'_fig6.pdf'];
+    print(6,'-dpdf',filename)

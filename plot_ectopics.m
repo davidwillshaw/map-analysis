@@ -2,7 +2,9 @@ function [] = plot_ectopics(params)
 
     xmean_coll = params.ellipse.x0;
     ymean_coll = params.ellipse.y0;
-
+    
+    figure(10)
+    clf
     %Field
     subplot(1,2,1)
     
@@ -41,3 +43,7 @@ function [] = plot_ectopics(params)
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,'YTickLabel',{'0','0.5','1'})
     xlabel('<--Lateral---Medial (pixels)-->');
     ylabel('<--Caudal---Rostral (pixels)-->');
+    
+    figure(10)
+    filename = [num2str(params.id),'_fig10.pdf'];
+    print(10,'-dpdf',filename)

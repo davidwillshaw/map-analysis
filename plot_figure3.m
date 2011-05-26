@@ -57,11 +57,12 @@ function params = plot_figure3(params, plotting)
         title('Colliculus');
     
         subplot(2,3,3)
-        N = hist3(coll_centred_points,'edges', {(-56:56)', (-56:56)'});
+        N = hist3(coll_centred_points,'edges', {(-56.5:1:56.5)', (-56.5:1:56.5)'});
         imagesc(N')
         hold on
-        ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+57,mean(coll_centred_points(:,2))+57,'w');
-    
+        [~,x_ell,y_ell] = ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+57,mean(coll_centred_points(:,2))+57);
+        plot(x_ell,y_ell,'w','LineWidth', 2)
+        
         axis ij
         set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
         axis([1,113,1,113])
@@ -113,16 +114,19 @@ function params = plot_figure3(params, plotting)
    
     
         subplot(2,3,6)
-        N = hist3(field_centred_points,'edges', {(-20:20)', (-20:20)'});
+        N = hist3(field_centred_points,'edges', {(-20.5:1:20.5)', (-20.5:1:20.5)'});
         imagesc(N')
     %plot(field_centred_points(:,1),field_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
         hold on
-        ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+21,mean(field_centred_points(:,2))+21,'w');
+        [~,x_ell,y_ell] = ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+21,mean(field_centred_points(:,2))+21);
+        plot(x_ell,y_ell,'w','LineWidth',2)
         axis ij
         set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,21,41] ,'XTickLabel',{'-20','0','20'}, 'YTick',[1,21,41],'YTickLabel',{'-20','0','20'} )
         axis([1,41,1,41])
     end
     
     
-    
+    figure(3)
+    filename = [num2str(params.id),'_fig3.pdf'];
+    print(3,'-dpdf',filename)
     

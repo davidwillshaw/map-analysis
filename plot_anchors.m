@@ -18,7 +18,9 @@ function anchors = plot_anchors(points,num_anchors,anchors)
     COLOURS(11,:) = [0.5 0.5 0.5];% gray
     COLOURS(12,:) = [0 0.5 0];  %dark green
     
-    scatter(points(anchors,1),points(anchors,2),60,COLOURS(1:num_anchors,:),'filled');
+    for anchor = 1:num_anchors
+        plot(points(anchors(anchor),1),points(anchors(anchor),2),'o','Color',COLOURS(anchor,:),'MarkerFaceColor',COLOURS(anchor,:),'MarkerSize',6);
+    end
     
     
     

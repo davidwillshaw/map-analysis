@@ -28,7 +28,7 @@ function [] = plot_figure1(id)
     hold on
     scatter(coll_points(:,1),coll_points(:,2),'w','filled','SizeData', 20)
     plot(X_ELL,Y_ELL,'w','LineWidth',1)
-    plot(70:125,ones(56,1).*220,'w', 'LineWidth',3)%scale bar
+    plot(70:125,ones(56,1).*220,'k', 'LineWidth',3)%scale bar
     print_links(list_of_points, coll_points, list_of_neighbours, 'w')
     xlabel('<---Lateral------Medial (mm)--->','FontSize', 16)
     ylabel('<---Caudal------Rostral (mm)--->','FontSize', 16)
@@ -42,6 +42,7 @@ function [] = plot_figure1(id)
     imagesc(params.azim_amp)
     hold on
     plot(X_ELL,Y_ELL,'w','LineWidth',1)
+    plot(70:125,ones(56,1).*220,'k', 'LineWidth',3)
     xlabel('<---Lateral------Medial (mm)--->','FontSize', 16)
     ylabel('<---Caudal------Rostral (mm)--->','FontSize', 16)
     axis ij
@@ -59,6 +60,9 @@ function [] = plot_figure1(id)
     scatter(coll_points(:,1),coll_points(:,2),'w','filled','SizeData', 20)
     plot(X_ELL,Y_ELL,'w','LineWidth',1)
     print_links(list_of_points, coll_points, list_of_neighbours, 'w')
+    [cross_points,list_of_crossings] = make_cross_list(list_of_points,params.CTOF.sets_of_intersections);
+    print_links(cross_points, coll_points, list_of_crossings, 'r');
+   
     xlabel('<--------Lateral--------Medial (mm)-------->','FontSize', 16);
     ylabel('<--------Caudal--------Rostral (mm)-------->','FontSize', 16);
     xlim([1 250]);
@@ -67,7 +71,7 @@ function [] = plot_figure1(id)
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[] ,'XTickLabel',{}, 'YTick',[] ,'YTickLabel',{})
     axis([60, 230, 60, 230])
     plot(70:125,ones(56,1).*220,'w', 'LineWidth',3)
-    print_links(list_of_points, coll_points, list_of_neighbours, 'w')
+    
     axis ij
     
     subplot(2,2,3)
@@ -77,12 +81,16 @@ function [] = plot_figure1(id)
     print_links(cross_points, field_points, list_of_crossings, 'r');
   
     for i = 1:size(field_points)
-        plot(field_points(i,1),field_points(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',4)
+        plot(field_points(i,1),field_points(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',6)
         hold on
     end
-    xlim([-30, 21])
-    ylim([-30, 21])
+    xlim([-30, 26])
+    ylim([-35, 21])
     axis ij
     xlabel('<----Inferior----Superior (Degrees)---->','FontSize', 16);
     ylabel('<----Temporal----Nasal (Degrees)---->','FontSize', 16);
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-20, 0, 20], 'YTick', [-20,0,20])
+
+    figure(1)
+    filename = [num2str(id),'_fig1.pdf'];
+    print(1,'-dpdf',filename)

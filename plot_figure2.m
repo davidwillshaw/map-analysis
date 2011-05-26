@@ -14,7 +14,7 @@ function [] = plot_figure2(params)
         sets_of_intersections = params.FTOC.sets_of_intersections;
     
     figure(2)
- 
+    clf
    %FTOC Field
    subplot(2,3,1)
    print_links(list_of_points, field_coords, list_of_neighbours, color);
@@ -60,7 +60,7 @@ function [] = plot_figure2(params)
         list_of_points = setdiff(1:num_points,takeout);
         sets_of_intersections = params.CTOF.sets_of_intersections;
         
-        
+       
    %CTOF Field
    subplot(2,3,4)
    print_links(list_of_points, field_coords, list_of_neighbours, color);
@@ -95,6 +95,9 @@ function [] = plot_figure2(params)
    circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r')
    
 
+   figure(2)
+   filename = [num2str(params.id),'_fig2.pdf'];
+   print(2,'-dpdf',filename)
    
          
    
