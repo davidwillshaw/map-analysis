@@ -22,19 +22,19 @@ function params = find_baseline(params, direction, replications)
             new_params = find_crossings(new_params, 'FTOC');
             new_params = find_largest_subgraph(new_params,'FTOC');
             new_params = find_link_angles(new_params,'FTOC');
-            num_nodes_crossing(rep) = new_params.stats.FTOC.num_crossings;
-            num_crosses(rep) = new_params.stats.FTOC.num_nodes_crossing;
+            num_nodes_crossing(rep) = new_params.stats.FTOC.num_nodes_crossing;
+            num_crosses(rep) = new_params.stats.FTOC.num_crossings;
             num_nodes_in_submap(rep) = new_params.stats.FTOC.num_nodes_in_subgraph;
             link_angle_mean(rep) = new_params.stats.FTOC.map_orientation_mean; 
         end
         
         if strcmp(direction,'CTOF')
-            new_params.CTOF.coll_points(:,2) = params.CTOF.field_points(new_order,2);
+            new_params.CTOF.field_points(:,2) = params.CTOF.field_points(new_order,2);
             new_params = find_crossings(new_params, 'CTOF');
             new_params = find_largest_subgraph(new_params,'CTOF');
             new_params = find_link_angles(new_params,'CTOF');
-            num_nodes_crossing(rep) = new_params.stats.CTOF.num_crossings;
-            num_crosses(rep) = new_params.stats.CTOF.num_nodes_crossing;
+            num_nodes_crossing(rep) = new_params.stats.CTOF.num_nodes_crossing;
+            num_crosses(rep) = new_params.stats.CTOF.num_crossings;
             num_nodes_in_submap(rep) = new_params.stats.CTOF.num_nodes_in_subgraph;
             link_angle_mean(rep) = new_params.stats.CTOF.map_orientation_mean;
         end

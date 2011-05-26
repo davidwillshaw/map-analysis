@@ -1,7 +1,7 @@
 function mean_min_dist = parsearch(id, numpoints, ranstart)
     params = getparams(id);
-    params.ranstart = ranstart;
-    params.CTOF.numpoints = numpoints;
+    %params.ranstart = ranstart;
+    %params.CTOF.numpoints = numpoints;
     disp('Loading data...')
     params = load_data(params);
     params = find_active_pixels(params);
@@ -17,4 +17,4 @@ function mean_min_dist = parsearch(id, numpoints, ranstart)
     disp('Finding crossings...')
     params = find_crossings(params, 'CTOF');
     
-    mean_min_dist = params.stats.CTOF.min_link_length_mean_coll;
+    mean_min_dist = params.stats.CTOF.min_link_length_mean_field;

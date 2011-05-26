@@ -86,7 +86,7 @@ function params = select_point_positions(params, direction)
     if strcmp(direction, 'CTOF')
         params.CTOF.coll_points = chosen;
         %convert to mm^2
-        area = area*(9*10^-3)^2;
+        area = area*(8.9*10^-3)^2;
         params.stats.CTOF.coll_area = area;
     end
     

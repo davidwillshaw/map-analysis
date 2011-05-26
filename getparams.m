@@ -10,7 +10,7 @@ function params = getparams(id)
 
     if id==80
         EE = [70 60 135 110 140];
-        N = 170;
+        N = 175;
         RANSTART = 98;
     end
 
@@ -151,7 +151,7 @@ function params = getparams(id)
     params.FTOC.numpoints = N;
     params.ranstart = RANSTART;
     params.coll_radius = 3;
-    params.field_radius = 1.5;
+    params.field_radius = 1.6;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
     params.CTOF.takeout = [];

@@ -3,7 +3,7 @@ function newtriangles = cleanup(triangles, positions,tolerance)
 %Tolerance is given in degrees.
 
 num_triangles = size(triangles,1);
-t = 1;
+t = 0;
 newtriangles = triangles;
 
 for n=1:num_triangles
@@ -19,8 +19,8 @@ for n=1:num_triangles
     angles = acosd(cosine(:));
     
     if max(angles) > tolerance
-       newtriangles(t,:) = [];
-       t= t+1;
+       newtriangles(n-t,:) = [];
+       t = t+1;
     end
 
 end

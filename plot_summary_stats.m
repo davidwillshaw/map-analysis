@@ -46,9 +46,9 @@ clf
 subplot(1,2,1)
 
 % column in summary_stats table
-disp_angle = 51+1;
-disp_xrad = 52+1;
-disp_yrad = 53+1;
+disp_angle = 54+1;
+disp_xrad = 55+1;
+disp_yrad = 56+1;
 
 wt_mean_disp_angle = mean(summary_stats(wt,disp_angle))*2*pi/360;
 wt_mean_disp_xrad = mean(summary_stats(wt,disp_xrad));
@@ -84,9 +84,9 @@ set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-20,0,20], 'YTick
 %FTOC coll scatter
 subplot(1,2,2)
 
-disp_angle = 18+1;
-disp_xrad = 19+1;
-disp_yrad = 20+1;
+disp_angle = 20+1;
+disp_xrad = 21+1;
+disp_yrad = 22+1;
 
 wt_mean_disp_angle = mean(summary_stats(wt,disp_angle))*2*pi/360;
 wt_mean_disp_xrad = mean(summary_stats(wt,disp_xrad));
@@ -127,7 +127,7 @@ clf
 
 subplot(1,2,1)
 
-num_ect = 23+1;
+num_ect = 25+1;
 
 wt_ect = summary_stats(wt,num_ect);
 b2_ect = summary_stats(b2,num_ect);
@@ -148,17 +148,17 @@ ylabel('Number of Ectopics')
 
 subplot(1,2,2)
 %FTOC
-nodes_in_subgraph = 14+1;
-nodes_in_major = 26+1;
-nodes_in_minor = 27+1;
-nodes_in_subgraph_baseline = 15+1;
+nodes_in_subgraph = 16+1;
+nodes_in_major = 28+1;
+nodes_in_minor = 29+1;
+nodes_in_subgraph_baseline = 17+1;
 total_nodes = 2+1;
 
-summary_subgraph = (summary_stats(:,nodes_in_subgraph) - summary_stats(:,nodes_in_subgraph_baseline))/ ...
+summary_subgraph = (summary_stats(:,nodes_in_subgraph) - summary_stats(:,nodes_in_subgraph_baseline))./ ...
     (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
-summary_subgraph_major = (summary_stats(:,nodes_in_major) - summary_stats(:,nodes_in_subgraph_baseline))/ ...
+summary_subgraph_major = (summary_stats(:,nodes_in_major) - summary_stats(:,nodes_in_subgraph_baseline))./ ...
     (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
-summary_subgraph_minor = (summary_stats(:,nodes_in_minor) - summary_stats(:,nodes_in_subgraph_baseline))/ ...
+summary_subgraph_minor = (summary_stats(:,nodes_in_minor) - summary_stats(:,nodes_in_subgraph_baseline))./ ...
     (summary_stats(:,total_nodes) - summary_stats(:,nodes_in_subgraph_baseline));
 
 
