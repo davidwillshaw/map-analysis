@@ -1,7 +1,7 @@
 function params = run_data(id, plotting)
 
     params = getparams(id);
-    disp('Loading data...')
+    disp(['Loading data ',num2str(id), '...'])
     params = load_data(params);
     params = find_active_pixels(params);
     params = make_list_of_points(params);
@@ -25,12 +25,17 @@ function params = run_data(id, plotting)
     disp('--> orientation...')
     params = find_link_angles(params,'FTOC');
     params = find_link_angles(params,'CTOF');
+    params = find_subgraph_angle(params, 'FTOC');
+    params = find_subgraph_angle(params, 'CTOF');
     disp('--> scatters...')
     params = get_subgraph_scatters(params,'FTOC');
     params = get_subgraph_scatters(params,'CTOF');
     disp('--> baseline...')
     params = find_baseline(params, 'FTOC', 5);
     params = find_baseline(params, 'CTOF', 5);
+    disp('-->lower bound...')
+    params = find_prob_subgraph(params,'FTOC');
+    params = find_prob_subgraph(params,'CTOF');
     if params.stats.num_ectopics >= 5
         disp('--> ectopics...')
         params = ectopic_order_stats(params);
