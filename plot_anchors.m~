@@ -1,7 +1,0 @@
-function anchors = plot_anchors(points,num_anchors,anchors)
-    
-    num_points = length(points);
-    if isempty(anchors)
-        anchors = ceil(rand(num_anchors,1).*num_points);
-    
-    
