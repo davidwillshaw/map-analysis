@@ -55,7 +55,7 @@ subplot(2,2,1)
     subplot(2,2,3)
      print_links(points_in_subgraph, field_coords, list_of_neighbours, color);
    hold on
-   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'or')
+   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'xr')
    [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
    print_links(cross_points, field_coords, list_of_crossings, 'r');
    plot_anchors(field_coords,params.anchors,anchors);
@@ -68,7 +68,7 @@ subplot(2,2,1)
     subplot(2,2,4)
     print_links(points_in_subgraph, coll_coords, list_of_neighbours, color);
    hold on
-   plot(coll_coords(points_not_in_subgraph,1),coll_coords(points_not_in_subgraph,2),'or')
+   plot(coll_coords(points_not_in_subgraph,1),coll_coords(points_not_in_subgraph,2),'xr')
    [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
    plot_anchors(coll_coords,params.anchors,anchors);
