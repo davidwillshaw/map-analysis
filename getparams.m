@@ -1,5 +1,13 @@
 function params = getparams(id)
 
+    if id ==999
+%   zebrafish trial
+        EE = [190 160 0.50 260 225];
+        N=10;
+        RANSTART =12345;
+    end
+%  field radius changed from 1.6 to 1.7 7 Dec 2011
+
 %    All parameters will give a mean minimum distance between collicular points of 6
 %WT
     if id == 6
@@ -90,7 +98,7 @@ function params = getparams(id)
     end
 
     if id==162
-        N=157;
+	N=157;
         RANSTART=431;
         EE = [70 50 -10 135 140];
     end
@@ -99,30 +107,45 @@ function params = getparams(id)
 
     if id==4
         N=135;
+%	N=10;
+%	N=9;
+%	N=8;
         RANSTART=10101;
         EE = [60 45 0.784 130 130];
     end
 
     if id==54;
         N=116;
+%	N=10;
+%	N=9;
         RANSTART=22431;
         EE = [45 55 1.1636 146 109];
     end
 
     if id==55
         N=130;
+%       N=10;
         RANSTART=431;
         EE = [48 60 0.7995 152 112];
     end
 
     if id==56
         N=165;
+%        N=12;
+%	RANSTART=98765;
+%	N=11;
+%	N=9;
+%       N=8;
         RANSTART=10101;
         EE = [72 52 0.8 175 130];
     end
 
     if id==58
         N=167;
+% 	N=10;
+%       N=7;
+%       N=9;
+%       N=8;
         RANSTART=10101;
         EE = [72 52 2.3562 160 145];
     end
@@ -147,11 +170,13 @@ function params = getparams(id)
     params.ellipse.ang = EE(3);
     params.ellipse.x0 = EE(4);
     params.ellipse.y0 = EE(5);
+    params.ellipse_size = pi*EE(1)*EE(2);
     params.CTOF.numpoints = N;
     params.FTOC.numpoints = N;
     params.ranstart = RANSTART;
     params.coll_radius = 3;
-    params.field_radius = 1.6;
+%    params.field_radius = 3.0;
+    params.field_radius = 1.7;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
     params.CTOF.takeout = [];
@@ -161,3 +186,13 @@ function params = getparams(id)
     params.tolerance = 150;
     
     params.stats.id = id;
+
+    if id == 999
+%    radius = sqrt(A*B/N)
+%    1 pixel = 10 microns
+%    1 pixel equiv to 0.2817 degrees
+       params.coll_radius = 3;
+       params.field_radius =1.7;
+       params.thresh.azim= 1.0;
+       params.thresh.elev= 1.0;
+    end

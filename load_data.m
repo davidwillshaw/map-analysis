@@ -2,15 +2,93 @@ function params = load_data(params)
 
     DATA = params.id;
 
-    if DATA == 115
-        load Raw_data/EphA3Kimaps4Willshaw.mat 
+ 
+    if DATA == 999
+       load Raw_data/EphA3Kimaps4Willshaw.mat
+
+       pone_fig3 = imread('pone_figure3.tif');
+
+       pic=pone_fig3(9:465,649:1105,:);
+       [Azim_phase,map_phaseA] = rgb2ind(pic,256);
+
+       pic=pone_fig3(9:465,1581:2037,:);
+       [Azim_amp,map_ampA] = rgb2ind(pic,100);
+
+       pic=pone_fig3(484:940,649:1105,:);
+       [Elev_phase,map_phaseE] = rgb2ind(pic,256);
+
+       pic=pone_fig3(484:940,1581:2037,:);
+       [Elev_amp,map_ampE] = rgb2ind(pic,100);
+
+       ss='zebrafinch_fig3';
+
+       figure(9991);
+       imagesc(Azim_phase);
+
+      hold on
+       ellipse(params.ellipse.ra,params.ellipse.rb,params.ellipse.ang,params.ellipse.x0,params.ellipse.y0,'k');
+       hold off
+       colormap(map_phaseA);
+
+       figure(9992);
+       imagesc(Azim_amp);
+     
+       hold on
+       ellipse(params.ellipse.ra,params.ellipse.rb,params.ellipse.ang,params.ellipse.x0,params.ellipse.y0,'k');
+       hold off
+       colormap(map_ampA);
+
+       figure(9993);
+       imagesc(Elev_phase);
+       hold on
+       ellipse(params.ellipse.ra,params.ellipse.rb,params.ellipse.ang,params.ellipse.x0,params.ellipse.y0,'k');
+       hold off
+       colormap(map_phaseE);
+
+       figure(9994);
+       imagesc(Elev_amp);
+
+       hold on
+       ellipse(params.ellipse.ra,params.ellipse.rb,params.ellipse.ang,params.ellipse.x0,params.ellipse.y0,'k');
+       hold off
+       colormap(map_ampE);
+
+%            scaling of amplitudes to between 0 and 1
+%            and convert to double
+       Elev_amp = double(Elev_amp);
+       Azim_amp = double(Azim_amp);
+
+       maxElev=max(max(Elev_amp));
+       maxAzim=max(max(Azim_amp));
+
+       Elev_amp = Elev_amp/maxElev;
+       Azim_amp = Azim_amp/maxAzim;
+   
+%            scale field positions between =-50 and +50
+%            and convert to double
+
+       Azim_phase = double(Azim_phase);
+       Elev_phase = double(Elev_phase);
+
+       Emax = max(max(Elev_phase));
+       Amax = max(max(Azim_phase));
+       MaxMax = max(Emax,Amax);
+
+       AA = 100/MaxMax;
+       Azim_phase =AA*Azim_phase-50;
+       Elev_phase =AA*Elev_phase-50;
+    end
+    
+
+    
+ if DATA == 115
+        load Raw_data/EphA3Kimaps4Willshaw.mat
         Azim_amp = EphA3ki_e115_Azim_amp;
         Elev_amp = EphA3ki_e115_Elev_amp;
         Azim_phase = EphA3ki_e115_Azim_ph;
         Elev_phase = EphA3ki_e115_Elev_ph;
         ss = 'EphA3 knockin 115 ';
     end 
-
 
     if DATA == 4
         load Raw_data/Ephrinmaps4Willshaw11.mat 
@@ -101,7 +179,7 @@ function params = load_data(params)
         Elev_amp = m162_elev_amp;
         Azim_phase = m162_azim_phase;
         Elev_phase = m162_elev_phase;
-        ss = 'ephrin hetero TKO 162 ';
+        ss = 'ephrin het TKO 3 +/- 162 ';
     end 
 
 
@@ -214,8 +292,8 @@ function params = load_data(params)
         load Raw_data/ComboDataFromPaper.mat
         ss = 'combo TKO fig6 from paper';
     end
-    
-    if DATA ~= 6 && DATA ~= 1001 && DATA ~= 1002
+
+    if DATA ~= 6 && DATA ~= 1001 && DATA ~= 1002 && DATA ~=999
         Azim_phase = Azim_phase*50/180;
         Elev_phase = Elev_phase*50/180;
     end
