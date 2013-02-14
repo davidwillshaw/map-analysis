@@ -89,6 +89,15 @@ function summary_stats = get_summary_stats(datasets)
         summary_stats(i,56) = params.stats.CTOF.dispersion_yrad;
         summary_stats(i,57) = params.stats.CTOF.scatter_mean_in;
         summary_stats(i,58) = params.stats.CTOF.scatter_mean_out;
+        
+        %add ons
+        summary_stats(i,59) = params.stats.FTOC.mean_subgraph_angles*360/(2*pi);
+        summary_stats(i,60) = params.stats.FTOC.std_subgraph_angles*360/(2*pi);
+        summary_stats(i,61) = params.stats.FTOC.lower_bound;
+        
+        summary_stats(i,62) = params.stats.CTOF.mean_subgraph_angles*360/(2*pi);
+        summary_stats(i,63) = params.stats.CTOF.std_subgraph_angles*360/(2*pi);
+        summary_stats(i,64) = params.stats.CTOF.lower_bound;
     end
         
     csvwrite('summary_stats.csv',summary_stats);
