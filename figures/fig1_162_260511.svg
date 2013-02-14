@@ -4541,9 +4541,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9187555"
-     inkscape:cx="577.65419"
-     inkscape:cy="742.26538"
+     inkscape:zoom="0.70127948"
+     inkscape:cx="372.04724"
+     inkscape:cy="526.18109"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -6165,7 +6165,7 @@
            y="821.35583" /></flowRegion><flowPara
          id="flowPara9809" /></flowRoot>    <g
        id="g33092"
-       transform="translate(-9.680695,540.25215)">
+       transform="translate(243.92323,545.2388)">
       <path
          id="path33094"
          d="M 40.204916,302.93335 L 40.204916,344.28633 L 75.854045,345.7123"
@@ -6196,7 +6196,7 @@
     </g>
     <g
        id="g8114"
-       transform="translate(0,1.4995112)">
+       transform="translate(-253.60393,14.486511)">
       <path
          id="path53303"
          d="M 280.10424,831.19734 L 280.10424,872.55032 L 315.75337,873.97629"
@@ -6685,5 +6685,15 @@
            d="M 1320,3064 L 1328,3176 L 1344,3272" />
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
+       x="22.364016"
+       y="969.37524"
+       id="text70015"><tspan
+         sodipodi:role="line"
+         id="tspan70017"
+         x="22.364016"
+         y="969.37524">Figure 1: Het TKO 162</tspan></text>
   </g>
 </svg>

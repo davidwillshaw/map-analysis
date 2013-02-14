@@ -3749,28 +3749,28 @@
        id="path40278" />
     <text
        id="text33136"
-       y="125.18123"
-       x="292.20599"
+       y="124.06921"
+       x="326.42917"
        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
        xml:space="preserve"><tspan
          style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
-         y="125.18123"
-         x="292.20599"
+         y="124.06921"
+         x="326.42917"
          id="tspan33138"
          sodipodi:role="line">Colliculus</tspan></text>
     <text
        id="text53289"
-       y="115.49728"
-       x="30.289572"
+       y="124.08093"
+       x="64.512733"
        style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
        xml:space="preserve"><tspan
          style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
-         y="115.49728"
-         x="30.289572"
+         y="124.08093"
+         x="64.512733"
          id="tspan53291"
          sodipodi:role="line">Field</tspan></text>
     <g
-       transform="translate(-15.909671,197.2388)"
+       transform="translate(245.04192,212.2388)"
        id="g33092">
       <path
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -3799,37 +3799,6 @@
            x="-289.70798"
            y="42.672382"
            style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Rostral</tspan></text>
-    </g>
-    <g
-       transform="translate(-33.462455,243.07873)"
-       id="g36667">
-      <path
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="M 524.3504,260.09774 L 524.3504,301.45072 L 488.70127,302.87669"
-         id="path53303" />
-      <text
-         xml:space="preserve"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
-         x="407.42282"
-         y="307.1546"
-         id="text53305"><tspan
-           sodipodi:role="line"
-           id="tspan53307"
-           x="407.42282"
-           y="307.1546"
-           style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Inferior</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
-         x="-251.44641"
-         y="530.78137"
-         id="text53309"
-         transform="matrix(0,-1,1,0,0,0)"><tspan
-           sodipodi:role="line"
-           id="tspan53311"
-           x="-251.44641"
-           y="530.78137"
-           style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Nasal</tspan></text>
     </g>
     <text
        id="text37188"
@@ -13551,5 +13520,46 @@
        style="stroke-linejoin:miter;marker-end:url(#Arrow2MendQ);stroke-opacity:1;fill-rule:evenodd;stroke:#142ff6;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-width:4.90000009999999975;fill:none"
        d="M 275.805,418.13273 L 227.32219,418.13273"
        id="path60814" />
+    <g
+       id="g8114"
+       transform="translate(-259.42684,-318.51349)">
+      <path
+         id="path53303"
+         d="M 280.10424,831.19734 L 280.10424,872.55032 L 315.75337,873.97629"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         id="text53305"
+         y="881.10614"
+         x="325.46213"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
+         xml:space="preserve"><tspan
+           style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+           y="881.10614"
+           x="325.46213"
+           id="tspan53307"
+           sodipodi:role="line">Superior</tspan></text>
+      <text
+         transform="matrix(0,-1,1,0,0,0)"
+         id="text53309"
+         y="287.68668"
+         x="-822.54602"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
+         xml:space="preserve"><tspan
+           style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+           y="287.68668"
+           x="-822.54602"
+           id="tspan53311"
+           sodipodi:role="line">Nasal</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial Black;-inkscape-font-specification:Arial Black"
+       x="41.251419"
+       y="629.74847"
+       id="text70015"><tspan
+         sodipodi:role="line"
+         id="tspan70017"
+         x="41.251419"
+         y="629.74847">Figure 2: WT 80</tspan></text>
   </g>
 </svg>
