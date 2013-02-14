@@ -1,5 +1,5 @@
 function params = create_projection(params, direction)
-% Takes in a list of all active points, a lits of point centres and a
+% Takes in a list of all active points, a list of point centres and a
 % direction of mapping and returns the mean projection of each point.
 
     if strcmp(direction, 'FTOC')
@@ -32,17 +32,22 @@ function params = create_projection(params, direction)
     [~,area] = convhull(projected_points(:,1),projected_points(:,2));
     
     if strcmp(direction, 'FTOC')
+%    projected_points(:,2) = projected_points(randperm(num_points),2);
+
         params.FTOC.coll_points = projected_points;
+	params.FTOC.mean_projection = projected_points;
         %convert to mm^2
         area = area*(9*10^-3)^2;
         params.stats.FTOC.coll_area = area;
     end
     
     if strcmp(direction, 'CTOF')
+%   projected_points(:,2) = projected_points(randperm(num_points),2);
         params.CTOF.field_points = projected_points;
         params.stats.CTOF.field_area = area;
     end
     
 
-    
+%params.stats.FTOC
+%params.stats.CTOF
 
