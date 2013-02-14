@@ -76,10 +76,10 @@ hold on
 plot(x_ell_b2,y_ell_b2,'b','LineWidth',2)
 plot(x_ell_het,y_ell_het,'r','LineWidth',2)
 plot(x_ell_hom,y_ell_hom,'g','LineWidth',2)
-
+plot(-18:-14,ones(5,1).*-18,'k', 'LineWidth',3)%scale bar
 axis([-20,20,-20,20])
-set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-20,0,20], 'YTick',[-20,0,20],'LineWidth',2)
-
+set(gca,'PlotBoxAspectRatio',[1 1 1])
+ axis off
 
 %FTOC coll scatter
 subplot(1,2,2)
@@ -114,10 +114,12 @@ hold on
 plot(x_ell_b2,y_ell_b2,'b','LineWidth',2)
 plot(x_ell_het,y_ell_het,'r','LineWidth',2)
 plot(x_ell_hom,y_ell_hom,'g','LineWidth',2)
+plot(-28:-18,ones(11,1).*-28,'k', 'LineWidth',3)%scale bar
 legend('WT','\beta2-/-', 'Het TKO', 'Hom TKO')
-set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-28,0,28], 'XTickLabel',{'-250','0','250'},'YTick',[-28,0,28],'YTickLabel',{'-250','0','250'},'LineWidth',2)
-axis([-30,30,-30,30])
 
+axis([-30,30,-30,30])
+set(gca,'PlotBoxAspectRatio',[1 1 1])
+ axis off
 %------------------------------------------------------------------
 % Number of Ectopics
 %------------------------------------------------------------------
