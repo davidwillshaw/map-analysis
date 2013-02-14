@@ -31,17 +31,18 @@ function params = run_data(id, plotting)
     params = get_subgraph_scatters(params,'FTOC');
     params = get_subgraph_scatters(params,'CTOF');
     disp('--> baseline...')
-    params = find_baseline(params, 'FTOC', 5);
-    params = find_baseline(params, 'CTOF', 5);
+%    params = find_baseline(params, 'FTOC', 5);
+%    params = find_baseline(params, 'CTOF', 5);
     disp('-->lower bound...')
-    params = find_prob_subgraph(params,'FTOC');
-    params = find_prob_subgraph(params,'CTOF');
+ %   params = find_prob_subgraph(params,'FTOC');
+ %   params = find_prob_subgraph(params,'CTOF');
     if params.stats.num_ectopics >= 5
         disp('--> ectopics...')
         params = ectopic_order_stats(params);
     end
     
-    params = plot_figure3(params, plotting);
+%Feb2013
+%    params = plot_figure3(params, plotting);
     
     if plotting == 1
         plot_figure2(params)
