@@ -1,4 +1,5 @@
 function [angle,x_radius,y_radius] = plot_error_ellipse(coords)
+%  Assuming that for these distributions  x_radius is less than y_radius
 
     covariance_mat = cov(coords);
     %conf set at 1 standard deviation (68.2%)
