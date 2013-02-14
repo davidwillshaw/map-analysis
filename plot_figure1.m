@@ -92,5 +92,6 @@ function [] = plot_figure1(id)
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-20, 0, 20], 'YTick', [-20,0,20])
 
     figure(1)
+    orient tall
     filename = [num2str(id),'_fig1.pdf'];
     print(1,'-dpdf',filename)
