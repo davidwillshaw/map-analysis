@@ -1,4 +1,4 @@
-function anchors = plot_anchors(points,num_anchors,anchors)
+function anchors = plot_anchors4(points,num_anchors,anchors)
     
 
     num_points = length(points);
@@ -38,7 +38,7 @@ function anchors = plot_anchors(points,num_anchors,anchors)
 
     for anchor = 1:num_anchors
 %       norm_anchor=ceil(12*anchor/num_anchors);
-       plot(points(anchors(anchor),1),points(anchors(anchor),2),'o','Color',COLOURS(anchor,:),'MarkerFaceColor',COLOURS(anchor,:),'MarkerSize',6);
+       plot(points(anchors(anchor),1),points(anchors(anchor),2),'o','Color',COLOURS(anchor,:),'MarkerFaceColor',COLOURS(anchor,:),'MarkerSize',4);
     end
     
     
