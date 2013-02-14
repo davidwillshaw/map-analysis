@@ -1,4 +1,6 @@
 function params = find_largest_subgraph(params,direction)
+%D modified - takeout  OFF
+
 %takes in a set of intersections and removes nodes until there are no
 %intersections left. Nodes are ranked by the number of crossings they
 %remove divided by the number of links that would be removed to preserve a
@@ -22,8 +24,11 @@ function params = find_largest_subgraph(params,direction)
         num_points = params.FTOC.numpoints;
     end
     
+
+
     candidates = setdiff((1:num_points),takeout);
     active_sets_of_intersections = remove_links_including_nodes(sets_of_intersections,takeout);
+
     points_not_in_subgraph = takeout;
     active_list_of_neighbours = remove_links_including_nodes(list_of_neighbours,takeout);
     
