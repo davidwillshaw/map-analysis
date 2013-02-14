@@ -2,7 +2,7 @@ function params = select_point_positions(params, direction)
 %Selects params.numpoints point centres on the colliculus. At least 1/3 of
 %the points within params.coll_radius must be active (though not the chosen
 %point). Point centres must be separated by min_spacing though this is
-%decreased enough points can't be found within max_trials.
+%decreased if enough points can't be found within max_trials.
 %
 %Needs: params.pixels_in_ellipse,params.active_pixels, params.ellipse, 
 %params.numpoints, params.coll_radius
@@ -91,7 +91,7 @@ function params = select_point_positions(params, direction)
     end
     
     if strcmp(direction, 'FTOC')
-        params.FTOC.field_points = chosen;
+        params.FTOC.field_points = chosen
         params.stats.FTOC.field_area = area;
     end
             
