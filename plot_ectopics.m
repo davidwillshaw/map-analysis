@@ -15,7 +15,7 @@ function [] = plot_ectopics(params)
     ect = unique(ect);
     
     for i = 1:size(field_points)
-        plot(field_points(i,1),field_points(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',8)
+        plot(field_points(i,1),field_points(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',6)
         hold on
     end
     plot(field_points(ect,1),field_points(ect,2),'k*', 'MarkerSize',8)
@@ -30,14 +30,14 @@ function [] = plot_ectopics(params)
     subplot(1,2,2)
     
     for i = 1:size(major_projection)
-        plot(major_projection(i,1),major_projection(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',8)
+        plot(major_projection(i,1),major_projection(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',6)
         hold on
         if ismember(i,ect)
-            plot(minor_projection(i,1),minor_projection(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',4)
+            plot(minor_projection(i,1),minor_projection(i,2),'ko','MarkerFaceColor', get_colour(field_points(i,1),field_points(i,2)), 'MarkerSize',3)
         end
     end
-    
-    line([minor_projection(ect,1)';major_projection(ect,1)'],[minor_projection(ect,2)'; major_projection(ect,2)'],'Color','k')
+   
+    line([minor_projection(ect,1)';major_projection(ect,1)'],[minor_projection(ect,2)'; major_projection(ect,2)'],'Color','k','LineWidth',1)
     axis ij
     axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+70]);
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,'YTickLabel',{'0','0.5','1'})
