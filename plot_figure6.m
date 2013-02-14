@@ -26,6 +26,7 @@ function [] = plot_figure6(params,direction)
     end
 
     figure(6) 
+    clf
   %Field  
 subplot(2,2,1)
    print_links(1:num_points, field_coords, list_of_neighbours, color);
@@ -46,8 +47,11 @@ subplot(2,2,1)
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
    plot_anchors(coll_coords,params.anchors,anchors);
    axis ij
+
+   if params.id ~=999
    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+70]);
-   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,'YTickLabel',{'0','0.5','1'})
+   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16,'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112],'XTickLabel',{'0','0.5','1'},'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112],'YTickLabel',{'0','0.5','1'})
+   end
     title('Colliculus');
     
     %submap
@@ -55,7 +59,8 @@ subplot(2,2,1)
     subplot(2,2,3)
      print_links(points_in_subgraph, field_coords, list_of_neighbours, color);
    hold on
-   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'xr')
+   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'xr');
+
    [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
    print_links(cross_points, field_coords, list_of_crossings, 'r');
    plot_anchors(field_coords,params.anchors,anchors);
@@ -73,10 +78,17 @@ subplot(2,2,1)
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
    plot_anchors(coll_coords,params.anchors,anchors);
    axis ij
+
+   if params.id ~=999
+
    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+70]);
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,'YTickLabel',{'0','0.5','1'})
+
+    end
     title('Colliculus');
     
+
      figure(6)
+     orient tall
     filename = [num2str(params.id),'_fig6.pdf'];
     print(6,'-dpdf',filename)
