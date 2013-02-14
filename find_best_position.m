@@ -1,5 +1,12 @@
 function [major_projection_posn minor_projection_posn, optimal_position] = find_best_position(field_points,major_projection, minor_projection, takeout )
 
+%D  OPTIMAL position C on colliculus for field position F found
+%D  by interpolating between positions C1,C2,C3 of the three positions F1,F2,F3
+%D  that surround F
+%D   the MAJOR position is defined as that of the two points that 
+%D  is nearer to the OPTIMAL position.
+%D  the MINOR is the other point
+
     ectopics  = find(minor_projection(:,1)~= 0);
     total_ectopics = length(ectopics);
     total_field_points = 1:length(field_points);
