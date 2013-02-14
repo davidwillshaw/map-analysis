@@ -45,17 +45,24 @@ function params = find_active_pixels(params)
      %check activity is above Elev & Azim threshold
      elev_in_ellipse = params.elev_amp.*active_pixels;
      elev_mean_activity = mean(elev_in_ellipse(elev_in_ellipse>0));
+     elev_min_activity = min(elev_in_ellipse(elev_in_ellipse>0));
+     elev_max_activity = max(elev_in_ellipse(elev_in_ellipse>0));
      elev_thresh = elev_mean_activity.*params.thresh.elev;
+%D130213     elev_thresh = 0.38*elev_max_activity.*params.thresh.elev;
      
      azim_in_ellipse = params.azim_amp.*active_pixels;
      azim_mean_activity = mean(azim_in_ellipse(azim_in_ellipse>0));
+     azim_min_activity = min(azim_in_ellipse(azim_in_ellipse>0));
+     azim_max_activity = max(azim_in_ellipse(azim_in_ellipse>0));
      azim_thresh = azim_mean_activity.*params.thresh.azim;
+%130213     azim_thresh = 0.38*azim_max_activity.*params.thresh.azim;
      
      active_pixels = active_pixels.*(params.elev_amp>elev_thresh);
      active_pixels = active_pixels.*(params.azim_amp>azim_thresh);
      
      params.pixels_in_ellipse = pixels_in_ellipse;
      params.active_pixels = active_pixels;
+     params.original_active_pixels = active_pixels;
      params.num_active_pixels = length(find(active_pixels == 1));
      params.stats.num_active_pixels = length(find(active_pixels == 1));
      
