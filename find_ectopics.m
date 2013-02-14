@@ -33,17 +33,27 @@ function params = find_ectopics(params)
     end
     
     [major_projection minor_projection, optimal_position] = find_best_position(field_points,major_projection, minor_projection, takeout );
-    
+
+    II = find(minor_projection(:,1) > 0.01);
+    tangents =(major_projection(II,2)-minor_projection(II,2))./(major_projection(II,1)-minor_projection(II,1));
+
+%    adjust because of how axes are drawn
+
+    params.FTOC.mean_ectopic_angles=mean(-(90- atand(tangents)));
+    params.FTOC.std_ectopic_angles=std(-(90- atand(tangents)),1);
+
     params.FTOC.major_projection = major_projection;
     params.FTOC.minor_projection = minor_projection;
     params.FTOC.optimal_position = optimal_position;
+
     ect = find(minor_projection(:,1));
     params.stats.num_ectopics = length(ect);
     ect_dists = diag(dist(major_projection(ect,:),minor_projection(ect,:)'));
     params.stats.ect_dist_mean = mean(ect_dists);
     params.stats.ect_dist_std = std(ect_dists);
-    
-    
+%D   added by David
+    params.FTOC.stats.ectopics=ect;
+
             
             
        
