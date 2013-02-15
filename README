@@ -1,8 +1,9 @@
 Git branches
 ============
 
-master         - the main branch
-adrianna-final - files as Adrianna left them, complete wtith figures
+master            - the main branch
+adrianna-final    - files as Adrianna left them, complete wtith figures
+dw-figs-for-paper - Import of all M-files in David's Computing/Matlab/MapPrecision11/Adriannas_legacy/Figs_for_paper directory
 
 Git tags
 ========
