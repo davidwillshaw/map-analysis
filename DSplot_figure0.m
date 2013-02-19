@@ -53,11 +53,26 @@ for nf=1:num_figs
 
 %          plot(from_points(:,1),from_points(:,2),'.','Color','r');
 
-	
-   axis ij
-   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'});
-   axis([0 1 0 1]);
+	   if nplot ==1 || nplot == 3
+	      title(['#',num2str(point),':','RETINA']);
+	   end
 
+           set(gca,'PlotBoxAspectRatio',[1 1 1],'XTick',[0,0.5,1] ,'XTickLabel',{},'YTick',[0,0.5,1],'YTickLabel',{});
+	   if nplot==1 || nplot==5 || nplot==9 || nplot==13 ||nplot==17
+           set(gca,'PlotBoxAspectRatio',[1 1 1], 'XTick',[0,0.5,1] ,'XTickLabel',{},'YTick',[0,0.5,1],'YTickLabel',{'0','0.5','1'});
+           end
+
+           if nplot == 17
+           set(gca,'PlotBoxAspectRatio',[1 1 1],'XTick',[0,0.5,1],'XTickLabel',{'0','0.5','1'},'YTick',[0,0.5,1],'YTickLabel',{'0','0.5','1'});
+	   end
+           if nplot == 19
+           set(gca,'PlotBoxAspectRatio',[1 1 1], 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'},'YTick',[0,0.5,1],'YTickLabel',{});
+           end
+
+	axis([0 1 0 1]);
+
+
+%   axis ij
 %	  title(['#',num2str(params.id),',',num2str(nep),',',num2str(ep),' RETINA']);
 	  hold off
 
@@ -66,11 +81,22 @@ for nf=1:num_figs
 	  plot(projection_points1(:,1),projection_points1(:,2),'.','Color','b');
 	  hold on
 
-%	  plot(projection_points2(:,1),projection_points2(:,2),'.','Color','r');
+% plot(projection_points2(:,1),projection_points2(:,2),'.','Color','r');
 
- set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'});
+
+	   if nplot ==1 || nplot == 3
+	      title(['#',num2str(point),':','COLLICULUS']);
+	   end
+
+           set(gca,'PlotBoxAspectRatio',[1 1 1],'XTick',[0,0.5,1] ,'XTickLabel',{},'YTick',[0,0.5,1],'YTickLabel',{});
+
+           if nplot == 17|| nplot ==19
+           set(gca,'PlotBoxAspectRatio',[1 1 1], 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'},'YTick',[0,0.5,1],'YTickLabel',{});
+           end
+
+ % set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'});
    axis([0 1 0 1]);
-   axis ij
+%   axis ij
  
           end
 
@@ -121,7 +147,7 @@ for nf=1:num_figs
 
 %          plot(projection_points2(:,1),projection_points2(:,2),'.','Color','r');
 
-   axis ij
+%   axis ij
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'});
    axis([0 1 0 1]);
 	  hold off
@@ -134,7 +160,7 @@ for nf=1:num_figs
 
 %	  plot(from_points2(:,1),from_points2(:,2),'.','Color','r');
 
-	axis ij
+%	axis ij
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'});
    axis([0 1 0 1]);
 
