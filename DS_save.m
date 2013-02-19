@@ -28,7 +28,7 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
 %    NN = length(params.RTOC.coll_points(:,1));
 %    params.RTOC.coll_points(:,1) = params.RTOC.coll_points(randperm(NN),1);
     disp('Finding ectopics...')
-    params = DSfind_ectopics(params);
+%    params = DSfind_ectopics(params);
     params = DStriangulation(params,'CTOR');
     params = DStriangulation(params,'RTOC');
     disp('Finding crossings...')
