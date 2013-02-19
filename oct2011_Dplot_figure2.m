@@ -1,9 +1,25 @@
 function [] = oct2011_Dplot_figure2(params,takeout,FTOCanchors,CTOFanchors)
+% OCT2011_DPLOT_FIGURE2 - Plot lattices and orientation from Field to
+%   Colliculus and Colliculus to Field Given the data structure
+%   PARAMS, plot lattices and orientation from Field to Colliculus and
+%   Colliculus to Field. The optional argument TAKEOUT specifies
+%   which nodes to take out in the FTOC direction. The optional
+%   arguments FTOCANCHORS and CTOFANCHORS specify which nodes to
+%   attach anchors to in either direction.
+%
+%   HISTORY:
+%   Copied from Adrianna's plot_figure2.m
+%   With the added facility of specifying which nodes to leave out
+%   Also supply a list of nodes for anchors -separate lists for FTOC, CTOF
 
-% Copied from Adrianna's plot_figure2.m
-% With the added facility of specifying which nodes to leave out
-% Also supply a list of nodes for anchors -separate lists for FTOC, CTOF
-
+  % Default arguments
+  if (~exist('FTOCanchors')) 
+    FTOCanchors = [85:95,97]
+  end 
+  if (~exist('CTOFanchors')) 
+    CTOFanchors = [85:95,97]
+  end 
+  
     xmean_coll = params.ellipse.x0;
     ymean_coll = params.ellipse.y0;
 
@@ -17,7 +33,9 @@ function [] = oct2011_Dplot_figure2(params,takeout,FTOCanchors,CTOFanchors)
         list_of_neighbours = params.FTOC.list_of_neighbours;
         color = 'k';
         num_points = params.FTOC.numpoints;
-%        takeout = params.FTOC.takeout;
+        if (~exist('takeout'))
+          takeout = params.FTOC.takeout;
+        end
         list_of_points = setdiff(1:num_points,takeout);
         sets_of_intersections = params.FTOC.sets_of_intersections;
     
