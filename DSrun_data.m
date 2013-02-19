@@ -69,7 +69,7 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
     
      DSplot_figure2(params)
      DSplot_figure6(params, 'RTOC')
-%    plot_ectopics(params)
+%   plot_ectopics(params)
 
 
 
