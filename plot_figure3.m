@@ -1,4 +1,4 @@
-function params = Dplot_figure3(params)
+function params = plot_figure3(params)
 
 % minor changes from plot_figure3.m
 % mainly moving the plotting option
@@ -75,7 +75,7 @@ function params = Dplot_figure3(params)
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
     axis([1,113,1,113])
-    end
+
       
     %CTOF
     
@@ -133,7 +133,7 @@ function params = Dplot_figure3(params)
     axis ij
     set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,21,41] ,'XTickLabel',{'-20','0','20'}, 'YTick',[1,21,41],'YTickLabel',{'-20','0','20'} )
     axis([1,41,1,41])
-    end
+  
     
     
     figure(3)
