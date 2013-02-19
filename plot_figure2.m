@@ -17,15 +17,24 @@ function [] = plot_figure2(params)
     clf
    %FTOC Field
    subplot(2,3,1)
+   plot(zeros(101,1),-50:50,'Color',[0.7 0.7 0.7], 'Linewidth',1)
+   hold on
+   plot(-50:50,zeros(101,1),'Color',[0.7 0.7 0.7], 'Linewidth',1)
    print_links(list_of_points, field_coords, list_of_neighbours, color);
    hold on
    [cross_points,list_of_crossings] = make_cross_list(list_of_points,sets_of_intersections);
    print_links(cross_points, field_coords, list_of_crossings, 'r');
-   anchors = plot_anchors4(field_coords,params.anchors,[]);
+%   anchors = plot_anchors(field_coords,params.anchors,50:58);
+   anchors = plot_anchors(field_coords,12,[85:95,97]);
+
+   plot(-45:-26,ones(20,1).*45,'k', 'LineWidth',3)%scale bar
+   
+   %plot(0,0,'r+')
    axis ij
-   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-50,0,50] ,'XTickLabel',{'-50','0','50'}, 'YTick',[-50,0,50] ,'YTickLabel',{'-50','0','50'})
+   set(gca,'PlotBoxAspectRatio',[1 1 1])
    axis([-50 50 -50 50]);
-   title('From Field');
+   axis off
+   title('Field');
    
    %FTOC Coll
    subplot(2,3,2)
@@ -33,25 +42,24 @@ function [] = plot_figure2(params)
    hold on
    [cross_points,list_of_crossings] = make_cross_list(list_of_points,sets_of_intersections);
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
-   plot_anchors4(coll_coords,params.anchors,anchors);
+   plot_anchors(coll_coords,12,anchors);
+    plot(xmean_coll-65:xmean_coll-38,ones(28,1).*ymean_coll+65,'k', 'LineWidth',3)%scale bar
    axis ij
-   if params.id ~=999
    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+70]);
-   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize',16,'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112],'XTickLabel',{'0','0.5','1'},'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112],'YTickLabel',{'0','0.5','1'})
-   end
-
-    title('To Colliculus');
-   
+   set(gca,'PlotBoxAspectRatio',[1 1 1])
+   axis off
+    title('Colliculus');
    
    %FTOC circ_plot
    subplot(2,3,3)
-   angles = params.FTOC.angles;
+   angles = params.FTOC.angles
+
    norm_links = params.FTOC.norm_links;
    flipped_links = params.FTOC.flipped_links;
-   circ_plot(angles(norm_links>0),'hist',color,40,false,true,'linewidth',2,'color',color);
+   circ_plot(angles(norm_links>0),'hist',color,40,false,true,'linewidth',2,'color',color)
    hold on
-   circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r');
-    title(params.datalabel);    
+   circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r')
+   title(params.datalabel);    
    
    %CTOF
         coll_coords = params.CTOF.coll_points;
@@ -66,15 +74,21 @@ function [] = plot_figure2(params)
        
    %CTOF Field
    subplot(2,3,4)
+   plot(zeros(101,1),-50:50,'Color',[0.7 0.7 0.7], 'Linewidth',1)
+   hold on
+   plot(-50:50,zeros(101,1),'Color',[0.7 0.7 0.7], 'Linewidth',1)
    print_links(list_of_points, field_coords, list_of_neighbours, color);
    hold on
    [cross_points,list_of_crossings] = make_cross_list(list_of_points,sets_of_intersections);
    print_links(cross_points, field_coords, list_of_crossings, 'r');
-   anchors = plot_anchors4(field_coords,params.anchors,[]);
+%   anchors = plot_anchors(field_coords,params.anchors,50:58);
+   anchors = plot_anchors(field_coords,12,[85:95,97]);   
    axis ij
-   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-50,0,50] ,'XTickLabel',{'-50','0','50'}, 'YTick',[-50,0,50] ,'YTickLabel',{'-50','0','50'})
    axis([-50 50 -50 50]);
-    title('To Field');
+   set(gca,'PlotBoxAspectRatio',[1 1 1]);
+   axis off
+   
+
    
    %CTOF Coll
    subplot(2,3,5)
@@ -82,24 +96,21 @@ function [] = plot_figure2(params)
    hold on
    [cross_points,list_of_crossings] = make_cross_list(list_of_points,sets_of_intersections);
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
-   plot_anchors4(coll_coords,params.anchors,anchors);
+   plot_anchors(coll_coords,12,anchors);
    axis ij
-
-   if params.id ~= 999
    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+70]);
-   set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,'YTickLabel',{'0','0.5','1'})
-   end
+   set(gca,'PlotBoxAspectRatio',[1 1 1])
+   axis off
 
-title('From Colliculus');
    
    %CTOF circ_plot
    subplot(2,3,6)
    angles = params.CTOF.angles;
    norm_links = params.CTOF.norm_links;
    flipped_links = params.CTOF.flipped_links;
-   circ_plot(angles(norm_links>0),'hist',color,40,false,true,'linewidth',2,'color',color);
+   circ_plot(angles(norm_links>0),'hist',color,40,false,true,'linewidth',2,'color',color)
    hold on
-   circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r');
+   circ_plot(angles(flipped_links>0),'hist','r',40,false,true,'linewidth',2,'color','r')
    
 
    figure(2)
