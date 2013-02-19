@@ -111,7 +111,7 @@ if direction == 'CTOF'
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
 
    plot(coll_coords(:,1),coll_coords(:,2),'o','Color','b','MarkerFaceColor','b','MarkerSize',10);
-   plot_anchors10(coll_coords,ancnums,anclabels);
+   Dplot_anchors(coll_coords,ancnums,anclabels,10);
 
    text(coll_coords(:,1),coll_coords(:,2),num2str(list_of_points(:)),'Color',[1 1 1],'HorizontalAlignment','Center','FontSize',8,'FontWeight','bold');
 
@@ -133,7 +133,7 @@ if direction == 'CTOF'
 
 %   plot(field_coords(:,1),field_coords(:,2),'o','Color',[0.2 0.2 0.2],'MarkerFaceColor',[0.2 0.2 0.2],'MarkerSize',10); 
    plot(field_coords(:,1),field_coords(:,2),'o','Color','b','MarkerFaceColor','b','MarkerSize',10); 
-   anchors = plot_anchors10(field_coords,ancnums,anclabels);
+   anchors = Dplot_anchors(field_coords,ancnums,anclabels);
 
    text(field_coords(:,1),field_coords(:,2),num2str(list_of_points(:)),'Color',[1 1 1],'HorizontalAlignment','Center','FontSize',8,'FontWeight','bold');
 
@@ -246,7 +246,7 @@ if direction == 'FTOC'
 
 %   plot(field_coords(:,1),field_coords(:,2),'o','Color',[0.2 0.2 0.2],'MarkerFaceColor',[0.2 0.2 0.2],'MarkerSize',10); 
    plot(field_coords(:,1),field_coords(:,2),'o','Color','k','MarkerFaceColor','k','MarkerSize',10); 
-   anchors = plot_anchors10(field_coords,ancnums,anclabels);
+   anchors = Dplot_anchors(field_coords,ancnums,anclabels,10);
 
    text(field_coords(:,1),field_coords(:,2),num2str(list_of_points(:)),'Color',[1 1 1],'HorizontalAlignment','Center','FontSize',8,'FontWeight','bold');
 
@@ -267,7 +267,7 @@ if direction == 'FTOC'
    print_links(cross_points, coll_coords, list_of_crossings, 'r');
 
    plot(coll_coords(:,1),coll_coords(:,2),'o','Color','k','MarkerFaceColor','k','MarkerSize',10);
-   plot_anchors10(coll_coords,ancnums,anclabels);
+   Dplot_anchors(coll_coords,ancnums,anclabels,10);
 
    text(coll_coords(:,1),coll_coords(:,2),num2str(list_of_points(:)),'Color',[1 1 1],'HorizontalAlignment','Center','FontSize',8,'FontWeight','bold');
 
@@ -295,7 +295,7 @@ if direction == 'FTOC'
    plot(field_coords(list_of_points(:),1),field_coords(list_of_points(:),2),'o','Color','k','MarkerFaceColor','k','MarkerSize',10); 
 
    plot(field_coords(absent_points(:),1),field_coords(absent_points(:),2),'x','Color','r','MarkerFaceColor','r','MarkerSize',10); 
-   anchors = plot_anchors10(field_coords,ancnums,anclabels);
+   anchors = Dplot_anchors(field_coords,ancnums,anclabels,10);
 
    text(field_coords(list_of_points(:),1),field_coords(list_of_points(:),2),num2str(list_of_points(:)),'Color',[1 1 1],'HorizontalAlignment','Center','FontSize',8,'FontWeight','bold');
 
@@ -318,7 +318,7 @@ if direction == 'FTOC'
 %   plot(coll_coords(:,1),coll_coords(:,2),'o','Color','k','MarkerFaceColor','k','MarkerSize',10);
    plot(coll_coords(list_of_points(:),1),coll_coords(list_of_points(:),2),'o','Color','k','MarkerFaceColor','k','MarkerSize',10);
    plot(coll_coords(absent_points(:),1),coll_coords(absent_points(:),2),'x','Color','r','MarkerFaceColor','r','MarkerSize',10);
-   plot_anchors10(coll_coords,ancnums,anclabels);
+   Dplot_anchors(coll_coords,ancnums,anclabels,10);
 
    text(coll_coords(list_of_points(:),1),coll_coords(list_of_points(:),2),num2str(list_of_points(:)),'Color',[1 1 1],'HorizontalAlignment','Center','FontSize',8,'FontWeight','bold');
 
