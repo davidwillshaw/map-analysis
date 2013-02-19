@@ -24,7 +24,7 @@ if direction == 'RTOC'
       text(ret_coords(lop,1),ret_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6);
    end
    hold off
-   axis ij
+%   axis ij
 
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0, 0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'})
    axis([0 1 0 1]);
@@ -38,9 +38,8 @@ if direction == 'RTOC'
       text(coll_coords(lop,1),coll_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6);
    end
    hold off
-   axis ij
+%   axis ij
 
-   axis ij
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'})
    axis([0 1 0 1]);
 
@@ -67,7 +66,7 @@ if direction == 'CTOR'
       text(ret_coords(lop,1),ret_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6,'Color','b');
    end
    hold off
-   axis ij
+%   axis ij
    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[0,0.5,1] ,'XTickLabel',{'0','0.5','1'}, 'YTick',[0,0.5,1] ,'YTickLabel',{'0','0.5','1'})
    axis([0 1 0 1]);
    title(['#',num2str(params.id),'. ',direction,'. Retina - node labels']);
