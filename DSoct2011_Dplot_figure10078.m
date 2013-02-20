@@ -1,7 +1,7 @@
 function fig = DSoct2011_Dplot_figure10078(params,direction,ectoptions,anclabels,ancsize,obj)
 
 %  similar to plot_figure10006.m except that
-%  for RTOC ONLY
+%  for FTOC ONLY
 %  (i) ectopics marked in the subgraph plot in blue crosses
 %  (ii) options shown by value of ectoptions:
 %  ectoptions = 0: no options shown; ectopics shown in red
@@ -18,33 +18,33 @@ function fig = DSoct2011_Dplot_figure10078(params,direction,ectoptions,anclabels
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  if strcmp(direction,'CTOR')
-    coll_coords = params.CTOR.coll_points;
-    ret_coords = params.CTOR.ret_points;
-    points_in_subgraph = params.CTOR.points_in_subgraph;
-    list_of_neighbours = params.CTOR.list_of_neighbours;
-    num_points = params.CTOR.numpoints;
+  if strcmp(direction,'CTOF')
+    coll_coords = params.CTOF.coll_points;
+    field_coords = params.CTOF.field_points;
+    points_in_subgraph = params.CTOF.points_in_subgraph;
+    list_of_neighbours = params.CTOF.list_of_neighbours;
+    num_points = params.CTOF.numpoints;
     color = 'b';
-    sets_of_intersections = params.CTOR.sets_of_intersections;
-    points_not_in_subgraph = params.CTOR.points_not_in_subgraph;
+    sets_of_intersections = params.CTOF.sets_of_intersections;
+    points_not_in_subgraph = params.CTOF.points_not_in_subgraph;
   end
     
-  if strcmp(direction,'RTOC')
+  if strcmp(direction,'FTOC')
     %D      inserted details of the ectopics  FUDGED here
-    %	ectopics=params.RTOC.stats.ectopics;
+    %	ectopics=params.FTOC.stats.ectopics;
     ectopics =[];
-    %        major_projection = params.RTOC.major_projection;
-    %        minor_projection = params.RTOC.minor_projection;
-    %	mean_projection = params.RTOC.mean_projection;
+    %        major_projection = params.FTOC.major_projection;
+    %        minor_projection = params.FTOC.minor_projection;
+    %	mean_projection = params.FTOC.mean_projection;
     
-    coll_coords = params.RTOC.coll_points;
-    ret_coords = params.RTOC.ret_points;
-    points_in_subgraph = params.RTOC.points_in_subgraph;
-    list_of_neighbours = params.RTOC.list_of_neighbours;
-    num_points = params.RTOC.numpoints;
+    coll_coords = params.FTOC.coll_points;
+    field_coords = params.FTOC.field_points;
+    points_in_subgraph = params.FTOC.points_in_subgraph;
+    list_of_neighbours = params.FTOC.list_of_neighbours;
+    num_points = params.FTOC.numpoints;
     color = 'k';
-    sets_of_intersections = params.RTOC.sets_of_intersections;
-    points_not_in_subgraph = params.RTOC.points_not_in_subgraph;
+    sets_of_intersections = params.FTOC.sets_of_intersections;
+    points_not_in_subgraph = params.FTOC.points_not_in_subgraph;
   end
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -63,11 +63,11 @@ function fig = DSoct2011_Dplot_figure10078(params,direction,ectoptions,anclabels
   if(0)
     subplot(2,2,1)
     
-    print_links(1:num_points, ret_coords, list_of_neighbours, color);
+    print_links(1:num_points, field_coords, list_of_neighbours, color);
     hold on
     [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
-    print_links(cross_points, ret_coords, list_of_crossings, 'r');
-    anchors = Dplot_anchors(ret_coords,ancnums,anclabels,ancsize);
+    print_links(cross_points, field_coords, list_of_crossings, 'r');
+    anchors = Dplot_anchors(field_coords,ancnums,anclabels,ancsize);
     
     
     %   axis ij
@@ -98,23 +98,23 @@ function fig = DSoct2011_Dplot_figure10078(params,direction,ectoptions,anclabels
   v = linspace(0,2*pi,100);
   plot(0.5*cos(v)+0.5,0.5*sin(v)+0.5,'-','color',[1 1 1]*0.6);
 
-  print_links(points_in_subgraph, ret_coords, list_of_neighbours, color);
+  print_links(points_in_subgraph, field_coords, list_of_neighbours, color);
   hold on
-  %   plot(ret_coords(points_not_in_subgraph,1),ret_coords(points_not_in_subgraph,2),'or','MarkerFaceColor', 'r', 'MarkerSize',1);
+  %   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'or','MarkerFaceColor', 'r', 'MarkerSize',1);
   
   if ectoptions ==0
-    plot(ret_coords(points_not_in_subgraph,1),ret_coords(points_not_in_subgraph,2),'xr');
+    plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'xr');
   end
   
   [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
-  print_links(cross_points, ret_coords, list_of_crossings, 'r');
-  Dplot_anchors(ret_coords,ancnums,anclabels,ancsize);
-  %  plot(ret_coords(ectopics,1),ret_coords(ectopics,2),'xg','MarkerFaceColor','B', 'MarkerSize',1);
+  print_links(cross_points, field_coords, list_of_crossings, 'r');
+  Dplot_anchors(field_coords,ancnums,anclabels,ancsize);
+  %  plot(field_coords(ectopics,1),field_coords(ectopics,2),'xg','MarkerFaceColor','B', 'MarkerSize',1);
   
   if ectoptions ==1 |ectoptions ==2 |ectoptions ==3 | ectoptions ==4
     sd = setdiff(points_not_in_subgraph,ectopics);
-    plot(ret_coords(sd,1),ret_coords(sd,2),'xr');
-    plot(ret_coords(ectopics,1),ret_coords(ectopics,2),'o','Color',[0 0 1]);
+    plot(field_coords(sd,1),field_coords(sd,2),'xr');
+    plot(field_coords(ectopics,1),field_coords(ectopics,2),'o','Color',[0 0 1]);
   end
   
   

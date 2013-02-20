@@ -4,18 +4,18 @@ function params = DSfind_ectopics(params)
 %  ie  for angle like -170 add 180
 % as these should be around +10 or so
     
-    numpoints = params.RTOC.numpoints;
-    ret_points = params.RTOC.ret_points;
-    full_ret_coords = params.full_ret;
+    numpoints = params.FTOC.numpoints;
+    field_points = params.FTOC.field_points;
+    full_field_coords = params.full_field;
     full_coll_coords = params.full_coll;
-    takeout = params.RTOC.takeout;
-    radius = params.ret_radius;
-    major_projection = params.RTOC.coll_points;
+    takeout = params.FTOC.takeout;
+    radius = params.field_radius;
+    major_projection = params.FTOC.coll_points;
     minor_projection = zeros(numpoints,2);
     
     for point = 1:numpoints
-        centre = ret_points(point,:);
-        [~,projection_points] = find_projection(centre,radius,full_ret_coords,full_coll_coords);
+        centre = field_points(point,:);
+        [~,projection_points] = find_projection(centre,radius,full_field_coords,full_coll_coords);
 
 	if length(projection_points) > 5 
         [IDX2, C2] = kmeans(projection_points,2, 'replicates',5);
@@ -69,7 +69,7 @@ function params = DSfind_ectopics(params)
     end
     
 end
-    [major_projection minor_projection, optimal_position] = find_best_position(ret_points,major_projection, minor_projection, takeout );
+    [major_projection minor_projection, optimal_position] = find_best_position(field_points,major_projection, minor_projection, takeout );
 
     II = find(minor_projection(:,1) > 0.01);
     tangents =(major_projection(II,2)-minor_projection(II,2))./(major_projection(II,1)-minor_projection(II,1));
@@ -81,12 +81,12 @@ end
 	 ect_angles(IA) = ect_angles(IA) +180;
 
      ect_angles;
-    params.RTOC.mean_ectopic_angles=mean(ect_angles);
-    params.RTOC.std_ectopic_angles=std(ect_angles,1);
+    params.FTOC.mean_ectopic_angles=mean(ect_angles);
+    params.FTOC.std_ectopic_angles=std(ect_angles,1);
 
-    params.RTOC.major_projection = major_projection;
-    params.RTOC.minor_projection = minor_projection;
-    params.RTOC.optimal_position = optimal_position;
+    params.FTOC.major_projection = major_projection;
+    params.FTOC.minor_projection = minor_projection;
+    params.FTOC.optimal_position = optimal_position;
 
     ect = find(minor_projection(:,1));
     params.stats.num_ectopics = length(ect);
@@ -94,7 +94,7 @@ end
     params.stats.ect_dist_mean = mean(ect_dists);
     params.stats.ect_dist_std = std(ect_dists);
 %D   added by David
-    params.RTOC.stats.ectopics=ect;
+    params.FTOC.stats.ectopics=ect;
 
             
             

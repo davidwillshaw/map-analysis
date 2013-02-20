@@ -1,7 +1,7 @@
 function [] = DSplot_figure0(params,direction)
 
 % Shows examples  all the  projections from single nodes
-% RTOC or CTOR
+% FTOC or CTOF
 
 
  
@@ -14,12 +14,12 @@ RandStream.setDefaultStream(s);
 %savedState = defaultStream.State;
 
 
-if direction=='RTOC'
-   num_nodes = params.RTOC.numpoints;
-   ret_points = params.RTOC.ret_points;
-   from_coords = params.full_ret;
+if direction=='FTOC'
+   num_nodes = params.FTOC.numpoints;
+   field_points = params.FTOC.field_points;
+   from_coords = params.full_field;
    to_coords = params.full_coll;
-   radius = params.ret_radius;
+   radius = params.field_radius;
 
 num_figs = ceil(num_nodes/10);
 point = 0;
@@ -42,13 +42,13 @@ for nf=1:num_figs
          subplot(5,4,nplot)
 	 
 	 node1=point;
-         centre = ret_points(node1,:);
+         centre = field_points(node1,:);
 	 [from_points,projection_points1] = find_projection(centre,radius,from_coords,to_coords);
 %	  scatter = sqrt(sum(var(projection_points)));
           plot(from_points(:,1),from_points(:,2),'.','Color','b');
           hold on
 %	  node2=randomise(1);
-%	  centre = ret_points(node2,:);
+%	  centre = field_points(node2,:);
 %	 [from_points,projection_points2] = find_projection(centre,radius,from_coords,to_coords);
 
 %          plot(from_points(:,1),from_points(:,2),'.','Color','r');
@@ -107,13 +107,13 @@ for nf=1:num_figs
       end
 
 end
-%CTOR
+%CTOF
 
-if direction=='CTOR'
-   num_nodes = params.CTOR.numpoints;
-   coll_points = params.CTOR.coll_points;
+if direction=='CTOF'
+   num_nodes = params.CTOF.numpoints;
+   coll_points = params.CTOF.coll_points;
    from_coords = params.full_coll;
-   to_coords = params.full_ret;
+   to_coords = params.full_field;
    radius = params.coll_radius;
 
 

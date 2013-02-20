@@ -13,21 +13,21 @@ function params = DSselect_point_positions(params, direction)
 %    "x_eligible", "y_eligible" contain the coordinates of the 
 %     starting list of points that can be chosen
 %     Their origin depends on whether the points are selected from the
-%     field ('RTOC') or the colliculus ('CTOR')
+%     field ('FTOC') or the colliculus ('CTOF')
 
 %    "numpoints" is the desired number of points
 
-    if strcmp(direction, 'CTOR')
+    if strcmp(direction, 'CTOF')
         x_eligible = params.full_coll(:,1);
         y_eligible = params.full_coll(:,2);
-        numpoints = params.CTOR.numpoints;
+        numpoints = params.CTOF.numpoints;
 	area = numpoints^2;
     end
     
-    if strcmp(direction, 'RTOC')
-        x_eligible = params.full_ret(:,1);
-        y_eligible = params.full_ret(:,2);
-        numpoints = params.RTOC.numpoints;
+    if strcmp(direction, 'FTOC')
+        x_eligible = params.full_field(:,1);
+        y_eligible = params.full_field(:,2);
+        numpoints = params.FTOC.numpoints;
 	area = numpoints^2;
     end
 %--------------------------------------------------------------------------- 
@@ -107,14 +107,14 @@ function params = DSselect_point_positions(params, direction)
     [~,area] = convhull(chosen(:,1),chosen(:,2));
     
     
-    if strcmp(direction, 'CTOR')
-        params.CTOR.coll_points = chosen;
-        params.stats.CTOR.coll_area = area;
+    if strcmp(direction, 'CTOF')
+        params.CTOF.coll_points = chosen;
+        params.stats.CTOF.coll_area = area;
     end
     
-    if strcmp(direction, 'RTOC')
-        params.RTOC.ret_points = chosen;
-        params.stats.RTOC.ret_area = area;
+    if strcmp(direction, 'FTOC')
+        params.FTOC.field_points = chosen;
+        params.stats.FTOC.field_area = area;
     end
             
         

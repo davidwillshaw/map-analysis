@@ -1,13 +1,13 @@
 function params = DSfind_crossings(params, direction)
    
-    if strcmp(direction,'CTOR')
-        projected_points = params.CTOR.ret_points;
-        neighbours = params.CTOR.neighbours;
+    if strcmp(direction,'CTOF')
+        projected_points = params.CTOF.field_points;
+        neighbours = params.CTOF.neighbours;
     end
     
-    if strcmp(direction,'RTOC')
-        projected_points = params.RTOC.coll_points;
-        neighbours = params.RTOC.neighbours;
+    if strcmp(direction,'FTOC')
+        projected_points = params.FTOC.coll_points;
+        neighbours = params.FTOC.neighbours;
     end
 
     sets_of_intersections = [];
@@ -29,50 +29,50 @@ function params = DSfind_crossings(params, direction)
         end
     end
     
-    if strcmp(direction,'CTOR')
-        params.CTOR.list_of_neighbours = list_of_neighbours;
-        params.CTOR.sets_of_intersections = sets_of_intersections;
+    if strcmp(direction,'CTOF')
+        params.CTOF.list_of_neighbours = list_of_neighbours;
+        params.CTOF.sets_of_intersections = sets_of_intersections;
         %mean link lengths coll
-        coords = params.CTOR.coll_points;
+        coords = params.CTOF.coll_points;
         [link_length_mean, link_length_std] = find_mean_link_length(list_of_neighbours,coords);
         [min_link_length_mean, min_link_length_std] = find_min_link_length_mean(neighbours,coords);
-        params.stats.CTOR.link_length_mean_coll = link_length_mean;
-        params.stats.CTOR.link_length_std_coll = link_length_std;
-        params.stats.CTOR.min_link_length_mean_coll = min_link_length_mean;
-        params.stats.CTOR.min_link_length_std_coll = min_link_length_std;
+        params.stats.CTOF.link_length_mean_coll = link_length_mean;
+        params.stats.CTOF.link_length_std_coll = link_length_std;
+        params.stats.CTOF.min_link_length_mean_coll = min_link_length_mean;
+        params.stats.CTOF.min_link_length_std_coll = min_link_length_std;
         %mean link lengths ret
-        coords = params.CTOR.ret_points;
+        coords = params.CTOF.field_points;
         [link_length_mean, link_length_std] = find_mean_link_length(list_of_neighbours,coords);
          [min_link_length_mean, min_link_length_std] = find_min_link_length_mean(neighbours,coords);
-        params.stats.CTOR.link_length_mean_ret = link_length_mean;
-        params.stats.CTOR.link_length_std_ret = link_length_std;
-        params.stats.CTOR.min_link_length_mean_ret = min_link_length_mean;
-        params.stats.CTOR.min_link_length_std_ret = min_link_length_std;
-        params.stats.CTOR.num_crossings = size(sets_of_intersections,1);
-        params.stats.CTOR.num_nodes_crossing = length(unique(sets_of_intersections));
+        params.stats.CTOF.link_length_mean_field = link_length_mean;
+        params.stats.CTOF.link_length_std_field = link_length_std;
+        params.stats.CTOF.min_link_length_mean_field = min_link_length_mean;
+        params.stats.CTOF.min_link_length_std_field = min_link_length_std;
+        params.stats.CTOF.num_crossings = size(sets_of_intersections,1);
+        params.stats.CTOF.num_nodes_crossing = length(unique(sets_of_intersections));
     end
     
-    if strcmp(direction,'RTOC')
-        params.RTOC.list_of_neighbours = list_of_neighbours;
-        params.RTOC.sets_of_intersections = sets_of_intersections;
+    if strcmp(direction,'FTOC')
+        params.FTOC.list_of_neighbours = list_of_neighbours;
+        params.FTOC.sets_of_intersections = sets_of_intersections;
         %mean link lengths coll
-        coords = params.RTOC.coll_points;
+        coords = params.FTOC.coll_points;
         [link_length_mean, link_length_std] = find_mean_link_length(list_of_neighbours,coords);
         [min_link_length_mean, min_link_length_std] = find_min_link_length_mean(neighbours,coords);
-        params.stats.RTOC.link_length_mean_coll = link_length_mean;
-        params.stats.RTOC.link_length_std_coll = link_length_std;
-        params.stats.RTOC.min_link_length_mean_coll = min_link_length_mean;
-        params.stats.RTOC.min_link_length_std_coll = min_link_length_std;
+        params.stats.FTOC.link_length_mean_coll = link_length_mean;
+        params.stats.FTOC.link_length_std_coll = link_length_std;
+        params.stats.FTOC.min_link_length_mean_coll = min_link_length_mean;
+        params.stats.FTOC.min_link_length_std_coll = min_link_length_std;
         %mean link lengths ret
-        coords = params.RTOC.ret_points;
+        coords = params.FTOC.field_points;
         [link_length_mean, link_length_std] = find_mean_link_length(list_of_neighbours,coords);
         [min_link_length_mean, min_link_length_std] = find_min_link_length_mean(neighbours,coords);
-        params.stats.RTOC.link_length_mean_ret = link_length_mean;
-        params.stats.RTOC.link_length_std_ret = link_length_std;
-        params.stats.RTOC.min_link_length_mean_ret = min_link_length_mean;
-        params.stats.RTOC.min_link_length_std_ret = min_link_length_std;
-        params.stats.RTOC.num_crossings = size(sets_of_intersections,1);
-        params.stats.RTOC.num_nodes_crossing = length(unique(sets_of_intersections));
+        params.stats.FTOC.link_length_mean_field = link_length_mean;
+        params.stats.FTOC.link_length_std_field = link_length_std;
+        params.stats.FTOC.min_link_length_mean_field = min_link_length_mean;
+        params.stats.FTOC.min_link_length_std_field = min_link_length_std;
+        params.stats.FTOC.num_crossings = size(sets_of_intersections,1);
+        params.stats.FTOC.num_nodes_crossing = length(unique(sets_of_intersections));
     end
     
     

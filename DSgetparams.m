@@ -5,13 +5,13 @@ function params = DSgetparams(id,N,radius)
 
 
     params = struct('id',id);
-    params.CTOR.numpoints = N;
-    params.RTOC.numpoints = N;
+    params.CTOF.numpoints = N;
+    params.FTOC.numpoints = N;
     params.ranstart = RANSTART;
     params.coll_radius = radius;
-    params.ret_radius =  radius;
-    params.CTOR.takeout = [];
-    params.RTOC.takeout = [];
+    params.field_radius =  radius;
+    params.CTOF.takeout = [];
+    params.FTOC.takeout = [];
     params.comments = '';
     params.anchors = 8;
     params.tolerance = 150;

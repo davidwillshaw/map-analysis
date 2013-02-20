@@ -1,19 +1,19 @@
 function params = DSfind_link_angles(params,direction)
 
-    if strcmp(direction, 'RTOC')
-        list_of_neighbours = params.RTOC.list_of_neighbours;
-        from_coords = params.RTOC.ret_points;
-        to_coords = params.RTOC.coll_points;
-        triangles = params.RTOC.triangles;
-        takeout = params.RTOC.takeout;
+    if strcmp(direction, 'FTOC')
+        list_of_neighbours = params.FTOC.list_of_neighbours;
+        from_coords = params.FTOC.field_points;
+        to_coords = params.FTOC.coll_points;
+        triangles = params.FTOC.triangles;
+        takeout = params.FTOC.takeout;
     end
     
-    if strcmp(direction, 'CTOR')
-        list_of_neighbours = params.CTOR.list_of_neighbours;
-        from_coords = params.CTOR.coll_points;
-        to_coords = params.CTOR.ret_points;
-        triangles = params.CTOR.triangles;
-        takeout = params.CTOR.takeout;
+    if strcmp(direction, 'CTOF')
+        list_of_neighbours = params.CTOF.list_of_neighbours;
+        from_coords = params.CTOF.coll_points;
+        to_coords = params.CTOF.field_points;
+        triangles = params.CTOF.triangles;
+        takeout = params.CTOF.takeout;
     end
     
     list_of_neighbours = remove_links_including_nodes(list_of_neighbours, takeout);
@@ -40,22 +40,22 @@ function params = DSfind_link_angles(params,direction)
         end
     end
     
-    if strcmp(direction, 'RTOC')
-        params.RTOC.flipped_links = flipped_links;
-        params.RTOC.norm_links = norm_links;
-        params.RTOC.angles = angles;
-        params.RTOC.orientations = orientations;
-        params.stats.RTOC.map_orientation_mean = circ_mean(angles);
-        params.stats.RTOC.map_orientation_std = circ_std(angles);
+    if strcmp(direction, 'FTOC')
+        params.FTOC.flipped_links = flipped_links;
+        params.FTOC.norm_links = norm_links;
+        params.FTOC.angles = angles;
+        params.FTOC.orientations = orientations;
+        params.stats.FTOC.map_orientation_mean = circ_mean(angles);
+        params.stats.FTOC.map_orientation_std = circ_std(angles);
     end
     
-    if strcmp(direction, 'CTOR')
-        params.CTOR.flipped_links = flipped_links;
-        params.CTOR.norm_links = norm_links;
-        params.CTOR.angles = angles;
-        params.CTOR.orientations = orientations;
-        params.stats.CTOR.map_orientation_mean = circ_mean(angles);
-        params.stats.CTOR.map_orientation_std = circ_std(angles);
+    if strcmp(direction, 'CTOF')
+        params.CTOF.flipped_links = flipped_links;
+        params.CTOF.norm_links = norm_links;
+        params.CTOF.angles = angles;
+        params.CTOF.orientations = orientations;
+        params.stats.CTOF.map_orientation_mean = circ_mean(angles);
+        params.stats.CTOF.map_orientation_std = circ_std(angles);
     end
             
         

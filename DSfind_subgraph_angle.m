@@ -1,26 +1,26 @@
 function params = DSfind_subgraph_angle(params, direction)
 
-    if strcmp(direction,'RTOC')
-        list_of_neighbours = params.RTOC.list_of_neighbours
-        points_in_subgraph = params.RTOC.points_in_subgraph
-        from_coords = params.RTOC.ret_points;
-        to_coords = params.RTOC.coll_points;
-        angles = params.RTOC.angles;
+    if strcmp(direction,'FTOC')
+        list_of_neighbours = params.FTOC.list_of_neighbours
+        points_in_subgraph = params.FTOC.points_in_subgraph
+        from_coords = params.FTOC.field_points;
+        to_coords = params.FTOC.coll_points;
+        angles = params.FTOC.angles;
 
-        points_not_in_subgraph = params.RTOC.points_not_in_subgraph;
-        triangles = params.RTOC.triangles;
-        takeout = params.RTOC.takeout;
+        points_not_in_subgraph = params.FTOC.points_not_in_subgraph;
+        triangles = params.FTOC.triangles;
+        takeout = params.FTOC.takeout;
     end
     
-    if strcmp(direction,'CTOR')
-        points_in_subgraph = params.CTOR.points_in_subgraph;
-        list_of_neighbours = params.CTOR.list_of_neighbours;
-        from_coords = params.CTOR.ret_points;
-        to_coords = params.CTOR.coll_points;
-        angles = params.CTOR.angles;
-        points_not_in_subgraph = params.CTOR.points_not_in_subgraph;
-        triangles = params.CTOR.triangles;
-        takeout = params.CTOR.takeout;
+    if strcmp(direction,'CTOF')
+        points_in_subgraph = params.CTOF.points_in_subgraph;
+        list_of_neighbours = params.CTOF.list_of_neighbours;
+        from_coords = params.CTOF.field_points;
+        to_coords = params.CTOF.coll_points;
+        angles = params.CTOF.angles;
+        points_not_in_subgraph = params.CTOF.points_not_in_subgraph;
+        triangles = params.CTOF.triangles;
+        takeout = params.CTOF.takeout;
     end
     
     removed_points = ismember(list_of_neighbours,points_not_in_subgraph);
@@ -40,14 +40,14 @@ function params = DSfind_subgraph_angle(params, direction)
     mean_subgraph_angles = mean(angles)
     std_subgraph_angles = std(angles);
     
-    if strcmp(direction,'RTOC')
-       params.RTOC.subgraph_angles=angles;
-       params.stats.RTOC.mean_subgraph_angles = mean_subgraph_angles;
-       params.stats.RTOC.std_subgraph_angles = std_subgraph_angles; 
+    if strcmp(direction,'FTOC')
+       params.FTOC.subgraph_angles=angles;
+       params.stats.FTOC.mean_subgraph_angles = mean_subgraph_angles;
+       params.stats.FTOC.std_subgraph_angles = std_subgraph_angles; 
     end
     
-    if strcmp(direction,'CTOR')
-       params.CTOR.subgraph_angles=angles;
-       params.stats.CTOR.mean_subgraph_angles = mean_subgraph_angles;
-       params.stats.CTOR.std_subgraph_angles = std_subgraph_angles;
+    if strcmp(direction,'CTOF')
+       params.CTOF.subgraph_angles=angles;
+       params.stats.CTOF.mean_subgraph_angles = mean_subgraph_angles;
+       params.stats.CTOF.std_subgraph_angles = std_subgraph_angles;
     end

@@ -1,22 +1,22 @@
 function params = DStrim_points(params, direction)
-% For DIRECTION 'CTOR', removes points from PARAMS.FULL_COLL that lie
+% For DIRECTION 'CTOF', removes points from PARAMS.FULL_COLL that lie
 % withing PARAMS.COLL_RADIUS of the perimeter of the colliculus, as
 % defined by the convex hull, and remove the corresponding points from
 % PARAMS.FULL_RET. Adds TRIMMED_COLL and TRIMMED_RET to the output
-% PARAMS. For DIRECTION 'RTOC' does the corresponding operation,
+% PARAMS. For DIRECTION 'FTOC' does the corresponding operation,
 % based on the perimeter of the retina.
 
   disp('here')
-  if strcmp(direction, 'CTOR')
+  if strcmp(direction, 'CTOF')
     keep_inds = find_central_points(params.full_coll, params.coll_radius);
     params.trimmed_coll = params.full_coll(keep_inds, :);
-    params.trimmed_ret  = params.full_ret(keep_inds , :);
+    params.trimmed_field  = params.full_field(keep_inds , :);
   end
 
-  if strcmp(direction, 'RTOC')
-    keep_inds = find_central_points(params.full_ret, params.ret_radius);
+  if strcmp(direction, 'FTOC')
+    keep_inds = find_central_points(params.full_field, params.field_radius);
     params.trimmed_coll = params.full_coll(keep_inds, :);
-    params.trimmed_ret  = params.full_ret(keep_inds , :);
+    params.trimmed_field  = params.full_field(keep_inds , :);
   end
 end
 

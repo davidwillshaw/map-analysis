@@ -6,22 +6,22 @@ function [] = DSplot_figure202(params, direction)
     figure(202)
     clf
  
-%RTOC
-if direction == 'RTOC'
-    ret_coords = params.RTOC.ret_points;
-    coll_coords = params.RTOC.coll_points;
-    list_of_neighbours = params.RTOC.list_of_neighbours;
+%FTOC
+if direction == 'FTOC'
+    field_coords = params.FTOC.field_points;
+    coll_coords = params.FTOC.coll_points;
+    list_of_neighbours = params.FTOC.list_of_neighbours;
     color = 'k';
-    num_points = params.RTOC.numpoints;
-    takeout = params.RTOC.takeout;
+    num_points = params.FTOC.numpoints;
+    takeout = params.FTOC.takeout;
     list_of_points = setdiff(1:num_points,takeout);
-    sets_of_intersections = params.RTOC.sets_of_intersections;
+    sets_of_intersections = params.FTOC.sets_of_intersections;
     
-   %RTOC Ret
+   %FTOC Ret
 
    subplot(2,1,1)
    for lop=1:length(list_of_points)
-      text(ret_coords(lop,1),ret_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6);
+      text(field_coords(lop,1),field_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6);
    end
    hold off
 %   axis ij
@@ -31,7 +31,7 @@ if direction == 'RTOC'
    title(['#',num2str(params.id),'. ',direction,'. Retina - node labels']);
 
    
-   %RTOC Coll
+   %FTOC Coll
    subplot(2,1,2)
    hold on
    for lop=1:length(list_of_points)
@@ -47,23 +47,23 @@ if direction == 'RTOC'
 
 end
    
-   %CTOR
-if direction == 'CTOR'
-   coll_coords = params.CTOR.coll_points;
-   ret_coords = params.CTOR.ret_points;
-   list_of_neighbours = params.CTOR.list_of_neighbours;
+   %CTOF
+if direction == 'CTOF'
+   coll_coords = params.CTOF.coll_points;
+   field_coords = params.CTOF.field_points;
+   list_of_neighbours = params.CTOF.list_of_neighbours;
    color = 'b';
-   num_points = params.CTOR.numpoints;
-   takeout = params.CTOR.takeout;
+   num_points = params.CTOF.numpoints;
+   takeout = params.CTOF.takeout;
    list_of_points = setdiff(1:num_points,takeout);
-   sets_of_intersections = params.CTOR.sets_of_intersections;
+   sets_of_intersections = params.CTOF.sets_of_intersections;
         
-  %RTOC Ret
+  %FTOC Ret
 
    subplot(2,1,1)
    hold on
    for lop=1:length(list_of_points)
-      text(ret_coords(lop,1),ret_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6,'Color','b');
+      text(field_coords(lop,1),field_coords(lop,2),num2str(list_of_points(lop)),'FontSize',6,'Color','b');
    end
    hold off
 %   axis ij
@@ -72,7 +72,7 @@ if direction == 'CTOR'
    title(['#',num2str(params.id),'. ',direction,'. Retina - node labels']);
 
    
-   %RTOC Coll
+   %FTOC Coll
    subplot(2,1,2)
    hold on
    for lop=1:length(list_of_points)

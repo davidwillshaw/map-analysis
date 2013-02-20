@@ -11,24 +11,24 @@ function params = DSfind_largest_subgraph(params,direction,ectopicnodes)
 %Needs: sets_of_intersections, list_of_neighbours,takeout,numpoints
 %Returns: points_in_subgraph, points_not_in_subgraph
 
-    if strcmp(direction, 'CTOR')
-        sets_of_intersections = params.CTOR.sets_of_intersections;
-        list_of_neighbours = params.CTOR.list_of_neighbours;
-        takeout = params.CTOR.takeout;
-        num_points = params.CTOR.numpoints;
+    if strcmp(direction, 'CTOF')
+        sets_of_intersections = params.CTOF.sets_of_intersections;
+        list_of_neighbours = params.CTOF.list_of_neighbours;
+        takeout = params.CTOF.takeout;
+        num_points = params.CTOF.numpoints;
     end
 
-    if strcmp(direction, 'RTOC')
-        sets_of_intersections = params.RTOC.sets_of_intersections;
-        list_of_neighbours = params.RTOC.list_of_neighbours;
+    if strcmp(direction, 'FTOC')
+        sets_of_intersections = params.FTOC.sets_of_intersections;
+        list_of_neighbours = params.FTOC.list_of_neighbours;
 
 	if ectopicnodes  == 0
-            takeout = union(params.RTOC.takeout,params.RTOC.stats.ectopics);
+            takeout = union(params.FTOC.takeout,params.FTOC.stats.ectopics);
         else
-            takeout = params.RTOC.takeout;
+            takeout = params.FTOC.takeout;
         end
         
-        num_points = params.RTOC.numpoints;
+        num_points = params.FTOC.numpoints;
     end
     
     candidates = setdiff((1:num_points),takeout);
@@ -50,16 +50,16 @@ function params = DSfind_largest_subgraph(params,direction,ectopicnodes)
     
     points_in_subgraph = setdiff(candidates,points_not_in_subgraph);
     
-    if strcmp(direction, 'CTOR')
-        params.CTOR.points_in_subgraph = points_in_subgraph;
-        params.CTOR.points_not_in_subgraph = points_not_in_subgraph;
-        params.stats.CTOR.num_nodes_in_subgraph = length(points_in_subgraph);
+    if strcmp(direction, 'CTOF')
+        params.CTOF.points_in_subgraph = points_in_subgraph;
+        params.CTOF.points_not_in_subgraph = points_not_in_subgraph;
+        params.stats.CTOF.num_nodes_in_subgraph = length(points_in_subgraph);
     end
     
-    if strcmp(direction, 'RTOC')
-        params.RTOC.points_in_subgraph = points_in_subgraph;
-        params.RTOC.points_not_in_subgraph = points_not_in_subgraph;
-        params.stats.RTOC.num_nodes_in_subgraph = length(points_in_subgraph);
+    if strcmp(direction, 'FTOC')
+        params.FTOC.points_in_subgraph = points_in_subgraph;
+        params.FTOC.points_not_in_subgraph = points_not_in_subgraph;
+        params.stats.FTOC.num_nodes_in_subgraph = length(points_in_subgraph);
     end
     
     

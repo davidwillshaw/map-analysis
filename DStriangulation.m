@@ -1,16 +1,16 @@
 function params  = DStriangulation(params, direction)
 %TRIANGULATION: delaunay triangles and list of links on given points
 
-    if strcmp(direction,'CTOR')
-        positions = params.CTOR.coll_points;
-        takeout = params.CTOR.takeout;
-        numpoints = params.CTOR.numpoints;
+    if strcmp(direction,'CTOF')
+        positions = params.CTOF.coll_points;
+        takeout = params.CTOF.takeout;
+        numpoints = params.CTOF.numpoints;
     end
 
-    if strcmp(direction,'RTOC')
-        positions = params.RTOC.ret_points;
-        takeout = params.RTOC.takeout;
-        numpoints = params.RTOC.numpoints;
+    if strcmp(direction,'FTOC')
+        positions = params.FTOC.field_points;
+        takeout = params.FTOC.takeout;
+        numpoints = params.FTOC.numpoints;
     end
 
     positions(takeout) = [];
@@ -29,13 +29,13 @@ function params  = DStriangulation(params, direction)
         neighbours(triangles(i,3),triangles(i,2)) = 1;
     end
     
-    if strcmp(direction,'CTOR')
-        params.CTOR.triangles = triangles;
-        params.CTOR.neighbours = neighbours;
+    if strcmp(direction,'CTOF')
+        params.CTOF.triangles = triangles;
+        params.CTOF.neighbours = neighbours;
     end
 
-    if strcmp(direction,'RTOC')
-        params.RTOC.triangles = triangles;
-        params.RTOC.neighbours = neighbours;
+    if strcmp(direction,'FTOC')
+        params.FTOC.triangles = triangles;
+        params.FTOC.neighbours = neighbours;
     end
 
