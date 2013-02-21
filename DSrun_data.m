@@ -41,8 +41,8 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
 
     disp('Calculating stats...')
     disp('--> orientation...')
-    params = DSfind_link_angles(params,'FTOC');
-    params = DSfind_link_angles(params,'CTOF');
+    params = find_link_angles(params,'FTOC');
+    params = find_link_angles(params,'CTOF');
 
     params = DSfind_subgraph_angle(params, 'FTOC');
     params = DSfind_subgraph_angle(params, 'CTOF');
