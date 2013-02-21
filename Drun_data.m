@@ -9,7 +9,7 @@ function params = Drun_data(id,thresh_scatter,minclustersize,ectopicnodes)
 %       Threshold set at 2 pixels
 % (iii) Remove high scatter pixels   YES
 
-    params = getparams(id);
+    params = Dgetparams(id);
     disp(['Loading data ',num2str(id), '...'])
     params = load_data(params);
 

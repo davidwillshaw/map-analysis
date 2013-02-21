@@ -12,7 +12,7 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
 %       Threshold set at 2 pixels
 % (iii) Remove high scatter pixels   YES
 
-    params = DSgetparams(id,N,radius);
+    params = getparams(id,N,radius);
     disp(['Loading data ',num2str(id), '...'])
     params = DSload_data(params);
 
