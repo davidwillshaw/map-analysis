@@ -164,29 +164,20 @@ function params = Dgetparams(id)
         RANSTART = 48823;
     end
 
-    params = struct('id',id);
+    params = getparams(id, N);
     params.ellipse.ra = EE(1);
     params.ellipse.rb = EE(2);
     params.ellipse.ang = EE(3);
     params.ellipse.x0 = EE(4);
     params.ellipse.y0 = EE(5);
     params.ellipse_size = pi*EE(1)*EE(2);
-    params.CTOF.numpoints = N;
-    params.FTOC.numpoints = N;
     params.ranstart = RANSTART;
     params.coll_radius = 3;
 %    params.field_radius = 3.0;
     params.field_radius = 1.7;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
-    params.CTOF.takeout = [];
-    params.FTOC.takeout = [];
-    params.comments = '';
-    params.anchors = 8;
-    params.tolerance = 150;
     
-    params.stats.id = id;
-
     if id == 999
 %    radius = sqrt(A*B/N)
 %    1 pixel = 10 microns

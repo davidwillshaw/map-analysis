@@ -1,7 +1,9 @@
 function params = getparams(id,N,radius)
 %   Both retina and colliculus are inside unit square
-
-        RANSTART=10101;
+    if (~exist('radius'))
+        radius = 1;
+    end
+    RANSTART=10101;
 
 
     params = struct('id',id);
@@ -17,3 +19,7 @@ function params = getparams(id,N,radius)
     params.tolerance = 150;
     
     params.stats.id = id;
+
+% Local Variables:
+% matlab-indent-level: 4
+% End:
