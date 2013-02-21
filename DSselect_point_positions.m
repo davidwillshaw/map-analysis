@@ -1,13 +1,63 @@
 function params = DSselect_point_positions(params, direction)
-%Selects params.numpoints point centres on the colliculus. 
-
-% For each structure assume unit spacing between points.
-% Point centres must be separated by min_spacing, which is
-%decreased if enough points can't be found within max_trials.
+% DSSELECT_POINT_POSITIONS - Selects point centres on a structure 
+%   
+%   If direction is 'CTOF', choose params.CTOF.numpoints
+%   representative points out of the points on the colliculus
+%   params.full_coll. If params.ellipse has been defined (as a proxy
+%   for experimental data), these locations are taken from random
+%   positions within the ellipse drawn on the colliculus, subject to
+%   the following constraints:
 %
-%Needs params.numpoints, params.coll_radius
+%   (1) The miniumum spacing between nearest neighbours should be
+%   min_spacing, initially set to 0.75*sqrt(area/numpoints), which is
+%   decreased if enough points can't be found within
+%   max_trials=numpoints*100. area is derived from the ellipse area.
+% 
+%   (2) There have to be at least
+%   min_points=(pi*params.coll_radius^2)/3 within params.coll_radius
+%   of each chosen location, which is the extent over which smoothing
+%   took place.
+% 
+%   If an ellipse hasn't been defined, all points in params.full_coll
+%   can be selected, only constraint (1) is applied and the area is
+%   defined as numpoints^2. 
+%     
+%   Regardless of whether an ellipse has been defined, the chosen
+%   point locations are put in params.CTOF.coll_points. The area of
+%   the convex hull of these locations is put in
+%   params.stats.CTOF.coll_area. When the ellipse is defined, it is
+%   scaled by a factor (8.9*10^-3)^2 to give an area in mm^2.
+%    
+%   If the direction is 'FTOC', params.FTOC.numpoints points are
+%   chosen from params.FTOC.full_field as above, but with three
+%   differences if params.ellipse has been defined (as a proxy for
+%   experimental data):
+%   
+%   (a) The area of the field is found by drawing the smallest
+%       rectangle possible around the points in the field.
+%   
+%   (b) min_points is set to 10
+%     
+%   (c) The radius within which min_points have to be found is
+%   params.field_radius
+%     
+%   The situation when the params.ellipse is not defined is
+%   identical to the 'CTOF' case above. 
+%     
+%   In both cases the chosen points are put in
+%   params.FTOC.field_points and the area of the convex hull of the
+%   chosen points in params.stats.FTOC.field_area. The area is not
+%   scaled in either case.
+%    
+%   Needs: params.full_field, params.full_coll, params.CTOF.numpoints,
+%   params.FTOC.numpoints, params.coll_radius, params.field_radius
 %
-%Returns: params.coll_points
+%   Optional: params.ellipse   
+%    
+%   Returns: If direction is 'CTOF' params.CTOF.coll_points and
+%   params.stats.CTOF.coll_area.  If direction is 'FTOC',
+%   params.FTOC.field_points and params.stats.FTOC.field_area.
+%    
 
 %---------------------------------------------------------------------------
 %    "x_eligible", "y_eligible" contain the coordinates of the 
@@ -21,15 +71,35 @@ function params = DSselect_point_positions(params, direction)
         x_eligible = params.full_coll(:,1);
         y_eligible = params.full_coll(:,2);
         numpoints = params.CTOF.numpoints;
-	area = numpoints^2;
+        if (isfield(params,'ellipse')) 
+          area = pi*params.ellipse.ra*params.ellipse.rb;
+          radius = params.coll_radius;
+          min_points=(pi*radius^2)/3;
+          x_active = params.full_coll(:,1);
+          y_active = params.full_coll(:,2);
+        else
+          area = numpoints^2;
+        end
     end
     
     if strcmp(direction, 'FTOC')
         x_eligible = params.full_field(:,1);
         y_eligible = params.full_field(:,2);
         numpoints = params.FTOC.numpoints;
-	area = numpoints^2;
+        if (isfield(params,'ellipse')) 
+            area = (max(y_eligible) - min(y_eligible))* ...
+                   (max(x_eligible) - min(x_eligible));
+            radius = params.field_radius;
+            min_points = 10;
+            x_active = params.full_field(:,1);
+            y_active = params.full_field(:,2);
+        else
+            area = numpoints^2;
+        end
     end
+
+    num_ellipse_pixels = length(x_eligible);
+
 %--------------------------------------------------------------------------- 
 %           set the starting minimum spacing "min_spacing"
 %           to the number of points required" numpoints"
@@ -55,7 +125,12 @@ function params = DSselect_point_positions(params, direction)
 
         potential_points_x = x_eligible;
         potential_points_y = y_eligible;
-        num_potential_points = length(x_eligible);
+        if (isfield(params,'ellipse'))
+            num_potential_points = num_ellipse_pixels;
+        else
+            num_potential_points = length(x_eligible);
+        end
+        
 %--------------------------------------------------------------------------
 %     if the required number of points have not yet been chosen
 %     and the number of trials allowed is not exceeded
@@ -70,10 +145,23 @@ function params = DSselect_point_positions(params, direction)
             y_chosen = potential_points_y(chosen_point);
             ntry = ntry + 1;
 
-%-----------------------------------------------------------------------------
-%     "chosen_point" gives the index of the chosen point
-%    "x_chosen" and" y_chosen" are its coordinates
-
+            %--------------------------------------------------------------
+            %     "chosen_point" gives the index of the chosen point
+            %    "x_chosen" and" y_chosen" are its coordinates
+            if (isfield(params,'ellipse')) 
+                distance_from_chosen_point = sqrt((x_chosen - x_active).^2 + ...
+                                                  (y_chosen - y_active).^2);
+                % Check there are enough active points within the
+                % radius with chosen centre
+                num_active_within_radius = sum(distance_from_chosen_point <= ...
+                                               radius);
+                if num_active_within_radius < min_points
+                    potential_points_x(chosen_point) = [];
+                    potential_points_y(chosen_point) = [];
+                    num_potential_points = num_potential_points - 1;
+                    continue
+                end
+            end
             num_points_selected = num_points_selected + 1;
             chosen(num_points_selected,1) = x_chosen;
             chosen(num_points_selected,2) = y_chosen;
@@ -109,6 +197,10 @@ function params = DSselect_point_positions(params, direction)
     
     if strcmp(direction, 'CTOF')
         params.CTOF.coll_points = chosen;
+        if (isfield(params,'ellipse'))
+            %convert to mm^2
+            area = area*(8.9*10^-3)^2;
+        end
         params.stats.CTOF.coll_area = area;
     end
     
@@ -117,5 +209,8 @@ function params = DSselect_point_positions(params, direction)
         params.stats.FTOC.field_area = area;
     end
             
+% Local Variables:
+% matlab-indent-level: 4
+% End:
         
     
