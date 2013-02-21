@@ -29,8 +29,8 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
 %    params.FTOC.coll_points(:,1) = params.FTOC.coll_points(randperm(NN),1);
     disp('Finding ectopics...')
     params = DSfind_ectopics(params);
-    params = DStriangulation(params,'CTOF');
-    params = DStriangulation(params,'FTOC');
+    params = triangulation(params,'CTOF');
+    params = triangulation(params,'FTOC');
     disp('Finding crossings...')
     params = DSfind_crossings(params, 'CTOF');
     params = DSfind_crossings(params, 'FTOC');
