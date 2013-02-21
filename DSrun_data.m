@@ -32,8 +32,8 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
     params = triangulation(params,'CTOF');
     params = triangulation(params,'FTOC');
     disp('Finding crossings...')
-    params = DSfind_crossings(params, 'CTOF');
-    params = DSfind_crossings(params, 'FTOC');
+    params = find_crossings(params, 'CTOF');
+    params = find_crossings(params, 'FTOC');
 
     disp('Finding largest subgraph...')
     params = DSfind_largest_subgraph(params,'CTOF',ectopicnodes);
