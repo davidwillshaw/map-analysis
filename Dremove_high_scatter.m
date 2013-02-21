@@ -33,6 +33,8 @@ if thresh_scatter < 999
     radius = params.coll_radius;
     num_pixels = length(params.full_coll);
     for nn = 1:num_pixels
+        disp(sprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bPixel %6g/%6g', ...
+                     nn, num_pixels));
 
     coll_pos = params.full_coll(nn,:);
     if round(active_pixels(from_coords(nn,2),from_coords(nn,1)))
@@ -97,7 +99,7 @@ if thresh_scatter < 999
 	   if num_to_points >=minclustersize
 	     numb_pixels_examined = numb_pixels_examined +num_to_points;
 	
-	     figure(9999)
+	     % figure(9999)
 	     [angle,x_radius,y_radius] = plot_error_ellipse(to_points);
 
 	     if max(x_radius,y_radius) > thresh_scatter
@@ -129,4 +131,8 @@ end
         params.num_active_pixels = length(find(active_pixels == 1));
         params.stats.num_active_pixels = length(find(active_pixels == 1));
 end     
-        params.percent_hi_scatter_removed = percent_change;
+params.percent_hi_scatter_removed = percent_change;
+
+% Local Variables:
+% matlab-indent-level: 4
+% End:
