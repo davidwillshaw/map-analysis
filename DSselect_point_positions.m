@@ -93,17 +93,18 @@ function params = DSselect_point_positions(params, direction)
             min_points = 10;
             x_active = params.full_field(:,1);
             y_active = params.full_field(:,2);
+            num_ellipse_pixels = length(x_eligible);
         else
             area = numpoints^2;
         end
     end
 
-    num_ellipse_pixels = length(x_eligible);
-
-%--------------------------------------------------------------------------- 
-%           set the starting minimum spacing "min_spacing"
-%           to the number of points required" numpoints"
-%	    also set the number of iterations tried at this spacing "max_trials"
+    %------------------------------------------------------------------------
+    % set the starting minimum spacing "min_spacing" to the number of
+    % points required "numpoints"
+    %
+    % also set the number of iterations tried at this spacing
+    % "max_trials"
 
     min_spacing = 0.75*sqrt(area/numpoints);
     max_trials = numpoints*100;
