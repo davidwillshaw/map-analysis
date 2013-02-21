@@ -1,4 +1,4 @@
-function params = DSrun_data(id,N,radius,ectopicnodes);
+function params = DS_save(id,N,radius,ectopicnodes);
 
 % David's version for running simulation data (DS...)
 
@@ -48,8 +48,8 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
     params = DSfind_subgraph_angle(params, 'CTOF');
     disp('--> scatters...')
 
-    params = DSget_subgraph_scatters(params,'FTOC');
-    params = DSget_subgraph_scatters(params,'CTOF');
+    params = get_subgraph_scatters(params,'FTOC');
+    params = get_subgraph_scatters(params,'CTOF');
 %    disp('--> baseline...')
 %    params = find_baseline(params, 'FTOC', 5);
 %    params = find_baseline(params, 'CTOF', 5);
