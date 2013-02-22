@@ -10,7 +10,7 @@ function params = DSselect_point_positions(params, direction)
 %
 %   (1) The miniumum spacing between nearest neighbours should be
 %   min_spacing, initially set to 0.75*sqrt(area/numpoints), which is
-%   decreased if enough points can't be found within
+%   decreased in steps if enough points can't be found within
 %   max_trials=numpoints*100. area is derived from the ellipse area.
 % 
 %   (2) There have to be at least
