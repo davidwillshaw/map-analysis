@@ -60,7 +60,7 @@ function params = select_point_positions(params, direction)
 %    
 
 %---------------------------------------------------------------------------
-%    "x_eligible", "y_eligible" contain the coordinates of the 
+%    "x_active", "y_active" contain the coordinates of the 
 %     starting list of points that can be chosen
 %     Their origin depends on whether the points are selected from the
 %     field ('FTOC') or the colliculus ('CTOF')
@@ -68,31 +68,27 @@ function params = select_point_positions(params, direction)
 %    "numpoints" is the desired number of points
 
     if strcmp(direction, 'CTOF')
-        x_eligible = params.full_coll(:,1);
-        y_eligible = params.full_coll(:,2);
+        x_active = params.full_coll(:,1);
+        y_active = params.full_coll(:,2);
         numpoints = params.CTOF.numpoints;
         if (isfield(params,'ellipse')) 
           area = pi*params.ellipse.ra*params.ellipse.rb;
           radius = params.coll_radius;
           min_points=(pi*radius^2)/3;
-          x_active = params.full_coll(:,1);
-          y_active = params.full_coll(:,2);
         else
           area = numpoints^2;
         end
     end
     
     if strcmp(direction, 'FTOC')
-        x_eligible = params.full_field(:,1);
-        y_eligible = params.full_field(:,2);
+        x_active = params.full_field(:,1);
+        y_active = params.full_field(:,2);
         numpoints = params.FTOC.numpoints;
         if (isfield(params,'ellipse')) 
-            area = (max(y_eligible) - min(y_eligible))* ...
-                   (max(x_eligible) - min(x_eligible));
+            area = (max(y_active) - min(y_active))* ...
+                   (max(x_active) - min(x_active));
             radius = params.field_radius;
             min_points = 10;
-            x_active = params.full_field(:,1);
-            y_active = params.full_field(:,2);
         else
             area = numpoints^2;
         end
@@ -123,9 +119,9 @@ function params = select_point_positions(params, direction)
 %	"potential_points_x" and "potential_points_y" hold the
 %       coordinates of all the points that can be selected from
 
-        potential_points_x = x_eligible;
-        potential_points_y = y_eligible;
-        num_potential_points = length(x_eligible);
+        potential_points_x = x_active;
+        potential_points_y = y_active;
+        num_potential_points = length(x_active);
         
 %--------------------------------------------------------------------------
 %     if the required number of points have not yet been chosen
