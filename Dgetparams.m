@@ -177,6 +177,10 @@ function params = Dgetparams(id)
     params.field_radius = 1.7;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
+    % The length of one pixel in the colliculus is 8.9um; this setting
+    % will give lengths in the colliculus measured in um and areas in
+    % um^2
+    params.coll_scale = 8.9; 
     
     if id == 999
 %    radius = sqrt(A*B/N)

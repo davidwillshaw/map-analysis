@@ -25,8 +25,8 @@ function params = select_point_positions(params, direction)
 %   Regardless of whether an ellipse has been defined, the chosen
 %   point locations are put in params.CTOF.coll_points. The area of
 %   the convex hull of these locations is put in
-%   params.stats.CTOF.coll_area. When the ellipse is defined, it is
-%   scaled by a factor (8.9*10^-3)^2 to give an area in mm^2.
+%   params.stats.CTOF.coll_area. The area is scaled by a factor
+%   (params.coll_scale)^2.
 %    
 %   If the direction is 'FTOC', params.FTOC.numpoints points are
 %   chosen from params.FTOC.full_field as above, but with three
@@ -46,11 +46,12 @@ function params = select_point_positions(params, direction)
 %     
 %   In both cases the chosen points are put in
 %   params.FTOC.field_points and the area of the convex hull of the
-%   chosen points in params.stats.FTOC.field_area. The area is not
-%   scaled in either case.
+%   chosen points in params.stats.FTOC.field_area. The area is scaled
+%   by a factor (params.field_scale)^2.
 %    
 %   Needs: params.full_field, params.full_coll, params.CTOF.numpoints,
-%   params.FTOC.numpoints, params.coll_radius, params.field_radius
+%   params.FTOC.numpoints, params.coll_radius, params.field_radius,
+%   params.coll_scale, params.field_scale
 %
 %   Optional: params.ellipse   
 %    
@@ -189,15 +190,13 @@ function params = select_point_positions(params, direction)
     
     if strcmp(direction, 'CTOF')
         params.CTOF.coll_points = chosen;
-        if (isfield(params,'ellipse'))
-            %convert to mm^2
-            area = area*(8.9*10^-3)^2;
-        end
+        area = area*params.coll_scale^2;
         params.stats.CTOF.coll_area = area;
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.field_points = chosen;
+        area = area*params.field_scale^2;
         params.stats.FTOC.field_area = area;
     end
             

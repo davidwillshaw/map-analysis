@@ -1,6 +1,19 @@
 function params = create_projection(params, direction)
-% Takes in a list of all active points, a list of point centres and a
-% direction of mapping and returns the mean projection of each point.
+% CREATE_PROJECTION - Find mean projection of points from one
+%   structure on another
+%     
+%   In 'FTOC' direction, takes in a list params.FTOC.full_field of
+%   all active field points, a list of corresponding points in the
+%   colliculus params.FTOC.full_coll, and a list of point centres
+%   params.FTOC.field_points and returns the mean projection
+%   params.FTOC.coll_points of each point. Indices of point centres to
+%   take out can be specified with params.FTOC.takeout. The area of
+%   the convex hull of the chosen points in
+%   params.stats.FTOC.coll_area. The area is scaled by a factor
+%   (params.coll_scale)^2.
+% 
+%   The functions works analagously in the 'CTOF' direction.
+%    
 
     if strcmp(direction, 'FTOC')
         set_points = params.FTOC.field_points;
@@ -35,15 +48,15 @@ function params = create_projection(params, direction)
 %    projected_points(:,2) = projected_points(randperm(num_points),2);
 
         params.FTOC.coll_points = projected_points;
-	params.FTOC.mean_projection = projected_points;
-        %convert to mm^2
-        area = area*(9*10^-3)^2;
+        params.FTOC.mean_projection = projected_points;
+        area = area*params.coll_scale^2;
         params.stats.FTOC.coll_area = area;
     end
     
     if strcmp(direction, 'CTOF')
 %   projected_points(:,2) = projected_points(randperm(num_points),2);
         params.CTOF.field_points = projected_points;
+        area = area*params.field_scale^2;        
         params.stats.CTOF.field_area = area;
     end
     
@@ -51,3 +64,6 @@ function params = create_projection(params, direction)
 %params.stats.FTOC
 %params.stats.CTOF
 
+% Local Variables:
+% matlab-indent-level: 4
+% End:

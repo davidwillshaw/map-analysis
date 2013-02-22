@@ -17,6 +17,10 @@ function params = getparams(id,N,radius)
     params.comments = '';
     params.anchors = 8;
     params.tolerance = 150;
+    params.coll_scale = 1; % The actual size of one unit of distance in
+                           % the colliculus
+    params.field_scale = 1; % The actual size of one unit of distance in
+                           % the field
     
     params.stats.id = id;
 
