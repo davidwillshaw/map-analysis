@@ -17,12 +17,12 @@ function params = DSrun_data(id,N,radius,ectopicnodes);
     params = DSload_data(params);
 
     disp('Selecting point positions...')
-    params = DSselect_point_positions(params,'CTOF');
-    params = DSselect_point_positions(params,'FTOC');
+    params = select_point_positions(params,'CTOF');
+    params = select_point_positions(params,'FTOC');
 
     disp('Creating projection...')
-    params = DScreate_projection(params, 'CTOF');
-    params = DScreate_projection(params, 'FTOC');
+    params = create_projection(params, 'CTOF');
+    params = create_projection(params, 'FTOC');
 
 %D  Fix for randomising FTOC along RC axis   OFF
 %    NN = length(params.FTOC.coll_points(:,1));
