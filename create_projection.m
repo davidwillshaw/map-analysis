@@ -45,25 +45,22 @@ function params = create_projection(params, direction)
     [~,area] = convhull(projected_points(:,1),projected_points(:,2));
     
     if strcmp(direction, 'FTOC')
-%    projected_points(:,2) = projected_points(randperm(num_points),2);
+        % projected_points(:,2) = projected_points(randperm(num_points),2);
 
         params.FTOC.coll_points = projected_points;
+        % FIXME: Do we need to set params.FTOC.mean_projection?
         params.FTOC.mean_projection = projected_points;
         area = area*params.coll_scale^2;
         params.stats.FTOC.coll_area = area;
     end
     
     if strcmp(direction, 'CTOF')
-%   projected_points(:,2) = projected_points(randperm(num_points),2);
+        % projected_points(:,2) = projected_points(randperm(num_points),2);
         params.CTOF.field_points = projected_points;
         area = area*params.field_scale^2;        
         params.stats.CTOF.field_area = area;
     end
     
-
-%params.stats.FTOC
-%params.stats.CTOF
-
 % Local Variables:
 % matlab-indent-level: 4
 % End:
