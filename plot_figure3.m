@@ -27,7 +27,7 @@ function params = plot_figure3(params, ErrorType, axis_style)
 %       complementary distributions (as in Figure 7C of Willshaw et
 %       al. 2013).
 %
-%   - AxisStyle: If 'crosshair' (default), plot crosshairs and
+%   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
 %       scalebars (as in all figures in Willshaw et al. 2013). If
 %       'box', plot conventional axes.
 %
@@ -36,7 +36,9 @@ function params = plot_figure3(params, ErrorType, axis_style)
 %   The following fields are read from the params structure:
 %   params.ellipse, params.FTOC.numpoints, params.CTOF.numpoints,
 %   params.full_field, params.full_coll, params.field_radius,
-%   params.coll_radius
+%   params.coll_radius. Plotting properties are controlled by the
+%   variables in params.coll and params.field - see getparams.m for
+%   description.
 %    
 %   OUTPUTS
 %    
@@ -69,22 +71,21 @@ function params = plot_figure3(params, ErrorType, axis_style)
 %       to as SDW2 in Willshaw et al. (2013), Table 3.
 %
     
-if (~exist('axis_style'))     
-    axis_style = 'crosshair'; % Other option is 'box'
-end
-if (~exist('ErrorType'))     
-    ErrorType = 'sem'; % Other option is 'sd'
-end
-% minor changes from plot_figure3.m
-% mainly moving the plotting option
-    xmean_coll = params.ellipse.x0;
-    ymean_coll = params.ellipse.y0;
-    
+    if (~exist('axis_style'))     
+        axis_style = 'crosshairs'; % Other option is 'box'
+    end
+    if (~exist('ErrorType'))     
+        ErrorType = 'sem'; % Other option is 'sd'
+    end
+    % minor changes from plot_figure3.m
+    % mainly moving the plotting option
+
+    xmean_coll = params.coll.xmean;
+    ymean_coll = params.coll.ymean;
     figure(3)
     clf
 
     %FTOC
-
     
     num_points = params.FTOC.numpoints;
     full_field_coords = params.full_field;
@@ -93,6 +94,7 @@ end
     field_centred_points = [];
     coll_centred_points = [];
 
+    % Ellipse plots
     for point = 1:num_points
         centre = params.FTOC.field_points(point,:);
         [from_points,projection_points] = find_projection(centre,radius,full_field_coords,full_coll_coords);
@@ -140,40 +142,33 @@ end
         params.stats.FTOC.dispersion_yrad = mean(y_radius_cc);
     end
 
+    % Set axis properties for FTOC Field ellipse plot
     subplot(2,3,1)
-    if (strcmp(axis_style, 'box'))
-        axis ij
-        set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[-50,0,50] ,'XTickLabel',{'-50','0','50'}, 'YTick',[-50,0,50] ,'YTickLabel',{'-50','0','50'})
-    else % axis_style == 'crosshair'
-        plot(zeros(101,1),-50:50,'Color',[0.7 0.7 0.7], 'Linewidth',1)
-        hold on
-        plot(-50:50,zeros(101,1),'Color',[0.7 0.7 0.7], 'Linewidth',1)
-        plot(-45:-26,ones(20,1).*45,'k', 'LineWidth',3)%scale bar
-        axis ij
-        set(gca,'PlotBoxAspectRatio',[1 1 1])
+    if (strcmp(axis_style, 'crosshairs'))
+        draw_crosshairs(params.field);
         axis off
-    end
-    axis([-50 50 -50 50]);
-    title('Field');
-   
-    subplot(2,3,2)
-    axis ij
-    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+ ...
-          70]);
-    set(gca,'PlotBoxAspectRatio',[1 1 1])
-    if (strcmp(axis_style, 'box'))
-        set(gca, 'FontSize', 16, ...
-                 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112], ...
-                 'XTickLabel',{'0','0.5','1'}, ...
-                 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,...
-                 'YTickLabel',{'0','0.5','1'})
+        draw_scalebar(params.field)
     else
-        plot(xmean_coll-65:xmean_coll-38,ones(28,1).*ymean_coll+65,'k', ...
-             'LineWidth',3) %scale bar
-        axis off
+        set(gca, 'FontSize', 16)
     end
-    title('Colliculus');
-    
+    set_axis_props(params.field)
+    title(params.field.title);
+    xlabel(params.field.xlabel);
+    ylabel(params.field.ylabel);
+   
+    % Set axis properties for FTOC colliculus ellipse plot
+    subplot(2,3,2)
+    if (strcmp(axis_style, 'crosshairs'))
+        axis off
+        draw_scalebar(params.coll)
+    else
+        set(gca, 'FontSize', 16)
+    end
+    set_axis_props(params.coll)
+    title(params.coll.title);
+    xlabel(params.coll.xlabel);
+    ylabel(params.coll.ylabel);
+
     subplot(2,3,3)
     N = hist3(coll_centred_points,'edges', {(-56.5:1:56.5)', (-56.5:1:56.5)'});
     imagesc(N')
@@ -184,7 +179,8 @@ end
     axis([1,113,1,113])
     if (strcmp(axis_style, 'box'))
         set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
-    else %axis_style == 'crosshair')
+    else %axis_style == 'crosshairs')
+
         plot(4:14,ones(11,1).*110,'w', 'LineWidth',3)%scale bar        
         set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
         axis off
@@ -194,8 +190,9 @@ end
     %CTOF
     
     num_points = params.CTOF.numpoints;
-    radius = params.coll_radius;
+    radius = params.coll_radius
 
+    % Ellipse plots
     for point = 1:num_points
         centre = params.CTOF.coll_points(point,:);
         [from_points,projection_points] = find_projection(centre,radius,full_coll_coords,full_field_coords);
@@ -240,34 +237,30 @@ end
         params.stats.CTOF.dispersion_yrad = mean(y_radius_ff);
     end
 
+    % Set axis properties for CTOF field ellipse plot
     subplot(2,3,4)
-    if (strcmp(axis_style, 'crosshair'))
-        plot(zeros(101,1),-50:50,'Color',[0.7 0.7 0.7], 'Linewidth',1)
-        hold on
-        plot(-50:50,zeros(101,1),'Color',[0.7 0.7 0.7], ...
-             'Linewidth',1)
-        axis off   
-    else
-        set(gca, 'FontSize', 16, 'XTick',[-50,0,50] ,'XTickLabel',{'-50','0','50'}, 'YTick',[-50,0,50] ,'YTickLabel',{'-50','0','50'})
-    end
-    axis ij
-    set(gca,'PlotBoxAspectRatio',[1 1 1])
-    axis([-50 50 -50 50]);
-    
-    subplot(2,3,5)
-    axis ij
-    axis([xmean_coll-70 xmean_coll+70 ymean_coll-70 ymean_coll+ ...
-          70]);
-    set(gca,'PlotBoxAspectRatio',[1 1 1])
-    if (strcmp(axis_style, 'box'))
-        set(gca, 'FontSize', 16, ...
-                 'XTick',[xmean_coll-70,xmean_coll-70+56,xmean_coll-70+112], ...
-                 'XTickLabel',{'0','0.5','1'}, ...
-                 'YTick',[ymean_coll-70,ymean_coll-70+56,ymean_coll-70+112] ,...
-                 'YTickLabel',{'0','0.5','1'})
-    else % axis_style == 'crosshair'
+    if (strcmp(axis_style, 'crosshairs'))
+        draw_crosshairs(params.field)
         axis off
+        draw_scalebar(params.field)
+    else
+        set(gca, 'FontSize', 16)
     end
+    set_axis_props(params.field)
+    xlabel(params.field.xlabel);
+    ylabel(params.field.ylabel);
+    
+    % Set axis properties for CTOF colliculus ellipse plot
+    subplot(2,3,5)
+    if (strcmp(axis_style, 'crosshairs'))
+        axis off
+        draw_scalebar(params.coll)
+    else
+        set(gca, 'FontSize', 16)
+    end
+    set_axis_props(params.coll)
+    xlabel(params.coll.xlabel);
+    ylabel(params.coll.ylabel);
     
     subplot(2,3,6)
     N = hist3(field_centred_points,'edges', {(-20.5:1:20.5)', (-20.5:1:20.5)'});
@@ -276,7 +269,7 @@ end
     hold on
     [~,x_ell,y_ell] = ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+21,mean(field_centred_points(:,2))+21);
     plot(x_ell,y_ell,'w','LineWidth',2)
-    if (strcmp(axis_style, 'crosshair'))
+    if (strcmp(axis_style, 'crosshairs'))
         plot(3:7,ones(5,1).*38,'w', 'LineWidth',3) %scale bar
         axis off   
     end
@@ -289,7 +282,57 @@ end
     figure(3)
     filename = [num2str(params.id),'_fig3.pdf'];
     print(3,'-dpdf',filename)
-    
+end
+
+function draw_crosshairs(s) 
+% Draw crosshairs, given structure s, which can be params.field or
+% params.coll. If drawScalebar is true, draw the scalebar.
+    xmin = min(s.XTick);
+    xmax = max(s.XTick);
+    ymin = min(s.YTick);
+    ymax = max(s.YTick);
+    plot([s.xmean s.ymean], ...
+         [ymin ymax], ...
+         'Color',[0.7 0.7 0.7], 'Linewidth',1)
+    hold on
+    plot([xmin xmax], ...
+         [s.xmean s.ymean],  ...
+         'Color',[0.7 0.7 0.7], 'Linewidth',1)
+end
+
+function draw_scalebar(s)
+% Draw scalebar
+    xmin = s.XLim(1);
+    xmax = s.XLim(2);
+    ymin = s.YLim(1);
+    ymax = s.YLim(2);
+    yfrac = 0.05;
+    if s.FlipY
+        yfrac = 0.95;
+    end
+    if (s.scalebar > 0) 
+        plot(xmin + 0.05*(xmax - xmin) + ...
+             [0 s.scalebar/s.scale], ...
+             (ymin + yfrac*(ymax - ymin))*ones(1, 2), ...
+             'k', 'LineWidth',3) %scale bar
+    end
+end
+
+function set_axis_props(s)
+% Set axis properties
+    set(gca, 'XTick', s.XTick, ...
+             'YTick', s.YTick, ...
+             'XTickLabel', s.XTickLabel, ...
+             'YTickLabel', s.YTickLabel)
+    if (s.FlipY)
+        axis ij
+    else
+        axis xy
+    end
+    set(gca,'PlotBoxAspectRatio',[1 1 1])
+    axis([s.XLim s.YLim]);
+end
+
 % Local Variables:
 % matlab-indent-level: 4
 % End:
