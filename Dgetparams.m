@@ -177,10 +177,53 @@ function params = Dgetparams(id)
     params.field_radius = 1.7;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
+
+    % Scaling
+
+    % The the size in degrees of one unit of distance in the colliculus
+    params.field.scale = 1; 
+    % Length of scalebar in colliculus in degrees
+    params.field.scalebar = 20; 
     % The length of one pixel in the colliculus is 8.9um; this setting
     % will give lengths in the colliculus measured in um and areas in
     % um^2
-    params.coll_scale = 8.9; 
+    params.coll.scale = 8.9; 
+    % Length of scalebar in colliculus in um
+    params.coll.scalebar = 250;
+
+    % Field plotting properties
+    params.field.title = 'Field';
+    params.field.xlabel = '';
+    params.field.ylabel = '';
+    % Centre of field for plotting purposes
+    params.field.xmean = 0;           
+    params.field.ymean = 0;   
+    params.field.XLim = [-50 50];
+    params.field.YLim = [-50 50];
+    params.field.XTick = [-50,0,50];
+    params.field.YTick = [-50,0,50];
+    params.field.XTickLabel = {'-50','0','50'};
+    params.field.YTickLabel = {'-50','0','50'};    
+    params.field.FlipY = true;    
+    
+    % Colliculus plotting properties
+    params.coll.title = 'Colliculus';
+    params.coll.xlabel = 'Anterior-Posterior';
+    params.coll.ylabel = 'Medial-Lateral';
+    % Centre of colliculus for plotting purposes
+    params.coll.xmean = params.ellipse.x0;
+    params.coll.ymean = params.ellipse.y0;
+    params.coll.XLim = [params.coll.xmean - 70, params.coll.xmean + 70];
+    params.coll.YLim = [params.coll.ymean - 70, params.coll.ymean + 70];
+    params.coll.XTick = [params.coll.xmean-70, ...
+                        params.coll.xmean-70+56, ...
+                        params.coll.xmean-70+112];
+    params.coll.YTick = [params.coll.ymean-70, ...
+                        params.coll.ymean-70+56, ...
+                        params.coll.ymean-70+112];
+    params.coll.XTickLabel = {'0','0.5','1'};
+    params.coll.YTickLabel = {'0','0.5','1'};    
+    params.coll.FlipY = true;         % Flip Y-axis
     
     if id == 999
 %    radius = sqrt(A*B/N)

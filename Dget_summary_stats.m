@@ -19,8 +19,8 @@ function summary_stats = Dget_summary_stats(datasets,thresh_scatter,minclustersi
         params = Drun_data(id,thresh_scatter,minclustersize,0);
         summary_stats(i,1) = id;
 
-        coll_scale  = params.coll_scale;
-        field_scale = params.field_scale;        
+        coll.scale  = params.coll.scale;
+        field.scale = params.field.scale;        
 
         %FTOC
         
@@ -49,24 +49,24 @@ function summary_stats = Dget_summary_stats(datasets,thresh_scatter,minclustersi
         summary_stats(i,17) = params.stats.FTOC.map_orientation_mean*degs;
         summary_stats(i,18) = params.stats.FTOC.map_orientation_std*degs;;
         summary_stats(i,19) = params.stats.FTOC.overall_dispersion_angle*degs;
-        summary_stats(i,20) = params.stats.FTOC.overall_dispersion_xrad*coll_scale;
-        summary_stats(i,21) = params.stats.FTOC.overall_dispersion_yrad*coll_scale;
-        summary_stats(i,22) = params.stats.FTOC.dispersion_xrad*coll_scale;
-        summary_stats(i,23) = params.stats.FTOC.dispersion_yrad*coll_scale;
-        summary_stats(i,24)= params.stats.FTOC.SEM_xrad*coll_scale;
-        summary_stats(i,25)= params.stats.FTOC.SEM_yrad*coll_scale;
-        summary_stats(i,26) = params.stats.FTOC.scatter_mean_in*field_scale;
-        summary_stats(i,27) = params.stats.FTOC.scatter_mean_out*coll_scale;
+        summary_stats(i,20) = params.stats.FTOC.overall_dispersion_xrad*coll.scale;
+        summary_stats(i,21) = params.stats.FTOC.overall_dispersion_yrad*coll.scale;
+        summary_stats(i,22) = params.stats.FTOC.dispersion_xrad*coll.scale;
+        summary_stats(i,23) = params.stats.FTOC.dispersion_yrad*coll.scale;
+        summary_stats(i,24)= params.stats.FTOC.SEM_xrad*coll.scale;
+        summary_stats(i,25)= params.stats.FTOC.SEM_yrad*coll.scale;
+        summary_stats(i,26) = params.stats.FTOC.scatter_mean_in*field.scale;
+        summary_stats(i,27) = params.stats.FTOC.scatter_mean_out*coll.scale;
 
 	% ordered subgraph 
         summary_stats(i,28) = params.stats.FTOC.num_nodes_in_subgraph*percent_mult;
         summary_stats(i,29) = params.stats.FTOC.mean_subgraph_angles*degs;
         summary_stats(i,30) = params.stats.FTOC.std_subgraph_angles*degs;
         summary_stats(i,31) = params.stats.FTOC.subgraph_dispersion_angle*degs;
-        summary_stats(i,32) = params.stats.FTOC.subgraph_dispersion_xrad*coll_scale;
-        summary_stats(i,33) = params.stats.FTOC.subgraph_dispersion_yrad*coll_scale;
-        summary_stats(i,34) = params.stats.FTOC.subgraph_SEM_xrad*coll_scale;
-        summary_stats(i,35) = params.stats.FTOC.subgraph_SEM_yrad*coll_scale;
+        summary_stats(i,32) = params.stats.FTOC.subgraph_dispersion_xrad*coll.scale;
+        summary_stats(i,33) = params.stats.FTOC.subgraph_dispersion_yrad*coll.scale;
+        summary_stats(i,34) = params.stats.FTOC.subgraph_SEM_xrad*coll.scale;
+        summary_stats(i,35) = params.stats.FTOC.subgraph_SEM_yrad*coll.scale;
 
   
     	%baseline maps
@@ -77,8 +77,8 @@ function summary_stats = Dget_summary_stats(datasets,thresh_scatter,minclustersi
 
         % ectopics
         summary_stats(i,40) = params.stats.num_ectopics*percent_mult;
-        summary_stats(i,41) = params.stats.ect_dist_mean*coll_scale;
-        summary_stats(i,42) = params.stats.ect_dist_std*coll_scale;
+        summary_stats(i,41) = params.stats.ect_dist_mean*coll.scale;
+        summary_stats(i,42) = params.stats.ect_dist_std*coll.scale;
 %  43,44 already in degrees
         summary_stats(i,43) = params.FTOC.mean_ectopic_angles
         summary_stats(i,44) = params.FTOC.std_ectopic_angles
@@ -124,23 +124,23 @@ function summary_stats = Dget_summary_stats(datasets,thresh_scatter,minclustersi
         summary_stats(i,68) = params.stats.CTOF.map_orientation_mean*degs;
         summary_stats(i,69) = params.stats.CTOF.map_orientation_std*degs;
         summary_stats(i,70) = params.stats.CTOF.overall_dispersion_angle*degs;
-        summary_stats(i,71) = params.stats.CTOF.overall_dispersion_xrad*field_scale;
-        summary_stats(i,72) = params.stats.CTOF.overall_dispersion_yrad*field_scale;
-        summary_stats(i,73) = params.stats.CTOF.dispersion_xrad*field_scale;
-        summary_stats(i,74) = params.stats.CTOF.dispersion_yrad*field_scale;
-        summary_stats(i,75) = params.stats.CTOF.SEM_xrad*field_scale;
-        summary_stats(i,76) = params.stats.CTOF.SEM_yrad*field_scale;
-        summary_stats(i,77) = params.stats.CTOF.scatter_mean_in*coll_scale;
-        summary_stats(i,78) = params.stats.CTOF.scatter_mean_out*field_scale;
+        summary_stats(i,71) = params.stats.CTOF.overall_dispersion_xrad*field.scale;
+        summary_stats(i,72) = params.stats.CTOF.overall_dispersion_yrad*field.scale;
+        summary_stats(i,73) = params.stats.CTOF.dispersion_xrad*field.scale;
+        summary_stats(i,74) = params.stats.CTOF.dispersion_yrad*field.scale;
+        summary_stats(i,75) = params.stats.CTOF.SEM_xrad*field.scale;
+        summary_stats(i,76) = params.stats.CTOF.SEM_yrad*field.scale;
+        summary_stats(i,77) = params.stats.CTOF.scatter_mean_in*coll.scale;
+        summary_stats(i,78) = params.stats.CTOF.scatter_mean_out*field.scale;
 
 	% ordered subgraph & orientation
         summary_stats(i,79) = params.stats.CTOF.num_nodes_in_subgraph*percent_mult;
         summary_stats(i,80) = params.stats.CTOF.mean_subgraph_angles*degs;
         summary_stats(i,81) = params.stats.CTOF.std_subgraph_angles*degs;
-        summary_stats(i,82) = params.stats.CTOF.subgraph_dispersion_xrad*field_scale;
-        summary_stats(i,83) = params.stats.CTOF.subgraph_dispersion_yrad*field_scale;
-        summary_stats(i,84) = params.stats.CTOF.subgraph_SEM_xrad*field_scale;
-        summary_stats(i,85) = params.stats.CTOF.subgraph_SEM_yrad*field_scale;
+        summary_stats(i,82) = params.stats.CTOF.subgraph_dispersion_xrad*field.scale;
+        summary_stats(i,83) = params.stats.CTOF.subgraph_dispersion_yrad*field.scale;
+        summary_stats(i,84) = params.stats.CTOF.subgraph_SEM_xrad*field.scale;
+        summary_stats(i,85) = params.stats.CTOF.subgraph_SEM_yrad*field.scale;
 
 	%baseline maps
         summary_stats(i,86) = mean(params.stats.CTOF.baseline.num_crosses);

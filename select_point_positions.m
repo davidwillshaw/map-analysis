@@ -26,7 +26,7 @@ function params = select_point_positions(params, direction)
 %   point locations are put in params.CTOF.coll_points. The area of
 %   the convex hull of these locations is put in
 %   params.stats.CTOF.coll_area. The area is scaled by a factor
-%   (params.coll_scale)^2.
+%   (params.coll.scale)^2.
 %    
 %   If the direction is 'FTOC', params.FTOC.numpoints points are
 %   chosen from params.FTOC.full_field as above, but with three
@@ -47,11 +47,11 @@ function params = select_point_positions(params, direction)
 %   In both cases the chosen points are put in
 %   params.FTOC.field_points and the area of the convex hull of the
 %   chosen points in params.stats.FTOC.field_area. The area is scaled
-%   by a factor (params.field_scale)^2.
+%   by a factor (params.field.scale)^2.
 %    
 %   Needs: params.full_field, params.full_coll, params.CTOF.numpoints,
 %   params.FTOC.numpoints, params.coll_radius, params.field_radius,
-%   params.coll_scale, params.field_scale
+%   params.coll.scale, params.field.scale
 %
 %   Optional: params.ellipse   
 %    
@@ -190,13 +190,13 @@ function params = select_point_positions(params, direction)
     
     if strcmp(direction, 'CTOF')
         params.CTOF.coll_points = chosen;
-        area = area*params.coll_scale^2;
+        area = area*params.coll.scale^2;
         params.stats.CTOF.coll_area = area;
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.field_points = chosen;
-        area = area*params.field_scale^2;
+        area = area*params.field.scale^2;
         params.stats.FTOC.field_area = area;
     end
             
