@@ -11,7 +11,7 @@ if (nargin >= 2)
     p = validateInput(varargin, {'XLim', 'YLim', 'scale', ...
                         'colour'});
 else
-    p = struct()
+    p = struct();
 end
 xlim = s.XLim;
 ylim = s.YLim;
