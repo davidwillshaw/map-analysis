@@ -123,7 +123,7 @@ function params = plot_figure3(params, axis_style)
     else %axis_style == 'crosshairs')
         draw_scalebar(params.coll, 'scale', params.coll.scale*bs, ...
                       'XLim', lim, 'YLim', lim, ...
-                      'col', 'w')
+                      'colour', 'w')
         axis off
     end
       
@@ -184,64 +184,13 @@ function params = plot_figure3(params, axis_style)
     else %axis_style == 'crosshairs')
         draw_scalebar(params.field, 'scale', params.field.scale*bs, ...
                       'XLim', lim, 'YLim', lim, ...
-                      'col', 'w')
+                      'colour', 'w')
         axis off
     end
     
     figure(3)
     filename = [num2str(params.id),'_fig3.pdf'];
     print(3,'-dpdf',filename)
-end
-
-function draw_scalebar(s, varargin)
-    p = validateInput(varargin, {'XLim', 'YLim', 'scale', 'col'});
-    xlim = s.XLim;
-    ylim = s.YLim;
-    scale = s.scale;
-    col = 'k'
-    if (isfield(p, 'XLim')) 
-        xlim = p.XLim;
-    end
-    if (isfield(p, 'YLim')) 
-        ylim = p.YLim;
-    end
-    if (isfield(p, 'scale')) 
-        scale = p.scale;
-    end
-    if (isfield(p, 'col')) 
-        col = p.col;
-    end
-
-% Draw scalebar
-    xmin = xlim(1);
-    xmax = xlim(2);
-    ymin = ylim(1);
-    ymax = ylim(2);
-    yfrac = 0.05;
-    if s.FlipY
-        yfrac = 0.95;
-    end
-    if (s.scalebar > 0) 
-        plot(xmin + 0.05*(xmax - xmin) + ...
-             [0 s.scalebar/scale], ...
-             (ymin + yfrac*(ymax - ymin))*ones(1, 2), ...
-             col, 'LineWidth', 3) %scale bar
-    end
-end
-
-function set_axis_props(s)
-% Set axis properties
-    set(gca, 'XTick', s.XTick, ...
-             'YTick', s.YTick, ...
-             'XTickLabel', s.XTickLabel, ...
-             'YTickLabel', s.YTickLabel)
-    if (s.FlipY)
-        axis ij
-    else
-        axis xy
-    end
-    set(gca,'PlotBoxAspectRatio',[1 1 1])
-    axis([s.XLim s.YLim]);
 end
 
 % Local Variables:

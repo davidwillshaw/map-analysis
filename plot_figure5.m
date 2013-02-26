@@ -240,39 +240,6 @@ function draw_crosshairs(s)
          'Color',[0.7 0.7 0.7], 'Linewidth',1)
 end
 
-function draw_scalebar(s)
-% Draw scalebar
-    xmin = s.XLim(1);
-    xmax = s.XLim(2);
-    ymin = s.YLim(1);
-    ymax = s.YLim(2);
-    yfrac = 0.05;
-    if s.FlipY
-        yfrac = 0.95;
-    end
-    if (s.scalebar > 0) 
-        plot(xmin + 0.05*(xmax - xmin) + ...
-             [0 s.scalebar/s.scale], ...
-             (ymin + yfrac*(ymax - ymin))*ones(1, 2), ...
-             'k', 'LineWidth',3) %scale bar
-    end
-end
-
-function set_axis_props(s)
-% Set axis properties
-    set(gca, 'XTick', s.XTick, ...
-             'YTick', s.YTick, ...
-             'XTickLabel', s.XTickLabel, ...
-             'YTickLabel', s.YTickLabel)
-    if (s.FlipY)
-        axis ij
-    else
-        axis xy
-    end
-    set(gca,'PlotBoxAspectRatio',[1 1 1])
-    axis([s.XLim s.YLim]);
-end
-
 % Local Variables:
 % matlab-indent-level: 4
 % End:
