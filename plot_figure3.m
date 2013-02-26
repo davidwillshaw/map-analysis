@@ -1,4 +1,4 @@
-function params = plot_figure3(params, ErrorType, axis_style)
+function params = plot_figure3(params, axis_style)
 % PLOT_FIGURE3 - Plot superposed distributions
 %       
 %   For the FTOC direction, the distribution of pixels on the
@@ -17,6 +17,13 @@ function params = plot_figure3(params, ErrorType, axis_style)
 %
 %   This function plots the superposed distribution all nodes in the
 %   lattice in the FTOC and CTOF directions.
+%   
+%   The following properties control what is plotted and the
+%   appearance of the plot:
+%   
+%   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
+%       scalebars (as in all figures in Willshaw et al. 2013). If
+%       'box', plot conventional axes.
 %
 %   INPUTS 
 %   
@@ -52,8 +59,6 @@ function params = plot_figure3(params, ErrorType, axis_style)
         axis_style = 'crosshairs'; % Other option is 'box'
     end
 
-    xmean_coll = params.coll.xmean;
-    ymean_coll = params.coll.ymean;
     figure(3)
     clf
 
@@ -78,29 +83,49 @@ function params = plot_figure3(params, ErrorType, axis_style)
 
     % use plot_error_ellipse to calculate overall angle, i.e. the
     % angle of the superposed distribution
-    [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(coll_centred_points);
+    [angle_c, x_radius_c, y_radius_c] = plot_error_ellipse(coll_centred_points);
 
     params.stats.FTOC.overall_dispersion_angle = -angle_c;
     params.stats.FTOC.overall_dispersion_xrad = x_radius_c;
     params.stats.FTOC.overall_dispersion_yrad = y_radius_c;
 
+    % Superposed distribution on colliculus
     subplot(2,1,1)
-    N = hist3(coll_centred_points,'edges', {(-56.5:1:56.5)', (-56.5:1:56.5)'});
+    
+    % Plot the histogram
+    bs = params.coll.SuperposedHistBinSize;
+    histlim = params.coll.SuperposedHistLim;
+    edges = ((-histlim - bs/2):bs:(histlim + bs/2))';
+    lim = [1, length(edges) - 1];
+    tick = [lim(1), length(edges)/2, lim(2)];
+    ticklabel = ({num2str(-histlim*params.coll.scale), '0', ...
+                  num2str(histlim*params.coll.scale)});
+    N = hist3(coll_centred_points,'edges', {edges, edges});
     imagesc(N')
     hold on
-    [~,x_ell,y_ell] = ellipse(x_radius_c,y_radius_c,-angle_c,mean(coll_centred_points(:,1))+57,mean(coll_centred_points(:,2))+57);
+    
+    % Draw ellipse round histogram
+    [~,x_ell,y_ell] = ellipse(x_radius_c, y_radius_c, -angle_c, ...
+                              mean(coll_centred_points(:,1)) + tick(2), ...
+                              mean(coll_centred_points(:,2)) + tick(2));
     plot(x_ell,y_ell,'w','LineWidth', 2)
-    axis ij
-    axis([1,113,1,113])
-    if (strcmp(axis_style, 'box'))
-        set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
-    else %axis_style == 'crosshairs')
 
-        plot(4:14,ones(11,1).*110,'w', 'LineWidth',3)%scale bar        
-        set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,57,113] , 'XTickLabel', {'-0.5','0','0.5'}, 'YTick',[1,57,113],'YTickLabel', {'-0.5','0','0.5'} )
+    % Set axis properties
+    set_axis_props(params.coll)
+    axis([1, tick(3), 1, tick(3)])
+    set(gca, 'XTick', tick, ...
+             'YTick', tick, ...
+             'XTickLabel', ticklabel, ...
+             'YTickLabel', ticklabel)
+
+    if (strcmp(axis_style, 'box'))
+        set(gca, 'FontSize', 16)
+    else %axis_style == 'crosshairs')
+        draw_scalebar(params.coll, 'scale', params.coll.scale*bs, ...
+                      'XLim', lim, 'YLim', lim, ...
+                      'col', 'w')
         axis off
     end
-
       
     %CTOF
     
@@ -123,60 +148,84 @@ function params = plot_figure3(params, ErrorType, axis_style)
     params.stats.CTOF.overall_dispersion_xrad = x_radius_f;
     params.stats.CTOF.overall_dispersion_yrad = y_radius_f;
     params.stats.CTOF.overall_dispersion_angle =-angle_f;
-    
+
+    % Superposed distribution on field
     subplot(2,1,2)
-    N = hist3(field_centred_points,'edges', {(-20.5:1:20.5)', (-20.5:1:20.5)'});
-    imagesc(N')
-    %plot(field_centred_points(:,1),field_centred_points(:,2),'x','Color',[0.8,0.8,0.8])
-    hold on
-    [~,x_ell,y_ell] = ellipse(x_radius_f,y_radius_f,-angle_f,mean(field_centred_points(:,1))+21,mean(field_centred_points(:,2))+21);
-    plot(x_ell,y_ell,'w','LineWidth',2)
-    if (strcmp(axis_style, 'crosshairs'))
-        plot(3:7,ones(5,1).*38,'w', 'LineWidth',3) %scale bar
-        axis off   
-    end
-    axis ij
-    set(gca,'PlotBoxAspectRatio',[1 1 1], 'FontSize', 16, 'XTick',[1,21,41] ,'XTickLabel',{'-20','0','20'}, 'YTick',[1,21,41],'YTickLabel',{'-20','0','20'} )
-    axis([1,41,1,41])
-  
     
+    % Plot the histogram
+    bs = params.field.SuperposedHistBinSize;
+    histlim = params.field.SuperposedHistLim;
+    edges = ((-histlim - bs/2):bs:(histlim + bs/2))';
+    lim = [1, length(edges)-1];
+    tick = [lim(1), length(edges)/2, lim(2)];
+    ticklabel = ({num2str(-histlim*params.field.scale), '0', ...
+                  num2str(histlim*params.field.scale)});
+
+    N = hist3(field_centred_points,'edges', {edges, edges});
+    imagesc(N')
+    hold on
+    
+    % Draw ellipse round histogram
+    [~,x_ell,y_ell] = ellipse(x_radius_f, y_radius_f, -angle_f, ...
+                              mean(field_centred_points(:,1)) + tick(2), ...
+                              mean(field_centred_points(:,2)) + tick(2));
+    plot(x_ell,y_ell, 'w', 'LineWidth', 2)
+
+    % Set axis properties
+    set_axis_props(params.field)
+    axis([1, tick(3), 1, tick(3)])
+    set(gca, 'XTick', tick, ...
+             'YTick', tick, ...
+             'XTickLabel', ticklabel, ...
+             'YTickLabel', ticklabel)
+
+    if (strcmp(axis_style, 'box'))
+        set(gca, 'FontSize', 16)
+    else %axis_style == 'crosshairs')
+        draw_scalebar(params.field, 'scale', params.field.scale*bs, ...
+                      'XLim', lim, 'YLim', lim, ...
+                      'col', 'w')
+        axis off
+    end
     
     figure(3)
     filename = [num2str(params.id),'_fig3.pdf'];
     print(3,'-dpdf',filename)
 end
 
-function draw_crosshairs(s) 
-% Draw crosshairs, given structure s, which can be params.field or
-% params.coll. If drawScalebar is true, draw the scalebar.
-    xmin = min(s.XTick);
-    xmax = max(s.XTick);
-    ymin = min(s.YTick);
-    ymax = max(s.YTick);
-    plot([s.xmean s.ymean], ...
-         [ymin ymax], ...
-         'Color',[0.7 0.7 0.7], 'Linewidth',1)
-    hold on
-    plot([xmin xmax], ...
-         [s.xmean s.ymean],  ...
-         'Color',[0.7 0.7 0.7], 'Linewidth',1)
-end
+function draw_scalebar(s, varargin)
+    p = validateInput(varargin, {'XLim', 'YLim', 'scale', 'col'});
+    xlim = s.XLim;
+    ylim = s.YLim;
+    scale = s.scale;
+    col = 'k'
+    if (isfield(p, 'XLim')) 
+        xlim = p.XLim;
+    end
+    if (isfield(p, 'YLim')) 
+        ylim = p.YLim;
+    end
+    if (isfield(p, 'scale')) 
+        scale = p.scale;
+    end
+    if (isfield(p, 'col')) 
+        col = p.col;
+    end
 
-function draw_scalebar(s)
 % Draw scalebar
-    xmin = s.XLim(1);
-    xmax = s.XLim(2);
-    ymin = s.YLim(1);
-    ymax = s.YLim(2);
+    xmin = xlim(1);
+    xmax = xlim(2);
+    ymin = ylim(1);
+    ymax = ylim(2);
     yfrac = 0.05;
     if s.FlipY
         yfrac = 0.95;
     end
     if (s.scalebar > 0) 
         plot(xmin + 0.05*(xmax - xmin) + ...
-             [0 s.scalebar/s.scale], ...
+             [0 s.scalebar/scale], ...
              (ymin + yfrac*(ymax - ymin))*ones(1, 2), ...
-             'k', 'LineWidth',3) %scale bar
+             col, 'LineWidth', 3) %scale bar
     end
 end
 

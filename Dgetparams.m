@@ -205,6 +205,8 @@ function params = Dgetparams(id)
     params.field.XTickLabel = {'-50','0','50'};
     params.field.YTickLabel = {'-50','0','50'};    
     params.field.FlipY = true;    
+    params.field.SuperposedHistBinSize = 1;
+    params.field.SuperposedHistLim = 20;
     
     % Colliculus plotting properties
     params.coll.title = 'Colliculus';
@@ -224,6 +226,8 @@ function params = Dgetparams(id)
     params.coll.XTickLabel = {'0','0.5','1'};
     params.coll.YTickLabel = {'0','0.5','1'};    
     params.coll.FlipY = true;         % Flip Y-axis
+    params.coll.SuperposedHistBinSize = 1;
+    params.coll.SuperposedHistLim = 56;
     
     if id == 999
 %    radius = sqrt(A*B/N)

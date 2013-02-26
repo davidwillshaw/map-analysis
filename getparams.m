@@ -48,6 +48,8 @@ function params = getparams(id,N,radius)
     params.field.XTickLabel = {'0','0.5','1'};
     params.field.YTickLabel = {'0','0.5','1'};
     params.field.FlipY = false;         % Flip Y-axis
+    params.field.SuperposedHistBinSize = 0.01;
+    params.field.SuperposedHistLim = 0.2;
 
     % Colliculus plotting properties
     params.coll.title = 'Colliculus';
@@ -63,6 +65,8 @@ function params = getparams(id,N,radius)
     params.coll.XTickLabel = {'0','0.5','1'};
     params.coll.YTickLabel = {'0','0.5','1'};    
     params.coll.FlipY = false;         % Flip Y-axis
+    params.coll.SuperposedHistBinSize = 0.01;
+    params.coll.SuperposedHistLim = 0.2;
 
     params.stats.id = id;
 
