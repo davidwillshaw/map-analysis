@@ -101,10 +101,6 @@ function params = plot_figure5(params, varargin)
             x_radius_cc(point) = x_radius_c;
             y_radius_cc(point) = y_radius_c;
         end
-        centred_points = projection_points - repmat(mean(projection_points),num_projection,1);
-
-        coll_centred_points = [coll_centred_points; centred_points];
-	
 
         subplot(2,2,1)
         ellipse(x_radius_f,y_radius_f,-angle_f,mean(from_points(:,1)),mean(from_points(:,2)),'k');
@@ -113,14 +109,6 @@ function params = plot_figure5(params, varargin)
         ellipse(x_radius_c,y_radius_c,-angle_c,mean(projection_points(:,1)),mean(projection_points(:,2)),'k');
         hold on
     end
-
-    % use plot_error_ellipse to calculate overall angle, i.e. the
-    % angle of the superposed distribution
-    [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(coll_centred_points);
-
-    params.stats.FTOC.overall_dispersion_angle = -angle_c;
-    params.stats.FTOC.overall_dispersion_xrad = x_radius_c;
-    params.stats.FTOC.overall_dispersion_yrad = y_radius_c;
 
     if (strcmp(ErrorType, 'sd'))
         params.stats.FTOC.dispersion_xrad = mean(x_radius_cc);
@@ -165,8 +153,7 @@ function params = plot_figure5(params, varargin)
         [from_points,projection_points] = find_projection(centre,radius,full_coll_coords,full_field_coords);
         num_projection = length(projection_points);
         [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(from_points);
-        [angle_f,x_radius_f,y_radius_f] = ...
-            plot_error_ellipse(projection_points);
+        [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(projection_points);
         if (strcmp(ErrorType, 'sem'))
             % compute standard errors of mean 
             x_radius_f = x_radius_f/sqrt(num_projection);
@@ -177,9 +164,6 @@ function params = plot_figure5(params, varargin)
             x_radius_ff(point) = x_radius_f;
             y_radius_ff(point) = y_radius_f;
         end
-      
-        centred_points = projection_points - repmat(mean(projection_points),num_projection,1);
-        field_centred_points = [field_centred_points; centred_points];
 
         subplot(2,2,3)
         ellipse(x_radius_f,y_radius_f,-angle_f, ...
@@ -190,14 +174,6 @@ function params = plot_figure5(params, varargin)
                 mean(from_points(:,1)),mean(from_points(:,2)),'b');
         hold on
     end
-    
-    % use plot_error_ellipse to calculate characteristics of the
-    % superposed distribution
-    [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(field_centred_points);
-
-    params.stats.CTOF.overall_dispersion_xrad = x_radius_f;
-    params.stats.CTOF.overall_dispersion_yrad = y_radius_f;
-    params.stats.CTOF.overall_dispersion_angle =-angle_f;
     
     if (strcmp(ErrorType, 'sd'))
         params.stats.CTOF.dispersion_xrad = mean(x_radius_ff);
