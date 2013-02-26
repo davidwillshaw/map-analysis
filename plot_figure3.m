@@ -1,4 +1,4 @@
-function params = plot_figure3(params, axis_style)
+function params = plot_figure3(params, varargin)
 % PLOT_FIGURE3 - Plot superposed distributions
 %       
 %   For the FTOC direction, the distribution of pixels on the
@@ -55,8 +55,14 @@ function params = plot_figure3(params, axis_style)
 % 
 % See also plot_figure5
     
-    if (~exist('axis_style'))     
-        axis_style = 'crosshairs'; % Other option is 'box'
+    if (nargin >= 2) 
+        p = validateInput(varargin, {'ErrorType', 'AxisStyle'});
+    else
+        p = struct();
+    end
+    AxisStyle = 'crosshairs'; % Other option is 'box'
+    if (isfield(p, 'AxisStyle'))
+        AxisStyle = p.AxisStyle;
     end
 
     figure(3)
@@ -118,9 +124,9 @@ function params = plot_figure3(params, axis_style)
              'XTickLabel', ticklabel, ...
              'YTickLabel', ticklabel)
 
-    if (strcmp(axis_style, 'box'))
+    if (strcmp(AxisStyle, 'box'))
         set(gca, 'FontSize', 16)
-    else %axis_style == 'crosshairs')
+    else %AxisStyle == 'crosshairs')
         draw_scalebar(params.coll, 'scale', params.coll.scale*bs, ...
                       'XLim', lim, 'YLim', lim, ...
                       'colour', 'w')
@@ -179,9 +185,9 @@ function params = plot_figure3(params, axis_style)
              'XTickLabel', ticklabel, ...
              'YTickLabel', ticklabel)
 
-    if (strcmp(axis_style, 'box'))
+    if (strcmp(AxisStyle, 'box'))
         set(gca, 'FontSize', 16)
-    else %axis_style == 'crosshairs')
+    else %AxisStyle == 'crosshairs')
         draw_scalebar(params.field, 'scale', params.field.scale*bs, ...
                       'XLim', lim, 'YLim', lim, ...
                       'colour', 'w')

@@ -1,4 +1,4 @@
-function params = plot_figure5(params, ErrorType, axis_style)
+function params = plot_figure5(params, varargin)
 % PLOT_FIGURE5 - Plot complementary distributions
 %       
 %   For the FTOC direction, the distribution of pixels on the
@@ -46,13 +46,22 @@ function params = plot_figure5(params, ErrorType, axis_style)
 %       to as SDW2 in Willshaw et al. (2013), Table 3.
 %
 % See also plot_figure3
+
+    if (nargin >= 2) 
+        p = validateInput(varargin, {'ErrorType', 'AxisStyle'});
+    else
+        p = struct();
+    end
     
-    if (~exist('axis_style'))     
-        axis_style = 'crosshairs'; % Other option is 'box'
+    AxisStyle = 'crosshairs'; % Other option is 'box'
+    if (isfield(p, 'AxisStyle'))
+        AxisStyle = p.AxisStyle;
     end
-    if (~exist('ErrorType'))     
-        ErrorType = 'sem'; % Other option is 'sd'
+    ErrorType = 'sd'; % Other option is 'sem'
+    if (isfield(p, 'ErrorType'))
+        ErrorType = p.ErrorType;
     end
+
     % minor changes from plot_figure3.m
     % mainly moving the plotting option
 
@@ -120,7 +129,7 @@ function params = plot_figure5(params, ErrorType, axis_style)
 
     % Set axis properties for FTOC Field ellipse plot
     subplot(2,2,1)
-    if (strcmp(axis_style, 'crosshairs'))
+    if (strcmp(AxisStyle, 'crosshairs'))
         draw_crosshairs(params.field);
         axis off
         draw_scalebar(params.field)
@@ -134,7 +143,7 @@ function params = plot_figure5(params, ErrorType, axis_style)
    
     % Set axis properties for FTOC colliculus ellipse plot
     subplot(2,2,2)
-    if (strcmp(axis_style, 'crosshairs'))
+    if (strcmp(AxisStyle, 'crosshairs'))
         axis off
         draw_scalebar(params.coll)
     else
@@ -148,7 +157,7 @@ function params = plot_figure5(params, ErrorType, axis_style)
     %CTOF
     
     num_points = params.CTOF.numpoints;
-    radius = params.coll_radius
+    radius = params.coll_radius;
 
     % Ellipse plots
     for point = 1:num_points
@@ -197,7 +206,7 @@ function params = plot_figure5(params, ErrorType, axis_style)
 
     % Set axis properties for CTOF field ellipse plot
     subplot(2,2,3)
-    if (strcmp(axis_style, 'crosshairs'))
+    if (strcmp(AxisStyle, 'crosshairs'))
         draw_crosshairs(params.field)
         axis off
         draw_scalebar(params.field)
@@ -210,7 +219,7 @@ function params = plot_figure5(params, ErrorType, axis_style)
     
     % Set axis properties for CTOF colliculus ellipse plot
     subplot(2,2,4)
-    if (strcmp(axis_style, 'crosshairs'))
+    if (strcmp(AxisStyle, 'crosshairs'))
         axis off
         draw_scalebar(params.coll)
     else
