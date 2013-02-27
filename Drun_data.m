@@ -53,6 +53,10 @@ function params = Drun_data(id, ectopicnodes)
     params = Dfind_largest_subgraph(params,'CTOF',ectopicnodes);
     params = Dfind_largest_subgraph(params,'FTOC',ectopicnodes);
     disp('Calculating stats...')
+    disp(['--> overall dispersion (dispersion of superposed ' ...
+          'distribution)...'])
+    params = find_overall_dispersion(params, 'FTOC')
+    params = find_overall_dispersion(params, 'CTOF')
     disp('--> orientation...')
     params = find_link_angles(params,'FTOC');
     params = find_link_angles(params,'CTOF');

@@ -1,4 +1,4 @@
-function params = plot_figure3(params, varargin)
+function h = plot_figure3(params, varargin)
 % PLOT_FIGURE3 - Plot superposed distributions
 %       
 %   For the FTOC direction, the distribution of pixels on the
@@ -24,36 +24,8 @@ function params = plot_figure3(params, varargin)
 %   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
 %       scalebars (as in all figures in Willshaw et al. 2013). If
 %       'box', plot conventional axes.
-%
-%   INPUTS 
-%   
-%   The following fields are read from the params structure:
-%   params.ellipse, params.FTOC.numpoints, params.CTOF.numpoints,
-%   params.full_field, params.full_coll, params.field_radius,
-%   params.coll_radius. Plotting properties are controlled by the
-%   variables in params.coll and params.field - see getparams.m for
-%   description.
-%    
-%   OUTPUTS
-%    
-%   Various fields are added to params:    
-%       
-%   - Properties of the superposed distribution (also referred to as
-%     "overall complementary distribution"; see Table 5 in Willshaw et
-%     al., 2013):
-%
-%     params.stats.FTOC.overall_dispersion_xrad - Length of major axis
-%       ellipse fitted to superposed distribution
-%
-%     params.stats.FTOC.overall_dispersion_yrad - Length of minor axis
-%       ellipse fitted to superposed distribution
-%
-%     params.stats.FTOC.overall_dispersion_angle - Angle of major axis
-%       of ellipse. The zero degree line is defined on the colliculus
-%       as rostral to caudal and in the visual field as temporal to
-%       nasal. Clockwise rotations are positive.
 % 
-% See also plot_figure5
+% See also plot_figure5, find_overall_dispersion, get_centred_points
     
     if (nargin >= 2) 
         p = validateInput(varargin, {'ErrorType', 'AxisStyle'});
@@ -65,35 +37,11 @@ function params = plot_figure3(params, varargin)
         AxisStyle = p.AxisStyle;
     end
 
-    figure(3)
+    h = figure(3);
     clf
 
     %FTOC
-    
-    num_points = params.FTOC.numpoints;
-    full_field_coords = params.full_field;
-    full_coll_coords = params.full_coll;
-    radius = params.field_radius;
-    field_centred_points = [];
-    coll_centred_points = [];
-
-    % Ellipse plots
-    for point = 1:num_points
-        centre = params.FTOC.field_points(point,:);
-        [from_points,projection_points] = find_projection(centre,radius,full_field_coords,full_coll_coords);
-        num_projection = length(projection_points);
-        centred_points = projection_points - repmat(mean(projection_points),num_projection,1);
-
-        coll_centred_points = [coll_centred_points; centred_points];
-    end
-
-    % use plot_error_ellipse to calculate overall angle, i.e. the
-    % angle of the superposed distribution
-    [angle_c, x_radius_c, y_radius_c] = plot_error_ellipse(coll_centred_points);
-
-    params.stats.FTOC.overall_dispersion_angle = -angle_c;
-    params.stats.FTOC.overall_dispersion_xrad = x_radius_c;
-    params.stats.FTOC.overall_dispersion_yrad = y_radius_c;
+    coll_centred_points = get_centred_points(params, 'FTOC');
 
     % Superposed distribution on colliculus
     subplot(2,1,1)
@@ -111,7 +59,9 @@ function params = plot_figure3(params, varargin)
     hold on
     
     % Draw ellipse round histogram
-    [~,x_ell,y_ell] = ellipse(x_radius_c, y_radius_c, -angle_c, ...
+    [~,x_ell,y_ell] = ellipse(params.stats.FTOC.overall_dispersion_xrad, ...
+                              params.stats.FTOC.overall_dispersion_yrad, ...
+                              params.stats.FTOC.overall_dispersion_angle, ...
                               mean(coll_centred_points(:,1)) + tick(2), ...
                               mean(coll_centred_points(:,2)) + tick(2));
     plot(x_ell,y_ell,'w','LineWidth', 2)
@@ -134,26 +84,7 @@ function params = plot_figure3(params, varargin)
     end
       
     %CTOF
-    
-    num_points = params.CTOF.numpoints;
-    radius = params.coll_radius
-
-    % Ellipse plots
-    for point = 1:num_points
-        centre = params.CTOF.coll_points(point,:);
-        [from_points,projection_points] = find_projection(centre,radius,full_coll_coords,full_field_coords);
-        num_projection = length(projection_points);
-        centred_points = projection_points - repmat(mean(projection_points),num_projection,1);
-        field_centred_points = [field_centred_points; centred_points];
-    end
-    
-    % use plot_error_ellipse to calculate characteristics of the
-    % superposed distribution
-    [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(field_centred_points);
-
-    params.stats.CTOF.overall_dispersion_xrad = x_radius_f;
-    params.stats.CTOF.overall_dispersion_yrad = y_radius_f;
-    params.stats.CTOF.overall_dispersion_angle =-angle_f;
+    field_centred_points = get_centred_points(params, 'CTOF');
 
     % Superposed distribution on field
     subplot(2,1,2)
@@ -172,7 +103,9 @@ function params = plot_figure3(params, varargin)
     hold on
     
     % Draw ellipse round histogram
-    [~,x_ell,y_ell] = ellipse(x_radius_f, y_radius_f, -angle_f, ...
+    [~,x_ell,y_ell] = ellipse(params.stats.CTOF.overall_dispersion_xrad, ...
+                              params.stats.CTOF.overall_dispersion_yrad, ...
+                              params.stats.CTOF.overall_dispersion_angle, ...
                               mean(field_centred_points(:,1)) + tick(2), ...
                               mean(field_centred_points(:,2)) + tick(2));
     plot(x_ell,y_ell, 'w', 'LineWidth', 2)
@@ -194,7 +127,6 @@ function params = plot_figure3(params, varargin)
         axis off
     end
     
-    figure(3)
     filename = [num2str(params.id),'_fig3.pdf'];
     print(3,'-dpdf',filename)
 end
