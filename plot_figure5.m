@@ -62,57 +62,26 @@ function params = plot_figure5(params, varargin)
         ErrorType = p.ErrorType;
     end
 
-    % minor changes from plot_figure3.m
-    % mainly moving the plotting option
-
-    xmean_coll = params.coll.xmean;
-    ymean_coll = params.coll.ymean;
     figure(5)
     clf
 
     %FTOC
-    
-    num_points = params.FTOC.numpoints;
-    full_field_coords = params.full_field;
-    full_coll_coords = params.full_coll;
-    radius = params.field_radius;
-    field_centred_points = [];
-    coll_centred_points = [];
 
+    [x_cent_f, y_cent_f, angle_f, x_radius_f, y_radius_f, ...
+     x_cent_c, y_cent_c, angle_c, x_radius_c, y_radius_c] = ...
+        get_complementary_ellipses(params, 'FTOC', ErrorType);
+    num_points = length(angle_f);
+    
     % Ellipse plots
     for point = 1:num_points
-        centre = params.FTOC.field_points(point,:);
-        [from_points,projection_points] = find_projection(centre,radius,full_field_coords,full_coll_coords);
-        num_projection = length(projection_points);
-        % plot_error_ellipse determines parameters of ellipse to be
-        % drawn. x_radius is the length of the major axis and
-        % y_radius is the length of the minor axis.
-        [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(from_points);
-        [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(projection_points);
-        
-        if (strcmp(ErrorType, 'sem'))
-            % compute standard errors of mean 
-            x_radius_f = x_radius_f/sqrt(num_projection);
-            y_radius_f = y_radius_f/sqrt(num_projection);
-            x_radius_c = x_radius_c/sqrt(num_projection);
-            y_radius_c = y_radius_c/sqrt(num_projection);
-        else
-            % ErrorType == 'sd'; store standard deviation 
-            x_radius_cc(point) = x_radius_c;
-            y_radius_cc(point) = y_radius_c;
-        end
-
         subplot(2,2,1)
-        ellipse(x_radius_f,y_radius_f,-angle_f,mean(from_points(:,1)),mean(from_points(:,2)),'k');
+        ellipse(x_radius_f(point), y_radius_f(point), -angle_f(point), ...
+                x_cent_f(point),   y_cent_f(point)  , 'k');
         hold on
         subplot(2,2,2)
-        ellipse(x_radius_c,y_radius_c,-angle_c,mean(projection_points(:,1)),mean(projection_points(:,2)),'k');
+        ellipse(x_radius_c(point), y_radius_c(point), -angle_c(point), ...
+                x_cent_c(point),   y_cent_c(point), 'k');
         hold on
-    end
-
-    if (strcmp(ErrorType, 'sd'))
-        params.stats.FTOC.dispersion_xrad = mean(x_radius_cc);
-        params.stats.FTOC.dispersion_yrad = mean(y_radius_cc);
     end
 
     % Set axis properties for FTOC Field ellipse plot
@@ -144,40 +113,21 @@ function params = plot_figure5(params, varargin)
       
     %CTOF
     
-    num_points = params.CTOF.numpoints;
-    radius = params.coll_radius;
-
+    [x_cent_c, y_cent_c, angle_c, x_radius_c, y_radius_c, ...
+     x_cent_f, y_cent_f, angle_f, x_radius_f, y_radius_f] = ...
+        get_complementary_ellipses(params, 'CTOF', ErrorType);
+    num_points = length(angle_c);
+    
     % Ellipse plots
     for point = 1:num_points
-        centre = params.CTOF.coll_points(point,:);
-        [from_points,projection_points] = find_projection(centre,radius,full_coll_coords,full_field_coords);
-        num_projection = length(projection_points);
-        [angle_c,x_radius_c,y_radius_c] = plot_error_ellipse(from_points);
-        [angle_f,x_radius_f,y_radius_f] = plot_error_ellipse(projection_points);
-        if (strcmp(ErrorType, 'sem'))
-            % compute standard errors of mean 
-            x_radius_f = x_radius_f/sqrt(num_projection);
-            y_radius_f = y_radius_f/sqrt(num_projection);
-            x_radius_c = x_radius_c/sqrt(num_projection);
-            y_radius_c = y_radius_c/sqrt(num_projection);
-        else % ErrorType == 'sd'
-            x_radius_ff(point) = x_radius_f;
-            y_radius_ff(point) = y_radius_f;
-        end
-
         subplot(2,2,3)
-        ellipse(x_radius_f,y_radius_f,-angle_f, ...
-                mean(projection_points(:,1)),mean(projection_points(:,2)),'b');
+        ellipse(x_radius_f(point), y_radius_f(point), -angle_f(point), ...
+                x_cent_f(point),   y_cent_f(point), 'b');
         hold on
         subplot(2,2,4)
-        ellipse(x_radius_c,y_radius_c,-angle_c, ...
-                mean(from_points(:,1)),mean(from_points(:,2)),'b');
+        ellipse(x_radius_c(point), y_radius_c(point), -angle_c(point), ...
+                x_cent_c(point),   y_cent_c(point), 'b');
         hold on
-    end
-    
-    if (strcmp(ErrorType, 'sd'))
-        params.stats.CTOF.dispersion_xrad = mean(x_radius_ff);
-        params.stats.CTOF.dispersion_yrad = mean(y_radius_ff);
     end
 
     % Set axis properties for CTOF field ellipse plot
@@ -212,16 +162,16 @@ end
 function draw_crosshairs(s) 
 % Draw crosshairs, given structure s, which can be params.field or
 % params.coll. If drawScalebar is true, draw the scalebar.
-    xmin = min(s.XTick);
-    xmax = max(s.XTick);
-    ymin = min(s.YTick);
-    ymax = max(s.YTick);
-    plot([s.xmean s.ymean], ...
+    xmin = s.XLim(1);
+    xmax = s.XLim(2);
+    ymin = s.YLim(1);
+    ymax = s.YLim(2);
+    plot([s.xmean s.xmean], ...
          [ymin ymax], ...
          'Color',[0.7 0.7 0.7], 'Linewidth',1)
     hold on
     plot([xmin xmax], ...
-         [s.xmean s.ymean],  ...
+         [s.ymean s.ymean],  ...
          'Color',[0.7 0.7 0.7], 'Linewidth',1)
 end
 
