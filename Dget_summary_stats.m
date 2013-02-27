@@ -1,4 +1,4 @@
-function summary_stats = Dget_summary_stats(datasets,thresh_scatter,minclustersize)
+function summary_stats = Dget_summary_stats(datasets)
 %NEED TO CHECK ALL UNITS
 % for example, link_lengths not in right units
 
@@ -16,7 +16,7 @@ function summary_stats = Dget_summary_stats(datasets,thresh_scatter,minclustersi
         clear params
         id = datasets(i);
         disp(id);
-        params = Drun_data(id,thresh_scatter,minclustersize,0);
+        params = Drun_data(id, 0);
         summary_stats(i,1) = id;
 
         coll.scale  = params.coll.scale;
@@ -175,3 +175,8 @@ end
         csvwrite('summary_statsFTOC.csv',summary_stats(:,[1:52]));
         csvwrite('summary_statsCTOF.csv',summary_stats(:,[1,53:90]));
 	csvwrite('number_of_ectopics.csv',number_of_ectopics(:));
+
+% Local Variables:
+% matlab-indent-level: 4
+% End:
+  

@@ -17,6 +17,10 @@ function params = getparams(id,N,radius)
     params.comments = '';
     params.anchors = 8;
     params.tolerance = 150;
+   
+    % Preprocessing function - this function given params
+    % before any other processing takes place. It must return params.
+    params.preprocess_function = '';
     
     % Scaling 
     

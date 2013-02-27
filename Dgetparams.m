@@ -177,7 +177,12 @@ function params = Dgetparams(id)
     params.field_radius = 1.7;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
-
+    
+    % Preprocessing functions
+    params.preprocess_function = 'Dremove_high_scatter';
+    params.thresh_scatter = 10;
+    params.minclustersize = 5;
+    
     % Scaling
 
     % The the size in degrees of one unit of distance in the colliculus
@@ -238,3 +243,7 @@ function params = Dgetparams(id)
        params.thresh.azim= 1.0;
        params.thresh.elev= 1.0;
     end
+
+% Local Variables:
+% matlab-indent-level: 4
+% End:

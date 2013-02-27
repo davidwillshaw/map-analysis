@@ -1,4 +1,4 @@
-function params = Dremove_high_scatter(params,thresh_scatter,minclustersize)
+function params = Dremove_high_scatter(params)
 % Takes in a list of all active pixels
 % Looks at each pixel and its surrounding pixels
 
@@ -17,6 +17,9 @@ function params = Dremove_high_scatter(params,thresh_scatter,minclustersize)
 %                          SERIAL/PARALLEL UPDATE OF ACTIVITY MATRIX?
 
 %                                     PARALLEL
+
+thresh_scatter = params.thresh_scatter;
+minclustersize = params.minclustersize;
 
 percent_change =0;
 if thresh_scatter < 999

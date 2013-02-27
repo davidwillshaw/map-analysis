@@ -1,4 +1,4 @@
-function params = Drun_data(id,thresh_scatter,minclustersize,ectopicnodes)
+function params = Drun_data(id, ectopicnodes)
 
 %  David's version of run_data.m 
 % (i)   figure 306 added which plots individual scatters  YES
@@ -22,8 +22,15 @@ function params = Drun_data(id,thresh_scatter,minclustersize,ectopicnodes)
 
 
 %            HIGH SCATTER POINTS REMOVED
-   params = Dremove_high_scatter(params,thresh_scatter,minclustersize);
-   params = make_list_of_points(params); 
+    if (length(params.preprocess_function) > 0) 
+       if (exist(params.preprocess_function) == 2) 
+           params = eval([params.preprocess_function '(params)']);
+       else
+           error(['Preprocessing function ], params.preprocess_function, ' ...
+                  ' set in params.preprocess_function is not set'])
+       end
+    end
+    params = make_list_of_points(params); 
     params = Dfind_map_quality(params)
     disp('Selecting point positions...')
     params = select_point_positions(params,'CTOF');
@@ -73,5 +80,6 @@ function params = Drun_data(id,thresh_scatter,minclustersize,ectopicnodes)
     plot_figure6(params, 'FTOC')
     plot_ectopics(params)
 
-
-
+% Local Variables:
+% matlab-indent-level: 4
+% End:
