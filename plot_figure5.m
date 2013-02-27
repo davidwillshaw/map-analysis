@@ -20,6 +20,9 @@ function params = plot_figure5(params, varargin)
 %   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
 %       scalebars (as in all figures in Willshaw et al. 2013). If
 %       'box', plot conventional axes.
+%    
+%   - Subgraph: If true, plot only distributions around points in the
+%       maxium subgraph; otherwise plot all distributions.
 %
 %   INPUTS 
 %   
@@ -47,8 +50,8 @@ function params = plot_figure5(params, varargin)
 %
 % See also plot_figure3
 
-    if (nargin >= 2) 
-        p = validateInput(varargin, {'ErrorType', 'AxisStyle'});
+    if (nargin >= 1) 
+        p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph'});
     else
         p = struct();
     end
@@ -61,6 +64,10 @@ function params = plot_figure5(params, varargin)
     if (isfield(p, 'ErrorType'))
         ErrorType = p.ErrorType;
     end
+    Subgraph = false; % Other option is 'sem'
+    if (isfield(p, 'ErrorType'))
+        ErrorType = p.Subgraph
+    end
 
     figure(5)
     clf
@@ -69,7 +76,7 @@ function params = plot_figure5(params, varargin)
 
     [x_cent_f, y_cent_f, angle_f, x_radius_f, y_radius_f, ...
      x_cent_c, y_cent_c, angle_c, x_radius_c, y_radius_c] = ...
-        get_complementary_ellipses(params, 'FTOC', ErrorType);
+        get_complementary_ellipses(params, 'FTOC', ErrorType, Subgraph);
     num_points = length(angle_f);
     
     % Ellipse plots
@@ -115,7 +122,7 @@ function params = plot_figure5(params, varargin)
     
     [x_cent_c, y_cent_c, angle_c, x_radius_c, y_radius_c, ...
      x_cent_f, y_cent_f, angle_f, x_radius_f, y_radius_f] = ...
-        get_complementary_ellipses(params, 'CTOF', ErrorType);
+        get_complementary_ellipses(params, 'CTOF', ErrorType, Subgraph);
     num_points = length(angle_c);
     
     % Ellipse plots

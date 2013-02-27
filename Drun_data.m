@@ -56,6 +56,9 @@ function params = Drun_data(id, ectopicnodes)
     disp(['--> dispersion (mean dispersion of complentary distributions)'])
     params = find_dispersion(params, 'FTOC');
     params = find_dispersion(params, 'CTOF');
+    params = find_subgraph_dispersion(params, 'FTOC');
+    params = find_subgraph_dispersion(params, 'CTOF');
+    
     disp(['--> overall dispersion (dispersion of superposed ' ...
           'distribution)...'])
     params = find_overall_dispersion(params, 'FTOC');

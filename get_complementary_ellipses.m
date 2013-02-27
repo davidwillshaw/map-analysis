@@ -1,6 +1,6 @@
 function [x_cent_from, y_cent_from, angle_from, x_radius_from, y_radius_from, ...
           x_cent_to,   y_cent_to,   angle_to,   x_radius_to,   y_radius_to]  = ...
-    get_complementary_ellipses(params, direction, ErrorType)
+    get_complementary_ellipses(params, direction, ErrorType, Subgraph)
 % GET_COMPLEMENTARY_ELLIPSES - Get properties of all complementary distributions
 %
 % See also find_overall_dispersion, get_centred_points
@@ -9,8 +9,13 @@ function [x_cent_from, y_cent_from, angle_from, x_radius_from, y_radius_from, ..
 if (~exist('ErrorType'))
     ErrorType = 'sd'; % Other option is 'sem'
 end
+if (~exist('Subgraph'))
+    Subgraph = false; % Other option is 'sem'
+end
+
 
 if strcmp(direction, 'CTOF')
+    pos              = params.CTOF.points_in_subgraph;
     num_points       = params.CTOF.numpoints;
     radius           = params.coll_radius;
     full_from_coords = params.full_coll;
@@ -19,11 +24,18 @@ if strcmp(direction, 'CTOF')
 end
 
 if strcmp(direction, 'FTOC')
+    pos              = params.FTOC.points_in_subgraph;
     num_points       = params.FTOC.numpoints;
     radius           = params.field_radius;
     full_from_coords = params.full_field;
     full_to_coords   = params.full_coll;
     from_centres     = params.FTOC.field_points;
+end
+
+if (Subgraph)
+    num_points = length(pos);
+else
+    pos = 1:num_points;
 end
 
 x_cent_from   = zeros(num_points, 1);
@@ -39,7 +51,7 @@ x_radius_to   = zeros(num_points, 1);
 y_radius_to   = zeros(num_points, 1);
 
 for point = 1:num_points
-    centre = from_centres(point,:);
+    centre = from_centres(pos(point),:);
     [from_points, to_points] = ... 
         find_projection(centre, radius, ...
                         full_from_coords, full_to_coords);
