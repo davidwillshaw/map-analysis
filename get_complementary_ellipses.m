@@ -1,16 +1,34 @@
 function [x_cent_from, y_cent_from, angle_from, x_radius_from, y_radius_from, ...
           x_cent_to,   y_cent_to,   angle_to,   x_radius_to,   y_radius_to]  = ...
-    get_complementary_ellipses(params, direction, ErrorType, Subgraph)
+    get_complementary_ellipses(params, direction, error_type, subgraph)
 % GET_COMPLEMENTARY_ELLIPSES - Get properties of all complementary distributions
 %
-% See also find_overall_dispersion, get_centred_points
+%   Extract the centres, angles of radii of ellipses describing the
+%   complementary distributions of corresponding centres in the lattice.
+%
+%   ARGUMENTS:
+%
+%   params: params structure
+%
+%   direction: 'CTOF' or 'FTOC'
+% 
+%   error_type: If 'sd' (default), extract standard deviation of
+%       complementary distributions (as in Figure 5 of Willshaw et
+%       al. 2013). If 'sem', extract standard errors in the mean of
+%       complementary distributions (as in Figure 7C of Willshaw et
+%       al. 2013).
+%
+%   subgraph: If true extract information only for points in the
+%   maximally-ordered subgraph
+%
+% See also find_dispersion, get_centred_points
 
 
-if (~exist('ErrorType'))
-    ErrorType = 'sd'; % Other option is 'sem'
+if (~exist('error_type'))
+    error_type = 'sd'; % Other option is 'sem'
 end
-if (~exist('Subgraph'))
-    Subgraph = false; % Other option is 'sem'
+if (~exist('subgraph'))
+    subgraph = false; % Other option is 'sem'
 end
 
 
@@ -32,7 +50,7 @@ if strcmp(direction, 'FTOC')
     from_centres     = params.FTOC.field_points;
 end
 
-if (Subgraph)
+if (subgraph)
     num_points = length(pos);
 else
     pos = 1:num_points;
@@ -66,7 +84,7 @@ for point = 1:num_points
         plot_error_ellipse(to_points);
     
     num_projection = length(to_points);
-    if (strcmp(ErrorType, 'sem'))
+    if (strcmp(error_type, 'sem'))
         % compute standard errors of mean 
         x_radius_from(point) = x_radius_from(point)/sqrt(num_projection);
         y_radius_from(point) = y_radius_from(point)/sqrt(num_projection);
