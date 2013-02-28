@@ -12,29 +12,21 @@ function params = Drun_data(id, ectopicnodes)
     params = Dgetparams(id);
     disp(['Loading data ',num2str(id), '...'])
     params = load_data(params);
-
-    params = find_active_pixels(params);
-
-    params = make_list_of_points(params); 
-    params = Dfind_map_quality(params)
-    params.stats.old_azim_dev=params.stats.azim_dev;
-    params.stats.old_elev_dev=params.stats.elev_dev;
-
-
-%            HIGH SCATTER POINTS REMOVED
+    
     if (length(params.preprocess_function) > 0) 
        if (exist(params.preprocess_function) == 2) 
+           disp('Preprocessing data...')
            params = eval([params.preprocess_function '(params)']);
        else
            error(['Preprocessing function ], params.preprocess_function, ' ...
                   ' set in params.preprocess_function is not set'])
        end
     end
-    params = make_list_of_points(params); 
-    params = Dfind_map_quality(params)
+
     disp('Selecting point positions...')
     params = select_point_positions(params,'CTOF');
     params = select_point_positions(params,'FTOC');
+
     disp('Creating projection...')
     params = create_projection(params, 'CTOF');
     params = create_projection(params, 'FTOC');

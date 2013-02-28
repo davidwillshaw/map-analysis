@@ -179,7 +179,7 @@ function params = Dgetparams(id)
     params.thresh.azim = 0;
     
     % Preprocessing function
-    params.preprocess_function = 'Dremove_high_scatter';
+    params.preprocess_function = 'Dpreprocess';
     params.thresh_scatter = 10;
     params.minclustersize = 5;
 
