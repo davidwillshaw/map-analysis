@@ -85,10 +85,15 @@ function params = Drun_data(id, ectopicnodes)
 %   params = Dfind_three_scatter_groups(params,2,1);    
 %    params = Dplot_figure3(params);
 %    params = Dcalc_disps_plot306_307(params);
-    
-    plot_figure2(params)
-    plot_figure6(params, 'FTOC')
-    plot_ectopics(params)
+
+    if (length(params.postprocess_function) > 0) 
+       if (exist(params.postprocess_function) == 2) 
+           params = eval([params.postprocess_function '(params)']);
+       else
+           error(['Postprocessing function ], params.postprocess_function, ' ...
+                  ' set in params.postprocess_function is not set'])
+       end
+    end
 
 % Local Variables:
 % matlab-indent-level: 4

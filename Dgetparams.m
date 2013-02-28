@@ -178,10 +178,13 @@ function params = Dgetparams(id)
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
     
-    % Preprocessing functions
+    % Preprocessing function
     params.preprocess_function = 'Dremove_high_scatter';
     params.thresh_scatter = 10;
     params.minclustersize = 5;
+
+    % Postprocessing function
+    params.postprocess_function = 'Dpostprocess';
     
     % Scaling
 

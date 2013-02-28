@@ -18,9 +18,14 @@ function params = getparams(id,N,radius)
     params.anchors = 8;
     params.tolerance = 150;
    
-    % Preprocessing function - this function given params
+    % Preprocessing function - this function is given params
     % before any other processing takes place. It must return params.
     params.preprocess_function = '';
+    
+    % Postprocessing function - this function is given params
+    % after all other processing has taken place. It can be used to
+    % create standard plots.
+    params.postprocess_function = '';
     
     % Scaling 
     
