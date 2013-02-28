@@ -1,4 +1,6 @@
-function params = find_largest_subgraph(params,direction)
+function params = find_largest_subgraph(params,direction,ectopicnodes)
+% FIND_LARGEST_SUBGRAPH - takes in a set of intersections and removes nodes until there are no
+% intersections left.
 %D modified - takeout  OFF
 
 %takes in a set of intersections and removes nodes until there are no
@@ -10,6 +12,10 @@ function params = find_largest_subgraph(params,direction)
 %Needs: sets_of_intersections, list_of_neighbours,takeout,numpoints
 %Returns: points_in_subgraph, points_not_in_subgraph
 
+    if (~exist('ectopicnodes'))
+        ectopicnodes = true;
+    end
+    
     if strcmp(direction, 'CTOF')
         sets_of_intersections = params.CTOF.sets_of_intersections;
         list_of_neighbours = params.CTOF.list_of_neighbours;
@@ -20,11 +26,14 @@ function params = find_largest_subgraph(params,direction)
     if strcmp(direction, 'FTOC')
         sets_of_intersections = params.FTOC.sets_of_intersections;
         list_of_neighbours = params.FTOC.list_of_neighbours;
-        takeout = params.FTOC.takeout;
+        if ectopicnodes==0
+            takeout = union(params.FTOC.takeout,params.FTOC.stats.ectopics);
+        else
+            takeout = params.FTOC.takeout;
+        end
+
         num_points = params.FTOC.numpoints;
     end
-    
-
 
     candidates = setdiff((1:num_points),takeout);
     active_sets_of_intersections = remove_links_including_nodes(sets_of_intersections,takeout);

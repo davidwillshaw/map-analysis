@@ -49,9 +49,10 @@ function params = Drun_data(id, ectopicnodes)
     disp('Finding crossings...')
     params = find_crossings(params, 'CTOF');
     params = find_crossings(params, 'FTOC');
+
     disp('Finding largest subgraph...')
-    params = Dfind_largest_subgraph(params,'CTOF',ectopicnodes);
-    params = Dfind_largest_subgraph(params,'FTOC',ectopicnodes);
+    params = find_largest_subgraph(params,'CTOF',ectopicnodes);
+    params = find_largest_subgraph(params,'FTOC',ectopicnodes);
     disp('Calculating stats...')
     disp(['--> dispersion (mean dispersion of complentary distributions)'])
     params = find_dispersion(params, 'FTOC');
