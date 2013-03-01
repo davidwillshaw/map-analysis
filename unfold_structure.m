@@ -35,7 +35,9 @@ function [sout, out] = unfold_structure(s, fun, parent)
             if (length(fun) > 0) 
                 out = [out, eval([fun, '(field)'])];
             else
-                out = [out, field];
+                % This complains if given an empty 0 by X
+                % matrix. Commenting out for now.
+                % out = [out, field];
             end
         end
     end
