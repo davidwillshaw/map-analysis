@@ -9,6 +9,17 @@ function params = Drun_data(id, ectopicnodes)
 %       Threshold set at 2 pixels
 % (iii) Remove high scatter pixels   YES
 
+    idstr = ['id', num2str(id)];
+    global CACHE;
+    if (exist('CACHE') ~= 1)
+        CACHE = struct()
+    else
+        if (isfield(CACHE, idstr))
+            params = getfield(CACHE, idstr);
+            return 
+        end
+    end
+    
     params = Dgetparams(id);
     disp(['Loading data ',num2str(id), '...'])
     params = load_data(params);
@@ -90,7 +101,9 @@ function params = Drun_data(id, ectopicnodes)
                   ' set in params.postprocess_function is not set'])
        end
     end
-
+    
+    CACHE = setfield(CACHE, idstr, params);
+    
 % Local Variables:
 % matlab-indent-level: 4
 % End:
