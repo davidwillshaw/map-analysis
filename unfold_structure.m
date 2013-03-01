@@ -1,12 +1,14 @@
-function [names, out, sout] = unfold_structure(s, fun, parent)
-    verbose = true;
+function [sout, out] = unfold_structure(s, fun, parent)
+% UNFOLD_STRUCTURE - Given a structure s, unfold it to give a
+%   one-level structure
+
+    verbose = false;
     if (exist('fun') ~= 1)
         fun = '';
     end
     if (exist('parent') ~= 1)
         parent = '';
     end
-    names = {};
     out = {};
     sout = struct();
     n = fieldnames(s);
@@ -16,15 +18,12 @@ function [names, out, sout] = unfold_structure(s, fun, parent)
             if (verbose) 
                 disp([path(parent, n{i}), ' is structure'])
             end
-            [names1 out1 sout1]  = unfold_structure(field, fun, path(parent, ...
+            [sout1 out1]  = unfold_structure(field, fun, path(parent, ...
                                                              n{i}));
             out = [out, out1];
-            names1 = fieldnames(sout1)
-            % names = [names, names1];
-            sout1
+            names1 = fieldnames(sout1);
             for (j = 1:length(names1))
-                j
-                name = names1{j}
+                name = names1{j};
                 sout = setfield(sout, name, getfield(sout1, name));
             end
         else
@@ -32,7 +31,6 @@ function [names, out, sout] = unfold_structure(s, fun, parent)
             if (verbose)
                 disp([name, ' is not structure'])
             end
-            names = [names, name];
             sout = setfield(sout, name, field);
             if (length(fun) > 0) 
                 out = [out, eval([fun, '(field)'])];
@@ -41,7 +39,6 @@ function [names, out, sout] = unfold_structure(s, fun, parent)
             end
         end
     end
-    sout
 end
 
 function p = path(parent, child)
