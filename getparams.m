@@ -1,7 +1,10 @@
-function params = getparams(id,N,radius)
+function params = getparams(id, N, radius)
 %   Both retina and colliculus are inside unit square
+    if (~exist('N'))
+        N = 100;
+    end
     if (~exist('radius'))
-        radius = 1;
+        radius = 0.05;
     end
     RANSTART=10101;
 
@@ -11,7 +14,9 @@ function params = getparams(id,N,radius)
     params.FTOC.numpoints = N;
     params.ranstart = RANSTART;
     params.coll_radius = radius;
-    params.field_radius =  radius;
+    params.coll_min_points = 10;
+    params.field_radius = radius;
+    params.field_min_points = 10;
     params.CTOF.takeout = [];
     params.FTOC.takeout = [];
     params.comments = '';

@@ -13,14 +13,12 @@ function params = select_point_positions(params, direction)
 %   decreased in steps if enough points can't be found within
 %   max_trials=numpoints*100. area is derived from the ellipse area.
 % 
-%   (2) There have to be at least
-%   min_points=(pi*params.coll_radius^2)/3 within params.coll_radius
-%   of each chosen location, which is the extent over which smoothing
-%   took place.
+%   (2) There have to be at least params.coll_min_points points within
+%   params.coll_radius of each chosen location, which is the extent
+%   over which smoothing took place.
 % 
-%   If an ellipse hasn't been defined, all points in params.full_coll
-%   can be selected, only constraint (1) is applied and the area is
-%   defined as numpoints^2. 
+%   If an ellipse hasn't been defined the area is defined as
+%   numpoints^2.
 %     
 %   Regardless of whether an ellipse has been defined, the chosen
 %   point locations are put in params.CTOF.coll_points. The area of
@@ -35,11 +33,6 @@ function params = select_point_positions(params, direction)
 %   
 %   (a) The area of the field is found by drawing the smallest
 %       rectangle possible around the points in the field.
-%   
-%   (b) min_points is set to 10
-%     
-%   (c) The radius within which min_points have to be found is
-%   params.field_radius
 %     
 %   The situation when the params.ellipse is not defined is
 %   identical to the 'CTOF' case above. 
@@ -72,10 +65,10 @@ function params = select_point_positions(params, direction)
         x_active = params.full_coll(:,1);
         y_active = params.full_coll(:,2);
         numpoints = params.CTOF.numpoints;
+        min_points = params.coll_min_points;
+        radius = params.coll_radius;
         if (isfield(params,'ellipse')) 
           area = pi*params.ellipse.ra*params.ellipse.rb;
-          radius = params.coll_radius;
-          min_points=(pi*radius^2)/3;
         else
           area = numpoints^2;
         end
@@ -85,11 +78,11 @@ function params = select_point_positions(params, direction)
         x_active = params.full_field(:,1);
         y_active = params.full_field(:,2);
         numpoints = params.FTOC.numpoints;
+        min_points = params.field_min_points;
+        radius = params.field_radius;
         if (isfield(params,'ellipse')) 
             area = (max(y_active) - min(y_active))* ...
                    (max(x_active) - min(x_active));
-            radius = params.field_radius;
-            min_points = 10;
         else
             area = numpoints^2;
         end
@@ -137,24 +130,24 @@ function params = select_point_positions(params, direction)
             x_chosen = potential_points_x(chosen_point);
             y_chosen = potential_points_y(chosen_point);
             ntry = ntry + 1;
-
+            
             %--------------------------------------------------------------
+            % The min_points test
             %     "chosen_point" gives the index of the chosen point
             %    "x_chosen" and" y_chosen" are its coordinates
-            if (isfield(params,'ellipse')) 
-                distance_from_chosen_point = sqrt((x_chosen - x_active).^2 + ...
-                                                  (y_chosen - y_active).^2);
-                % Check there are enough active points within the
-                % radius with chosen centre
-                num_active_within_radius = sum(distance_from_chosen_point <= ...
-                                               radius);
-                if num_active_within_radius < min_points
-                    potential_points_x(chosen_point) = [];
-                    potential_points_y(chosen_point) = [];
-                    num_potential_points = num_potential_points - 1;
-                    continue
-                end
+            distance_from_chosen_point = sqrt((x_chosen - x_active).^2 + ...
+                                              (y_chosen - y_active).^2);
+            % Check there are enough active points within the
+            % radius with chosen centre
+            num_active_within_radius = sum(distance_from_chosen_point <= ...
+                                           radius);
+            if num_active_within_radius < min_points
+                potential_points_x(chosen_point) = [];
+                potential_points_y(chosen_point) = [];
+                num_potential_points = num_potential_points - 1;
+                continue
             end
+
             num_points_selected = num_points_selected + 1;
             chosen(num_points_selected,1) = x_chosen;
             chosen(num_points_selected,2) = y_chosen;

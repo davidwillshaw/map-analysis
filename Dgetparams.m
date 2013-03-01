@@ -173,8 +173,10 @@ function params = Dgetparams(id)
     params.ellipse_size = pi*EE(1)*EE(2);
     params.ranstart = RANSTART;
     params.coll_radius = 3;
+    params.coll_min_points = (pi*params.coll_radius^2)/3;
 %    params.field_radius = 3.0;
     params.field_radius = 1.7;
+    params.field_min_points = 10;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
     
