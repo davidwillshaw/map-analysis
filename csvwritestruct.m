@@ -1,35 +1,45 @@
 function csvwritestruct(filename, s)
-% CSVWRITESTRUCT - write a structure to a csv file
-%   Write the structure S to a csv file FILENAME
-%       
+% CSVWRITESTRUCT - write a structure to a csv file 
+%
+%   Write the cell array of structures S to a csv file FILENAME. If
+%   a structure in the array is hieararhical it is unfolded. 
+%    
+% See also unfold_structure      
+    verbose = false;
+    
     if (iscell(s)) 
         f = fopen(filename, 'w');
+        % Template structure: contains all field names
+        temp = struct();
         for (k = 1:length(s))
             s1 = unfold_structure(s{k});
-            els = structfun(@format_element, s1, 'UniformOutput', false);
-            cells = struct2cell(els);
-            if (k == 1) 
-                names = fieldnames(s1);
-            else
-                if (length(fieldnames(s1)) ~= length(names))
-                    error('Two structures have different numbers of elements')
-                end
-            end
-            if (length(cells) ~= length(names)) 
-                error('Names and cells are different lengths')
-            end
-            if (k == 1) 
-                for (i = 1:length(names)) 
-                    fprintf(f, '"%s"', names{i});
-                    if (i ~= length(names))
-                        fprintf(f, ',');
-                    else                    
-                        fprintf(f, '\n');
-                    end
-                end
-            end
+            names = fieldnames(s1);
             for (i = 1:length(names)) 
-                fprintf(f, '%s', cells{i});
+                temp = setfield(temp, names{i}, 1);
+            end
+        end
+        
+        % Get and print field names
+        names = fieldnames(temp);
+        for (i = 1:length(names)) 
+            fprintf(f, '"%s"', names{i});
+            if (i ~= length(names))
+                fprintf(f, ',');
+            else                    
+                fprintf(f, '\n');
+            end
+        end
+
+        % Go through each structure
+        for (k = 1:length(s))
+            s1 = unfold_structure(s{k});
+            for (i = 1:length(names))
+                if (isfield(s1, names{i}))
+                    out = format_element(getfield(s1, names{i}), verbose);
+                else
+                    out = '"NA"';
+                end
+                fprintf(f, out);
                 if (i ~= length(names))
                     fprintf(f, ',');
                 else                    
@@ -41,7 +51,7 @@ function csvwritestruct(filename, s)
     end
 end
 
-function out =  format_element(el) 
+function out = format_element(el, verbose) 
     if (isstr(el))
         out = sprintf('"%s"', el);
         return
@@ -50,12 +60,16 @@ function out =  format_element(el)
         if (prod(size(el)) == 1)
             out = sprintf('%f', el);
         else
-            warning('Matrix or vector: outputting NA')
+            if (verbose == true)
+                warning('Matrix or vector: outputting NA')
+            end
             out = sprintf('"NA"');
         end
         return
     end
-    warning('Invalid format: outputting NA')
+    if (verbose == true)
+        warning('Invalid format: outputting NA')
+    end
     out = sprintf('"NA"');
 end   
     
