@@ -6,7 +6,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 
 if (nargin > 4) 
     p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
-                   'AncLabels', 'AncSize'});
+                        'AncLabels', 'AncSize', 'LatticeColour'});
 else
     p = struct();
 end
@@ -21,7 +21,7 @@ if (isfield(p, 'ErrorType'))
 end
 Subgraph = false; % Other option is 'sem'
 if (isfield(p, 'Subgraph'))
-    Subgraph = p.Subgraph
+    Subgraph = p.Subgraph;
 end
 ancnums = params.anchors;
 anclabels = [];
@@ -31,7 +31,15 @@ if (isfield(p, 'AncLabels'))
 end
 ancsize = 6;
 if isfield(p, 'AncSize')
-    ancsize = p.ancsize;
+    ancsize = p.AncSize;
+end
+if strcmp(direction,'CTOF')
+    LatticeColour = 'b';
+else
+    LatticeColour = 'k';
+end
+if isfield(p, 'LatticeColour')
+    LatticeColour = p.LatticeColour;
 end
 
 % Clear axes
@@ -40,7 +48,9 @@ cla
 subplot(h2)
 cla
 
+% Plot Ellipses
 if (~strcmp(ErrorType, 'none'))
+    % Get the ellipses
     if (strcmp(direction, 'FTOC'))
         [x_cent_f, y_cent_f, angle_f, x_radius_f, y_radius_f, ...
          x_cent_c, y_cent_c, angle_c, x_radius_c, y_radius_c] = ...
@@ -71,7 +81,6 @@ if strcmp(direction,'CTOF')
     points_in_subgraph = params.CTOF.points_in_subgraph;
     list_of_neighbours = params.CTOF.list_of_neighbours;
     num_points = params.CTOF.numpoints;
-    color = 'b';
     sets_of_intersections = params.CTOF.sets_of_intersections;
     points_not_in_subgraph = params.CTOF.points_not_in_subgraph;
 end
@@ -88,14 +97,13 @@ if strcmp(direction,'FTOC')
     points_in_subgraph = params.FTOC.points_in_subgraph;
     list_of_neighbours = params.FTOC.list_of_neighbours;
     num_points = params.FTOC.numpoints;
-    color = 'k';
     sets_of_intersections = params.FTOC.sets_of_intersections;
     points_not_in_subgraph = params.FTOC.points_not_in_subgraph;
 end
 
 % Lattice on Field
 subplot(h1)
-print_links(1:num_points, field_coords, list_of_neighbours, color);
+print_links(1:num_points, field_coords, list_of_neighbours, LatticeColour);
 hold on
 [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
 print_links(cross_points, field_coords, list_of_crossings, 'r');
@@ -103,7 +111,7 @@ anchors = Dplot_anchors(field_coords,ancnums,anclabels,ancsize);
 
 % Lattice on Colliculus
 subplot(h2)
-print_links(1:num_points, coll_coords, list_of_neighbours, color);
+print_links(1:num_points, coll_coords, list_of_neighbours, LatticeColour);
 hold on
 [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
 print_links(cross_points, coll_coords, list_of_crossings, 'r');
