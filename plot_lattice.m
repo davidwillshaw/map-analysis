@@ -5,7 +5,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 
 
 if (nargin > 4) 
-    p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph'});
+    p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
+                   'AncLabels', 'AncSize'});
 else
     p = struct();
 end
@@ -20,7 +21,17 @@ if (isfield(p, 'ErrorType'))
 end
 Subgraph = false; % Other option is 'sem'
 if (isfield(p, 'Subgraph'))
-    ErrorType = p.Subgraph
+    Subgraph = p.Subgraph
+end
+ancnums = params.anchors;
+anclabels = [];
+if (isfield(p, 'AncLabels'))
+    anclabels = p.AncLabels;
+    ancnums=length(anclabels);
+end
+ancsize = 6;
+if isfield(p, 'AncSize')
+    ancsize = p.ancsize;
 end
 
 % Clear axes
@@ -52,7 +63,52 @@ if (~strcmp(ErrorType, 'none'))
         hold on
     end
 end
-    
+
+% Plot lattice
+if strcmp(direction,'CTOF')
+    coll_coords = params.CTOF.coll_points;
+    field_coords = params.CTOF.field_points;
+    points_in_subgraph = params.CTOF.points_in_subgraph;
+    list_of_neighbours = params.CTOF.list_of_neighbours;
+    num_points = params.CTOF.numpoints;
+    color = 'b';
+    sets_of_intersections = params.CTOF.sets_of_intersections;
+    points_not_in_subgraph = params.CTOF.points_not_in_subgraph;
+end
+
+if strcmp(direction,'FTOC')
+    %D      inserted details of the ectopics
+    ectopics=params.FTOC.stats.ectopics;
+    major_projection = params.FTOC.major_projection;
+    minor_projection = params.FTOC.minor_projection;
+    mean_projection = params.FTOC.mean_projection;
+
+    coll_coords = params.FTOC.coll_points;
+    field_coords = params.FTOC.field_points;
+    points_in_subgraph = params.FTOC.points_in_subgraph;
+    list_of_neighbours = params.FTOC.list_of_neighbours;
+    num_points = params.FTOC.numpoints;
+    color = 'k';
+    sets_of_intersections = params.FTOC.sets_of_intersections;
+    points_not_in_subgraph = params.FTOC.points_not_in_subgraph;
+end
+
+% Lattice on Field
+subplot(h1)
+print_links(1:num_points, field_coords, list_of_neighbours, color);
+hold on
+[cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
+print_links(cross_points, field_coords, list_of_crossings, 'r');
+anchors = Dplot_anchors(field_coords,ancnums,anclabels,ancsize);
+
+% Lattice on Colliculus
+subplot(h2)
+print_links(1:num_points, coll_coords, list_of_neighbours, color);
+hold on
+[cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
+print_links(cross_points, coll_coords, list_of_crossings, 'r');
+Dplot_anchors(coll_coords,ancnums,anclabels,ancsize);
+
 % Set axis properties for FTOC Field ellipse plot
 subplot(h1)
 hold on
