@@ -6,7 +6,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 
 if (nargin > 4) 
     p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
-                        'AncLabels', 'AncSize', 'LatticeColour'});
+                        'AncLabels', 'AncSize', 'LatticeColour', 'EctOptions'});
 else
     p = struct();
 end
@@ -41,6 +41,11 @@ end
 if isfield(p, 'LatticeColour')
     LatticeColour = p.LatticeColour;
 end
+ectoptions = 0;
+if isfield(p, 'EctOptions')
+    ectoptions = p.EctOptions;
+end
+
 
 % Clear axes
 subplot(h1)
@@ -103,18 +108,71 @@ end
 
 % Lattice on Field
 subplot(h1)
-print_links(1:num_points, field_coords, list_of_neighbours, LatticeColour);
-hold on
-[cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
-print_links(cross_points, field_coords, list_of_crossings, 'r');
+% Full graph
+if (~Subgraph)
+    print_links(1:num_points, field_coords, list_of_neighbours, LatticeColour);
+    hold on
+    [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
+    print_links(cross_points, field_coords, list_of_crossings, 'r');
+else
+    % Subgraph only
+    print_links(points_in_subgraph, field_coords, list_of_neighbours, LatticeColour);
+    hold on
+    %   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'or','MarkerFaceColor', 'r', 'MarkerSize',1);
+    if ectoptions == 0
+        plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'xr');
+    end
+    [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
+    print_links(cross_points, field_coords, list_of_crossings, 'r');
+end
 anchors = Dplot_anchors(field_coords,ancnums,anclabels,ancsize);
+
+if strcmp(direction,'FTOC')
+    if ectoptions ==1 |ectoptions ==2 |ectoptions ==3 | ectoptions ==4
+        sd = setdiff(points_not_in_subgraph,ectopics);
+        plot(field_coords(sd,1),field_coords(sd,2),'xr');
+        plot(field_coords(ectopics,1),field_coords(ectopics,2),'o','Color',[0 0 1]);
+    end
+end
 
 % Lattice on Colliculus
 subplot(h2)
-print_links(1:num_points, coll_coords, list_of_neighbours, LatticeColour);
-hold on
-[cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
-print_links(cross_points, coll_coords, list_of_crossings, 'r');
+if (~Subgraph)
+    print_links(1:num_points, coll_coords, list_of_neighbours, LatticeColour);
+    hold on
+    [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
+    print_links(cross_points, coll_coords, list_of_crossings, 'r');
+else   
+    print_links(points_in_subgraph, coll_coords, list_of_neighbours, LatticeColour);
+    hold on
+    if strcmp(direction,'FTOC')
+        %   plot(coll_coords(setdiff(points_not_in_subgraph,ectopics),1),coll_coords(setdiff(points_not_in_subgraph,ectopics),2),'or','MarkerFaceColor', 'r')
+        plot(coll_coords(setdiff(points_not_in_subgraph,ectopics),1),  ...
+             coll_coords(setdiff(points_not_in_subgraph,ectopics),2),'xr');
+
+        if ectoptions ==1 |ectoptions == 2 |ectoptions == 3 | ectoptions ==4
+            plot(coll_coords(ectopics,1),coll_coords(ectopics,2),'ob');
+        end
+
+        if ectoptions == 2 | ectoptions ==4
+            for i = 1:size(major_projection)
+                if ismember(i,ectopics)
+                    plot(major_projection(i,1),major_projection(i,2),'bo','MarkerSize',6,'MarkerFaceColor','b');
+                    hold on
+                    plot(minor_projection(i,1),minor_projection(i,2),'bo', 'MarkerSize',3,'MarkerFaceColor','b');
+                end
+            end
+        end
+
+        if ectoptions==3 | ectoptions ==4   
+            %line([minor_projection(ectopics,1)';major_projection(ectopics,1)'],[minor_projection(ectopics,2)';major_projection(ectopics,2)'],'Color','b','LineWidth',1);
+            line([minor_projection(ectopics,1)';major_projection(ectopics,1)'],[minor_projection(ectopics,2)'; major_projection(ectopics,2)'],'Color','b','LineWidth',0.5);
+        end
+    %D-----------------------------------------------------------------------------------------------------------------------------------------------------
+    end
+    [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
+    print_links(cross_points, coll_coords, list_of_crossings, 'r');
+end 
 Dplot_anchors(coll_coords,ancnums,anclabels,ancsize);
 
 % Set axis properties for FTOC Field ellipse plot
