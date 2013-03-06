@@ -50,7 +50,7 @@ function params = plot_figure5(params, varargin)
 %
 % See also plot_figure3
 
-    if (nargin >= 1) 
+    if (nargin > 1) 
         p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph'});
     else
         p = struct();
@@ -65,7 +65,7 @@ function params = plot_figure5(params, varargin)
         ErrorType = p.ErrorType;
     end
     Subgraph = false; % Other option is 'sem'
-    if (isfield(p, 'ErrorType'))
+    if (isfield(p, 'Subgraph'))
         ErrorType = p.Subgraph
     end
 
