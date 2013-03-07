@@ -186,7 +186,7 @@ function params = Dgetparams(id)
     params.minclustersize = 5;
 
     % Postprocessing function
-    params.postprocess_function = 'Dpostprocess';
+    % params.postprocess_function = 'Dpostprocess';
     
     % Scaling
 
