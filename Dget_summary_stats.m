@@ -1,10 +1,20 @@
-function Dget_summary_stats(datasets)
+function Dget_summary_stats(datasets, varargin)
+    
 %NEED TO CHECK ALL UNITS
 % for example, link_lengths not in right units
-
     if isempty(datasets)
         datasets = [6, 10, 15, 73, 80, 155, 156, 163, 165, 262, ... 
             82, 84, 94, 161, 162, 4, 54, 55, 56, 58];
+    end
+
+    if (nargin > 1) 
+        p = validateInput(varargin, {'UseCache'});
+    else
+        p = struct();
+    end
+    UseCache = false;
+    if (isfield(p, 'UseCache'))
+        UseCache = p.UseCache;
     end
     
     num_datasets = length(datasets);
@@ -14,7 +24,7 @@ function Dget_summary_stats(datasets)
     for i = 1:num_datasets
         id = datasets(i);
         disp(id);
-        ss{i} = Drun_data(id, 0);
+        ss{i} = Drun_data(id, 0, 'UseCache', UseCache);
     end
     
     

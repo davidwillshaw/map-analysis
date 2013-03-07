@@ -15,7 +15,7 @@ function params = Drun_data(id, ectopicnodes, varargin)
     end
     UseCache = false;
     if (isfield(p, 'UseCache'))
-        UseCache = p.UseCache
+        UseCache = p.UseCache;
         disp('Loading from cache')
     end
     
