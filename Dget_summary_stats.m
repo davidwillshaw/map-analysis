@@ -109,14 +109,15 @@ function s = scale_quantities(s, inscale, outscale, numpoints)
     s.scatter_mean_out              = s.scatter_mean_out*outscale;  
 
     % ordered subgraph 
-    s.num_nodes_in_subgraph         = s.num_nodes_in_subgraph*percent_mult;              
-    s.mean_subgraph_angles          = s.mean_subgraph_angles*degs;
-    s.std_subgraph_angles           = s.std_subgraph_angles*degs;
+    s.num_nodes_in_subgraph         = s.num_nodes_in_subgraph*percent_mult;
+    s.subgraph_map_orientation_mean = s.subgraph_map_orientation_mean*degs;
+    s.subgraph_map_orientation_std  = s.subgraph_map_orientation_std*degs;
     s.subgraph_overall_dispersion_angle = s.subgraph_overall_dispersion_angle*degs;          
     s.subgraph_dispersion_xrad      = s.subgraph_dispersion_xrad*outscale;             
     s.subgraph_dispersion_yrad      = s.subgraph_dispersion_yrad*outscale;             
     s.subgraph_SEM_xrad             = s.subgraph_SEM_xrad*outscale;
     s.subgraph_SEM_yrad             = s.subgraph_SEM_yrad*outscale;
+
 
     %baseline maps
     s.baseline.num_crosses         = mean(s.baseline.num_crosses);

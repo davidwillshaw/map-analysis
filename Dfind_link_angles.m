@@ -66,12 +66,23 @@ function params = Dfind_link_angles(params,direction,fullmap)
     end
     
     if strcmp(direction, 'CTOF')
-        params.CTOF.flipped_links = flipped_links;
-        params.CTOF.norm_links = norm_links;
-        params.CTOF.angles = angles;
-        params.CTOF.orientations = orientations;
-        params.stats.CTOF.map_orientation_mean = circ_mean(angles);
-        params.stats.CTOF.map_orientation_std = circ_std(angles);
+        if fullmap==1
+            params.CTOF.flipped_links = flipped_links;
+            params.CTOF.norm_links = norm_links;
+            params.CTOF.angles = angles;
+            params.CTOF.orientations = orientations;
+            params.stats.CTOF.map_orientation_mean = circ_mean(angles);
+            params.stats.CTOF.map_orientation_std = ...
+                circ_std(angles);
+        else
+            params.CTOF.subgraph_flipped_links = flipped_links;
+            params.CTOF.subgraph_norm_links = norm_links;
+            params.CTOF.subgraph_angles = angles;
+            params.CTOF.subgraph_orientations = orientations;
+            params.stats.CTOF.subgraph_map_orientation_mean = circ_mean(angles);
+            params.stats.CTOF.subgraph_map_orientation_std = ...
+                circ_std(angles);
+        end
     end
 
 % Local Variables:
