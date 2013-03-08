@@ -82,10 +82,10 @@ function params = Drun_data(id, ectopicnodes, varargin)
     params = find_overall_dispersion(params, 'CTOF', true);
 
     disp('--> orientation...')
-    params = Dfind_link_angles(params,'FTOC',1);
-    params = Dfind_link_angles(params,'FTOC',0);
-    params = Dfind_link_angles(params,'CTOF',1);
-    params = Dfind_link_angles(params,'CTOF',0);
+    params = find_link_angles(params,'FTOC',1);
+    params = find_link_angles(params,'FTOC',0);
+    params = find_link_angles(params,'CTOF',1);
+    params = find_link_angles(params,'CTOF',0);
     
     disp('--> scatters...')
     params = get_subgraph_scatters(params,'FTOC');
