@@ -1,4 +1,4 @@
-function anchors = Dplot_anchors(points,num_anchors,anchors,ancsize)
+function anchors = plot_anchors(points,num_anchors,anchors,ancsize)
     
     num_points = length(points);
     if isempty(anchors)

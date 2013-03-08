@@ -137,7 +137,7 @@ if (Lattice)
         [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
         print_links(cross_points, field_coords, list_of_crossings, 'r');
     end
-    anchors = Dplot_anchors(field_coords,ancnums,anclabels,ancsize);
+    anchors = plot_anchors(field_coords,ancnums,anclabels,ancsize);
 
     if strcmp(direction,'FTOC')
         if ectoptions ==1 |ectoptions ==2 |ectoptions ==3 | ectoptions ==4
@@ -185,7 +185,7 @@ if (Lattice)
         [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
         print_links(cross_points, coll_coords, list_of_crossings, 'r');
     end 
-    Dplot_anchors(coll_coords,ancnums,anclabels,ancsize);
+    plot_anchors(coll_coords,ancnums,anclabels,ancsize);
 end
     
 % Set axis properties for FTOC Field ellipse plot
