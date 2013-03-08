@@ -1,4 +1,4 @@
-function params = Drun_data(id, ectopicnodes, varargin)
+function params = run_data(id, ectopicnodes, varargin)
 
 %  David's version of run_data.m 
 % (i)   figure 306 added which plots individual scatters  YES
