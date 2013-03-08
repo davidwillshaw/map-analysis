@@ -3,50 +3,34 @@ function params = select_point_positions(params, direction)
 %   
 %   If direction is 'CTOF', choose params.CTOF.numpoints
 %   representative points out of the points on the colliculus
-%   params.full_coll. If params.ellipse has been defined (as a proxy
-%   for experimental data), these locations are taken from random
-%   positions within the ellipse drawn on the colliculus, subject to
-%   the following constraints:
+%   params.full_coll, subject to the following constraints:
 %
 %   (1) The miniumum spacing between nearest neighbours should be
 %   min_spacing, initially set to 0.75*sqrt(area/numpoints), which is
 %   decreased in steps if enough points can't be found within
-%   max_trials=numpoints*100. area is derived from the ellipse area.
+%   max_trials=numpoints*100. area is derived from the convex hull
+%   of params.full_coll 
 % 
 %   (2) There have to be at least params.coll_min_points points within
 %   params.coll_radius of each chosen location, which is the extent
 %   over which smoothing took place.
-% 
-%   If an ellipse hasn't been defined the area is defined as
-%   numpoints^2.
 %     
-%   Regardless of whether an ellipse has been defined, the chosen
-%   point locations are put in params.CTOF.coll_points. The area of
-%   the convex hull of these locations is put in
+%   The chosen point locations are put in params.CTOF.coll_points. The
+%   area of the convex hull of these locations is put in
 %   params.stats.CTOF.coll_area. The area is scaled by a factor
 %   (params.coll.scale)^2.
 %    
 %   If the direction is 'FTOC', params.FTOC.numpoints points are
-%   chosen from params.FTOC.full_field as above, but with three
-%   differences if params.ellipse has been defined (as a proxy for
-%   experimental data):
-%   
-%   (a) The area of the field is found by drawing the smallest
-%       rectangle possible around the points in the field.
-%     
-%   The situation when the params.ellipse is not defined is
-%   identical to the 'CTOF' case above. 
-%     
-%   In both cases the chosen points are put in
-%   params.FTOC.field_points and the area of the convex hull of the
-%   chosen points in params.stats.FTOC.field_area. The area is scaled
-%   by a factor (params.field.scale)^2.
+%   chosen from params.FTOC.full_field using the parameters
+%   params.field_min_points and params.field_radius.  The chosen
+%   points are put in params.FTOC.field_points and the area of the
+%   convex hull of the chosen points in
+%   params.stats.FTOC.field_area. The area is scaled by a factor
+%   (params.field.scale)^2.
 %    
 %   Needs: params.full_field, params.full_coll, params.CTOF.numpoints,
 %   params.FTOC.numpoints, params.coll_radius, params.field_radius,
 %   params.coll.scale, params.field.scale
-%
-%   Optional: params.ellipse   
 %    
 %   Returns: If direction is 'CTOF' params.CTOF.coll_points and
 %   params.stats.CTOF.coll_area.  If direction is 'FTOC',
@@ -67,11 +51,6 @@ function params = select_point_positions(params, direction)
         numpoints = params.CTOF.numpoints;
         min_points = params.coll_min_points;
         radius = params.coll_radius;
-        if (isfield(params,'ellipse')) 
-          area = pi*params.ellipse.ra*params.ellipse.rb;
-        else
-          area = numpoints^2;
-        end
     end
     
     if strcmp(direction, 'FTOC')
@@ -80,12 +59,6 @@ function params = select_point_positions(params, direction)
         numpoints = params.FTOC.numpoints;
         min_points = params.field_min_points;
         radius = params.field_radius;
-        if (isfield(params,'ellipse')) 
-            area = (max(y_active) - min(y_active))* ...
-                   (max(x_active) - min(x_active));
-        else
-            area = numpoints^2;
-        end
     end
 
     %------------------------------------------------------------------------
@@ -95,6 +68,7 @@ function params = select_point_positions(params, direction)
     % also set the number of iterations tried at this spacing
     % "max_trials"
 
+    [~,area] = convhull(x_active, y_active);
     min_spacing = 0.75*sqrt(area/numpoints);
     max_trials = numpoints*100;
     rand('twister', params.ranstart);
