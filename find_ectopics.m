@@ -1,7 +1,9 @@
-function params = find_ectopics(params)
-
+function params = Dfind_ectopics(params)
+% Hopefully principled criteria for finding ectopics
+%  corrected a possible bug in determination of angles
+%  ie  for angle like -170 add 180
+% as these should be around +10 or so
     
-    FRAC_SPREAD = 0.5;
     numpoints = params.FTOC.numpoints;
     field_points = params.FTOC.field_points;
     full_field_coords = params.full_field;
@@ -17,11 +19,42 @@ function params = find_ectopics(params)
         [IDX2, C2] = kmeans(projection_points,2, 'replicates',5);
         I1=find(IDX2==1);
         I2=find(IDX2==2);
-        sd_1 = sqrt(sum(std(projection_points(I1,:)).^2));
-        sd_2 = sqrt(sum(std(projection_points(I2,:)).^2));
-        if length(I1)>4 && length(I2)>4 && ...
-                sd_1+sd_2 < FRAC_SPREAD*dist(C2(1,:),C2(2,:)')
-            
+
+        projection_points(I1,:);
+        projection_points(I2,:);
+        len1=length(I1);
+        len2=length(I2);
+	x_radius1=0;
+	y_radius1=0;
+	x_radius2=0;
+	y_radius2=0;
+	if len1>9
+	   [dummy,x_radius1,y_radius1] = plot_error_ellipse(projection_points(I1,:));
+	end
+		
+        if len2>9
+	   [dummy,x_radius2,y_radius2] = plot_error_ellipse(projection_points(I2,:));
+        end
+        sd_1=max(x_radius1,y_radius1);
+        sd_2=max(x_radius2,y_radius2);
+        C2(1,:);
+        C2(2,:);
+
+       ddist= sqrt((C2(1,1)-C2(2,1))^2 + (C2(1,2)-C2(2,2))^2);
+
+
+%        sd_1 = sqrt(sum(std(projection_points(I1,:)).^2));
+%        sd_2 = sqrt(sum(std(projection_points(I2,:)).^2));
+
+%        criteria for ectopics:
+%        (i) have at least 10 points in each cluster
+%        (ii)  distance between means  > summed standard deviations 
+%        (iii) distance between means greater than 50 microns
+         if length(I1)>9 && length(I2)>9 && ddist > 1.1*(sd_1+sd_2) && ddist >6
+%	disp(['ectopic!']);
+%        pause
+         
+
             if length(I1)>=length(I2)
                 major_projection(point,:) = C2(1,:);
                 minor_projection(point,:) = C2(2,:);
@@ -39,8 +72,13 @@ function params = find_ectopics(params)
 
 %    adjust because of how axes are drawn
 
-    params.FTOC.mean_ectopic_angles=mean(-(90- atand(tangents)));
-    params.FTOC.std_ectopic_angles=std(-(90- atand(tangents)),1);
+     ect_angles = -(90- atand(tangents));
+      IA = find(ect_angles < -90);
+	 ect_angles(IA) = ect_angles(IA) +180;
+
+     ect_angles;
+    params.FTOC.mean_ectopic_angles=mean(ect_angles);
+    params.FTOC.std_ectopic_angles=std(ect_angles,1);
 
     params.FTOC.major_projection = major_projection;
     params.FTOC.minor_projection = minor_projection;

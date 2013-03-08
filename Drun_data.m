@@ -56,7 +56,7 @@ function params = Drun_data(id, ectopicnodes, varargin)
 %   NN = length(params.FTOC.coll_points(:,2));
 %   params.FTOC.coll_points(:,2) = params.FTOC.coll_points(randperm(NN),2);
     disp('Finding ectopics...')
-    params = Dfind_ectopics(params);
+    params = find_ectopics(params);
     params = triangulation(params,'CTOF');
     params = triangulation(params,'FTOC');
     disp('Finding crossings...')
