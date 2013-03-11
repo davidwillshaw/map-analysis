@@ -11,7 +11,7 @@ function params = Drun_data(id, ectopicnodes, varargin)
         UseCache = p.UseCache;
     end
 
-    params = run_data(id, ectopicnodes, 'GetParamsFunc', 'Dgetparams', ...
+    params = run_data_id(id, ectopicnodes, 'GetParamsFunc', 'Dgetparams', ...
                       'UseCache', UseCache)
     
 % Local Variables:
