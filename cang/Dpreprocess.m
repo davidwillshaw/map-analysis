@@ -2,6 +2,9 @@ function params = Dpreprocess(params)
 % DPREPROCESS - preprocess Cang's experimental data
 %   
 
+disp(['Loading data ',num2str(params.id), '...'])
+params = load_data(params);
+
 params = find_active_pixels(params);
 params = make_list_of_points(params); 
 params = Dfind_map_quality(params)
