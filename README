@@ -8,7 +8,9 @@ Each directory contains the following:
 
 * lib: The core code. 
 
-* cang: Code specific to analysis of the data of Cang &al (2008).
+* cang: Code specific to analysis of the data of Cang &al
+  (2008). Generate figures by typing "figures" at Matlab prompt, and
+  statistics by typing get_summary_stats([]).
 
 * old: Redundant code - much can probably be dispensed with.
 
