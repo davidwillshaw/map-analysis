@@ -1,13 +1,46 @@
+Map analysis code
+=================
+
+This directory contains the code for Willshaw &al. (2013) "Analysis of
+local and global topographic order in mouse retinocollicular maps".
+
+Each directory contains the following:
+
+* lib: The core code. 
+
+* cang: Code specific to analysis of the data of Cang &al (2008).
+
+* old: Redundant code - much can probably be dispensed with.
+
 Git branches
 ============
 
 master            - the main branch
+
 adrianna-final    - files as Adrianna left them, complete wtith figures
-dw-figs-for-paper - Import of all M-files in David's Computing/Matlab/MapPrecision11/Adriannas_legacy/Figs_for_paper directory
+
+dw-figs-for-paper - Import of all M-files in David's
+                    Computing/Matlab/MapPrecision11/Adriannas_legacy/Figs_for_paper
+                    directory  
+
+dw-figs-for-paper-clean 
+                  - Cleaned up version of above
+
+merge-sim-exp     - Branch in which work on merging experiment- and
+                    simulation-specific code was carried out 
+
 
 Git tags
 ========
 
 adrianna-may-2011      - The files as handed over by Adrianna
-adrianna-final-cleaned - The files minus all the derived (pdf, xls, eps) files
-adrianna-dw-changes    - David Willshaw's changes to Adrianna's existing files
+
+adrianna-final-cleaned - The files minus all the derived (pdf, xls,
+                         eps) files
+
+adrianna-dw-changes    - David Willshaw's changes to Adrianna's
+                         existing files
+
+pre-directory-reorg    - The state of code just before reorganisation
+                         into lib and cang directories
+
