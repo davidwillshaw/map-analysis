@@ -7,7 +7,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 if (nargin > 4) 
     p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
                         'AncLabels', 'AncSize', 'LatticeColour', ...
-                        'EctOptions', 'Lattice'});
+                        'EctOptions', 'Lattice', 'PointNumbers'});
 else
     p = struct();
 end
@@ -52,17 +52,50 @@ end
 if isfield(p, 'LatticeColour')
     LatticeColour = p.LatticeColour;
 end
+
 ectoptions = 0;
 if isfield(p, 'EctOptions')
     ectoptions = p.EctOptions;
 end
 
+PointNumbers = false;
+if isfield(p, 'PointNumbers')
+    PointNumbers = p.PointNumbers;
+end
 
 % Clear axes
 subplot(h1)
 cla
 subplot(h2)
 cla
+
+% Plots out the numbers of each node so that anchors can be chosen
+% easily.
+if (PointNumbers)
+    if (strcmp(direction, 'FTOC'))
+        num_points = params.FTOC.numpoints;
+        takeout = params.FTOC.takeout;
+        from_coords = params.FTOC.field_points;
+        to_coords = params.FTOC.coll_points;
+
+    else
+        num_points = params.CTOF.numpoints;
+        takeout = params.CTOF.takeout;
+        from_coords = params.CTOF.field_points;
+        to_coords = params.CTOF.coll_points;
+    end
+    list_of_points = setdiff(1:num_points,takeout);
+    subplot(h1)
+    for lop=1:length(list_of_points)
+      text(from_coords(lop,1), from_coords(lop,2), ...
+           num2str(list_of_points(lop)),'FontSize',6);
+    end
+    subplot(h2)
+    for lop=1:length(list_of_points)
+      text(to_coords(lop,1), to_coords(lop,2), ...
+           num2str(list_of_points(lop)),'FontSize',6);
+    end
+end
 
 % Plot Ellipses
 if (~strcmp(ErrorType, 'none'))
