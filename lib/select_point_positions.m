@@ -159,12 +159,20 @@ function params = select_point_positions(params, direction)
         params.CTOF.coll_points = chosen;
         area = area*params.coll.scale^2;
         params.stats.CTOF.coll_area = area;
+
+        params.CTOF.set_min_spacing = min_spacing;     
+        choose_dists = dist(chosen')+ 100*eye(numpoints);
+        params.CTOF.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.field_points = chosen;
         area = area*params.field.scale^2;
         params.stats.FTOC.field_area = area;
+
+        params.FTOC.set_min_spacing = min_spacing;     
+        choose_dists = dist(chosen')+ 100*eye(numpoints);
+        params.FTOC.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
     end
             
 % Local Variables:
