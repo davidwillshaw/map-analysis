@@ -16,7 +16,7 @@ function params = Dremove_high_scatter(params)
 
 %                          SERIAL/PARALLEL UPDATE OF ACTIVITY MATRIX?
 
-%                                     PARALLEL
+%                                     PARALLEL NOW
 
 thresh_scatter = params.thresh_scatter;
 minclustersize = params.minclustersize;
@@ -92,8 +92,8 @@ if thresh_scatter < 999
 %        (iii) distance between means greater than 10 degrees
 
 	two_clusters = 0;
-%        if length(I1)>= minclustersize & length(I2) >= minclustersize & ddist >= 1.1*(sd_1+sd_2)
-        if length(I1)>= minclustersize & length(I2) >= minclustersize & ddist >= 1.1*(sd_1+sd_2) &  ddist  >= 10
+        if length(I1)>= minclustersize & length(I2) >= minclustersize & ddist >= 1.1*(sd_1+sd_2)
+%        if length(I1)>= minclustersize & length(I2) >= minclustersize & ddist >= 1.1*(sd_1+sd_2) &  ddist  >= 10
 	   two_clusters = 1;
 	end
 	if two_clusters == 0
@@ -102,7 +102,7 @@ if thresh_scatter < 999
 	   if num_to_points >=minclustersize
 	     numb_pixels_examined = numb_pixels_examined +num_to_points;
 	
-	     % figure(9999)
+	     figure(9999)
 	     [angle,x_radius,y_radius] = plot_error_ellipse(to_points);
 
 	     if max(x_radius,y_radius) > thresh_scatter
@@ -128,6 +128,7 @@ end
         percent_change = 100*(1-numb_pixels_finally_active/numb_pixels_originally_active)     
 	numb_pixels_examined
 
+	params.prefiltered_active_pixels = params.active_pixels;
 	params.active_pixels = active_pixels;
 
 	
