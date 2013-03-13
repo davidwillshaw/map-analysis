@@ -14,7 +14,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %   The function accepts a number of options, specified as
 %   name-argument pairs:
 %
-%   - ErrorType: If 'sd' (default), plot standard deviation of
+%   - ErrorType: If 'none' (default) do not plot any complmentary
+%       distribution information. If 'sd', plot standard deviation of
 %       complementary distributions (as in Figure 5 of Willshaw et
 %       al. 2013). If 'sem', plot standard errors in the mean of
 %       complementary distributions (as in Figure 7C of Willshaw et
