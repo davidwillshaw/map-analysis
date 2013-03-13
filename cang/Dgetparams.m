@@ -12,13 +12,16 @@ function params = Dgetparams(id)
 %WT
     if id == 6
         EE = [68 60 0.95 119 154];
-        N = 175;
-        RANSTART = 3456;
+%        N = 175;
+%        RANSTART = 3456;
+         RANSTART = 1013;
+	 N = 178;
     end
 
     if id==80
         EE = [70 60 135 110 140];
-        N = 175;
+%       N = 175;
+        N = 173;
         RANSTART = 98;
     end
 
@@ -30,8 +33,10 @@ function params = Dgetparams(id)
 
     if id==15
         EE = [60 50 2.3562 118 138];
-        N = 134;
-        RANSTART = 55;
+%       N = 134;
+%       RANSTART = 55;
+	N = 138;
+        RANSTART = 987564;
     end
 
     if id==73
@@ -42,7 +47,8 @@ function params = Dgetparams(id)
 
 %beta 2 KO
     if id==155
-        N=130;
+%       N=130;
+        N=120;
         RANSTART=9833;
         EE = [46 62 120 133 110];
     end
@@ -54,27 +60,32 @@ function params = Dgetparams(id)
     end
 
     if id==163
-        N=75;
+%       N=75;
+	N = 77;
         RANSTART=9833;
         EE = [45 38 2.1 163 153];
     end
 
     if id==165
         N=115;
-        RANSTART=9833;
+%       RANSTART=9833;
+        RANSTART = 119833;
         EE = [54 42 2.1 170 144];
     end
 
     if id==262;
-        N=115;
-        RANSTART=9833;
+%       N=115;
+%       RANSTART=9833;
+	N = 120;
+        RANSTART = 993131;
         EE = [60 42 2.1 139 159];
     end
 
 %Het TKO
 
     if id==82
-        N=105;
+%       N=105;
+        N = 88;
         RANSTART=43;
         EE = [60 40 2.3562 160 140];
     end
@@ -86,19 +97,22 @@ function params = Dgetparams(id)
     end
 
     if id==94
-        N=210;
+%       N=210;
+	N = 205;
         RANSTART=431;
         EE = [70 60 0.7584 140 130];
     end
 
     if id==161
-        N=97;
+%       N=97;
+        N = 95;
         RANSTART=9833;
         EE = [35 50 -10 127 123];
     end
 
     if id==162
-	N=157;
+%	N=157;
+        N = 142;
         RANSTART=431;
         EE = [70 50 -10 135 140];
     end
@@ -106,46 +120,36 @@ function params = Dgetparams(id)
 %Hom TKO
 
     if id==4
-        N=135;
-%	N=10;
-%	N=9;
-%	N=8;
+%       N=135;
+        N 125;
         RANSTART=10101;
         EE = [60 45 0.784 130 130];
     end
 
     if id==54;
-        N=116;
-%	N=10;
-%	N=9;
+%       N=116;
+        N = 106;
         RANSTART=22431;
         EE = [45 55 1.1636 146 109];
     end
 
     if id==55
-        N=130;
-%       N=10;
+%       N=130;
+        N=110;
         RANSTART=431;
         EE = [48 60 0.7995 152 112];
     end
 
     if id==56
         N=165;
-%        N=12;
 %	RANSTART=98765;
-%	N=11;
-%	N=9;
-%       N=8;
-        RANSTART=10101;
+        N=150;
+        RANSTART=4664;
         EE = [72 52 0.8 175 130];
     end
 
     if id==58
         N=167;
-% 	N=10;
-%       N=7;
-%       N=9;
-%       N=8;
         RANSTART=10101;
         EE = [72 52 2.3562 160 145];
     end
