@@ -1,8 +1,56 @@
 function h = plot_lattice(params, direction, h1, h2, varargin)
-% PLOT_LATTICE - General Lattice-plotting function
+% PLOT_LATTICE - Lattice and complementary distribution plotting function
 %   
-%   Plot params in direction into handles h1 and h2
-
+%   Plot the lattice and/or complementary distributions of PARAMS in
+%   DIRECTION into subplots with handles H1 and H2.
+%   
+%   For the FTOC direction, the distribution of pixels on the
+%   colliculus associated with the points within each small circular
+%   area of field of radius params.field_radius is the called the
+%   complementary distribution. Using the 'ErrorType' argument, this
+%   function plots the complementary distributions for each node in
+%   the lattice in the FTOC and CTOF directions.
+%
+%   The function accepts a number of options, specified as
+%   name-argument pairs:
+%
+%   - ErrorType: If 'sd' (default), plot standard deviation of
+%       complementary distributions (as in Figure 5 of Willshaw et
+%       al. 2013). If 'sem', plot standard errors in the mean of
+%       complementary distributions (as in Figure 7C of Willshaw et
+%       al. 2013).
+%
+%   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
+%       scalebars (as in all figures in Willshaw et al. 2013). If
+%       'box', plot conventional axes.
+%    
+%   - Subgraph: If true, plot only distributions around points in the
+%       maxium subgraph; otherwise plot all distributions.
+%
+%   - EctOptions: (for FTOC ONLY)
+%       (i) ectopics marked in the subgraph plot in blue crosses
+%       (ii) options shown by value of ectoptions:
+%       EctOptions = 0: raw subgraph
+%       EctPptions = 1: as (0) but mean positions of ectopics shown in blue
+%       EctOptions = 2: as (1) and major and minor extents of
+%       ectopics also shown 
+%       EctOptions = 3: as (1) and extents of ectopics shown by a line only
+%       EctOptions = 4: (2) and (3) combined - major and minor plus
+%       line
+%    
+%   - AncLabels: If provided, specifies numbered points for anchors.
+%
+%   - AncSize: Size of anchors.
+%    
+%   - LatticeColour: Colour of lattice. Defaults to black for
+%       'FTOC' direction and blue for 'CTOF' direction
+%     
+%   - Lattice: If true (default), print a Lattice.
+%
+%   - PointNumbers: If true (default false), print ids of points at
+%       their respective locations.
+%    
+% See also: plot_angles, plot_superposed
 
 if (nargin > 4) 
     p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
