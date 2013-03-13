@@ -121,7 +121,7 @@ function params = Dgetparams(id)
 
     if id==4
 %       N=135;
-        N 125;
+        N= 125;
         RANSTART=10101;
         EE = [60 45 0.784 130 130];
     end
