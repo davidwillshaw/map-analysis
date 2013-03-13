@@ -13,7 +13,7 @@ function params = ectopic_order_stats(params)
     
     new_params.FTOC.takeout = non_ect;
     
-    new_params = find_link_angles(new_params,'FTOC');
+    new_params = find_link_angles(new_params,'FTOC',1);
     new_params = find_largest_subgraph(new_params,'FTOC');
     params.stats.map_orientation_mean_major = new_params.stats.FTOC.map_orientation_mean;
     params.stats.map_orientation_std_major = new_params.stats.FTOC.map_orientation_std;
@@ -28,7 +28,7 @@ function params = ectopic_order_stats(params)
     
     new_params.FTOC.takeout = non_ect;
     
-    new_params = find_link_angles(new_params,'FTOC');
+    new_params = find_link_angles(new_params,'FTOC',1);
     new_params = find_largest_subgraph(new_params,'FTOC');
     params.stats.map_orientation_mean_minor = new_params.stats.FTOC.map_orientation_mean;
     params.stats.map_orientation_std_minor = new_params.stats.FTOC.map_orientation_std;
