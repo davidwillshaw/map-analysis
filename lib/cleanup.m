@@ -8,7 +8,7 @@ newtriangles = triangles;
 
 for n=1:num_triangles
     vertices = triangles(n,:);
-    side_lengths = dist(positions(vertices,:),positions(vertices,:)');
+    side_lengths = compute_dist(positions(vertices,:),positions(vertices,:)');
     AB = side_lengths(1,2);
     AC = side_lengths(1,3);
     BC = side_lengths(2,3);

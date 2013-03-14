@@ -32,7 +32,8 @@ function [major_projection_posn minor_projection_posn, optimal_position] = find_
         if isnan(t(ect))
             continue
         end
-        if dist(major_projection(ectopics(ect),:),optimal_position(ect,:)')>dist(minor_projection(ectopics(ect),:),optimal_position(ect,:)')
+        if (compute_dist(major_projection(ectopics(ect),:),optimal_position(ect,:)') > ...
+            compute_dist(minor_projection(ectopics(ect),:),optimal_position(ect,:)'))
             major_projection_posn(ectopics(ect),:) = minor_projection(ectopics(ect),:);
             minor_projection_posn(ectopics(ect),:) = major_projection(ectopics(ect),:);
         end

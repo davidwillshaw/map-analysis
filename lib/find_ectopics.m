@@ -86,7 +86,7 @@ function params = Dfind_ectopics(params)
 
     ect = find(minor_projection(:,1));
     params.stats.num_ectopics = length(ect);
-    ect_dists = diag(dist(major_projection(ect,:),minor_projection(ect,:)'));
+    ect_dists = diag(compute_dist(major_projection(ect,:),minor_projection(ect,:)'));
     params.stats.ect_dist_mean = mean(ect_dists);
     params.stats.ect_dist_std = std(ect_dists);
 %D   added by David
