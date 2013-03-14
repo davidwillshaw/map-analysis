@@ -135,10 +135,15 @@ function s = scale_quantities(s, inscale, outscale, numpoints)
 
 
     %baseline maps
-    s.baseline.num_crosses         = mean(s.baseline.num_crosses);
-    s.baseline.num_nodes_crossing  = mean(s.baseline.num_nodes_crossing)*percent_mult;        
-    s.baseline.num_nodes_in_submap = mean(s.baseline.num_nodes_in_submap)*percent_mult; 
-    s.lower_bound                  = s.lower_bound*percent_mult;
+    if (isfield(s, 'baseline'))
+        s.baseline.num_crosses         = mean(s.baseline.num_crosses);
+        s.baseline.num_nodes_crossing  = mean(s.baseline.num_nodes_crossing)*percent_mult;        
+        s.baseline.num_nodes_in_submap = ...
+            mean(s.baseline.num_nodes_in_submap)*percent_mult; 
+    end
+    if (isfield(s, 'lower_bound'))
+        s.lower_bound                  = s.lower_bound*percent_mult;
+    end
     
 end
 

@@ -58,11 +58,13 @@ function params = run_data(params)
     params = get_subgraph_scatters(params,'FTOC');
     params = get_subgraph_scatters(params,'CTOF');
     disp('--> baseline...')
-    % params = find_baseline(params, 'FTOC', 5);
-    % params = find_baseline(params, 'CTOF', 5);
+    params = find_baseline(params, 'FTOC', 5);
+    params = find_baseline(params, 'CTOF', 5);
     disp('-->lower bound...')
-    % params = find_prob_subgraph(params,'FTOC');
-    % params = find_prob_subgraph(params,'CTOF');
+    if (license('checkout', 'optimization_toolbox'))
+        params = find_prob_subgraph(params,'FTOC');
+        params = find_prob_subgraph(params,'CTOF');
+    end
     if params.stats.num_ectopics >= 5
         disp('--> ectopics...')
         params = ectopic_order_stats(params);
