@@ -102,7 +102,7 @@ if thresh_scatter < 999
 	   if num_to_points >=minclustersize
 	     numb_pixels_examined = numb_pixels_examined +num_to_points;
 	
-	     figure(9999)
+	     %figure(9999)
 	     [angle,x_radius,y_radius] = plot_error_ellipse(to_points);
 
 	     if max(x_radius,y_radius) > thresh_scatter
