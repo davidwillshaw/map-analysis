@@ -57,6 +57,11 @@ function get_summary_stats(datasets, varargin)
         ss{i}.stats.num_ectopics  = ss{i}.stats.num_ectopics*ss{i}.percent_mult;                            
         ss{i}.stats.ect_dist_mean = ss{i}.stats.ect_dist_mean*coll_scale;                             
         ss{i}.stats.ect_dist_std  = ss{i}.stats.ect_dist_std*coll_scale;                              
+        
+        % mean_min_spacing
+        field_scale = ss{i}.field.scale;
+        ss{i}.FTOC.mean_min_spacing = ss{i}.FTOC.mean_min_spacing*field_scale;
+        ss{i}.CTOF.mean_min_spacing = ss{i}.CTOF.mean_min_spacing*coll_scale;
 
         %  43,44 already in degrees
 
