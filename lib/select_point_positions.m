@@ -161,7 +161,8 @@ function params = select_point_positions(params, direction)
         params.stats.CTOF.coll_area = area;
 
         params.CTOF.set_min_spacing = min_spacing;     
-        choose_dists = dist(chosen')+ 100*eye(numpoints);
+        choose_dists = compute_dist(chosen');
+        choose_dists = choose_dists + max(max(choose_dists))*eye(numpoints);
         params.CTOF.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
     end
     
@@ -171,10 +172,26 @@ function params = select_point_positions(params, direction)
         params.stats.FTOC.field_area = area;
 
         params.FTOC.set_min_spacing = min_spacing;     
-        choose_dists = dist(chosen')+ 100*eye(numpoints);
+        choose_dists = compute_dist(chosen');
+        choose_dists = choose_dists + max(max(choose_dists))*eye(numpoints);
         params.FTOC.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
     end
-            
+end
+  
+function D = compute_dist(P) 
+% Number of vectors
+    Q = size(P, 2);
+    
+    % X and Y components
+    XA = repmat(P(1,:), Q, 1);
+    XB = repmat(transpose(P(1,:)), 1, Q);
+    YA = repmat(P(2,:), Q, 1);
+    YB = repmat(transpose(P(2,:)), 1, Q);
+    
+    % Find distances
+    D = sqrt((XA - XB).^2 + (YA - YB).^2);
+end
+
 % Local Variables:
 % matlab-indent-level: 4
 % End:
