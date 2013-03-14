@@ -1,4 +1,4 @@
-function params = Dfind_ectopics(params)
+function params = find_ectopics(params)
 % Hopefully principled criteria for finding ectopics
 %  corrected a possible bug in determination of angles
 %  ie  for angle like -170 add 180
