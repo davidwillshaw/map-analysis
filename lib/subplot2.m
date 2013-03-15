@@ -15,7 +15,7 @@ set(h, 'LooseInset', inset);
 mar = 0.02;
 xfac = 0.97;
 position = [xfac*((col - 1)/ncol) + mar, (nrow - row)/nrow + mar, ...
-            xfac*1/ncol - 2*mar, 1/nrow - 2*mar]
-set(h, 'Position', position)
+            xfac*1/ncol - 2*mar, 1/nrow - 2*mar];
+set(h, 'Position', position);
 
 
