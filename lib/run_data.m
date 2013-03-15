@@ -11,6 +11,10 @@ function params = run_data(params)
        end
     end
 
+    disp('Ensuring point positions unique...')
+    params = uniquify_point_positions(params, 'CTOF');
+    params = uniquify_point_positions(params, 'FTOC');
+    
     disp('Selecting point positions...')
     params = select_point_positions(params,'CTOF');
     params = select_point_positions(params,'FTOC');
