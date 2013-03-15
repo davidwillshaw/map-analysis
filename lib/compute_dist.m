@@ -11,7 +11,7 @@ function D = compute_dist(W, P)
 
 if (nargin == 1)
     P = W;
-    W = transpose(W)
+    W = transpose(W);
 end
 % W is S by 2
 % P is 2 by Q
