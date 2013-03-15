@@ -34,7 +34,7 @@ function params = run_data(params)
     params = find_largest_subgraph(params,'CTOF',ectopicnodes);
     params = find_largest_subgraph(params,'FTOC',ectopicnodes);
     disp('Calculating stats...')
-    disp(['--> dispersion (mean dispersion of complentary distributions)'])
+    disp(['--> dispersion (mean dispersion of complementary distributions)'])
     params = find_dispersion(params, 'FTOC');
     params = find_dispersion(params, 'CTOF');
     disp(['--> dispersion for subgraphs'])
