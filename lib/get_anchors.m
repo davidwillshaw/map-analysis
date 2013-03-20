@@ -1,4 +1,4 @@
-function [anclabels, anccolours] = get_anchors(points, points_in_subgraph, ancnums)
+function [anclabels, anccolours] = get_anchors(points, points_in_subgraph, num_anchors)
     
     % Find locations of field points
     X = points(points_in_subgraph, 1);
@@ -8,11 +8,11 @@ function [anclabels, anccolours] = get_anchors(points, points_in_subgraph, ancnu
     x = [];
     y = [];
 
-    x = min(X) + (max(X) - min(X))*linspace(0, 1, ancnums);
-    y = min(Y) + (max(Y) - min(Y))*0.5*ones(1, ancnums);
+    x = min(X) + (max(X) - min(X))*linspace(0, 1, num_anchors);
+    y = min(Y) + (max(Y) - min(Y))*0.5*ones(1, num_anchors);
           
-    x = [x, min(X) + (max(X) - min(X))*0.5*ones(1, ancnums)];
-    y = [y, min(Y) + (max(Y) - min(Y))*linspace(0, 1, ancnums)];
+    x = [x, min(X) + (max(X) - min(X))*0.5*ones(1, num_anchors)];
+    y = [y, min(Y) + (max(Y) - min(Y))*linspace(0, 1, num_anchors)];
 
     % Remove any non-unique points
     P = [transpose(x) transpose(y)];
