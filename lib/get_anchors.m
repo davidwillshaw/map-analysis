@@ -37,13 +37,13 @@ function [anclabels, anccolours] = get_anchors(points, points_in_subgraph, ...
     % represents paramters for R, G, and B
     A = [240  202.5   59 ;
          -54 -127.0   26 ;
-         -104   5.0  114];
+         -104   5.0  114]./255;
     
     % This returns a matrix with the same number of rows anchors,
     % with each row representing the RGB values of that anchor.
-    anccolours = [ ones(numel(x), 1) ...
-                   (points(anclabels, 1) - min(X))./(max(X) - min(X)) ...
-                   (points(anclabels, 2) - min(Y))./(max(Y) - min(Y))] * A;
+    anccolours = [ ones(numel(x), 1), ...
+                   (points(anclabels, 1) - min(X))./(max(X) - min(X)), ...
+                   1 - (points(anclabels, 2) - min(Y))./(max(Y) - min(Y))] * A;
 end
 
 % Local Variables:
