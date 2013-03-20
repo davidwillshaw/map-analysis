@@ -1,8 +1,10 @@
-function anchors = plot_anchors(points,num_anchors,anchors,ancsize)
+function anclabels = plot_anchors(points, num_anchors, anclabels, ancsize)
     
     num_points = length(points);
-    if isempty(anchors)
+    if isempty(anclabels)
         anchors = ceil(rand(num_anchors,1).*num_points);
+    else
+        num_anchors = length(anclabels);
     end
     
     COLOURS(5,:) = [0.5 0 1];  % red-blue 
@@ -19,9 +21,13 @@ function anchors = plot_anchors(points,num_anchors,anchors,ancsize)
     COLOURS(12,:) = [0 0.5 0];  %dark green
     
     for anchor = 1:num_anchors
-        plot(points(anchors(anchor),1),points(anchors(anchor),2),'o','Color',COLOURS(anchor,:),'MarkerFaceColor',COLOURS(anchor,:),'MarkerSize',ancsize);
+        plot(points(anclabels(anchor), 1), ...
+             points(anclabels(anchor), 2), ...
+             'o', 'Color', COLOURS(anchor,:), ...
+             'MarkerFaceColor', COLOURS(anchor,:), ...
+             'MarkerSize', ancsize);
     end
     
-    
-    
-    
+% Local Variables:
+% matlab-indent-level: 4
+% End:
