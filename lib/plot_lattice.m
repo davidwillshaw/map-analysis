@@ -42,6 +42,9 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %   - AncLabels: If provided, specifies numbered points for anchors.
 %
 %   - AncSize: Size of anchors.
+%
+%   - AncShape: Shape described by anchors. Can be 'Cross'
+%       (default), 'Horizontal' or 'Vertical'    
 %    
 %   - LatticeColour: Colour of lattice. Defaults to black for
 %       'FTOC' direction and blue for 'CTOF' direction
@@ -55,7 +58,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 
 if (nargin > 4) 
     p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
-                        'AncLabels', 'AncSize', 'LatticeColour', ...
+                        'AncLabels', 'AncSize', 'AncShape', ...
+                        'LatticeColour', ...
                         'EctOptions', 'Lattice', 'PointNumbers'});
 else
     p = struct();
@@ -76,6 +80,11 @@ if (isfield(p, 'Subgraph'))
     Subgraph = p.Subgraph;
 end
 
+AncShape = 'Cross';
+if isfield(p, 'AncShape')
+    AncShape = p.AncShape;
+end
+
 num_anchors = params.anchors;
 if (isfield(p, 'AncLabels'))
     anclabels = p.AncLabels;
@@ -87,11 +96,11 @@ else
     if (strcmp(direction, 'FTOC'))
         anclabels = get_anchors(params.FTOC.field_points, ...
                                 params.FTOC.points_in_subgraph, ...
-                                num_anchors);
+                                num_anchors, AncShape);
     else
         anclabels = get_anchors(params.CTOF.coll_points, ...
                                 params.CTOF.points_in_subgraph, ...
-                                num_anchors);
+                                num_anchors, AncShape);
     end
 end
 
