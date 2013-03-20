@@ -1,4 +1,5 @@
-function anclabels = plot_anchors(points, num_anchors, anclabels, ancsize)
+function anclabels = plot_anchors(points, num_anchors, anclabels, ...
+                                  ancsize, anccols)
     
     num_points = length(points);
     if isempty(anclabels)
@@ -6,19 +7,23 @@ function anclabels = plot_anchors(points, num_anchors, anclabels, ancsize)
     else
         num_anchors = length(anclabels);
     end
-    
-    COLOURS(5,:) = [0.5 0 1];  % red-blue 
-    COLOURS(2,:) = [0 1 0]; % green
-    COLOURS(3,:) = [0 1 1];    %cyan
-    COLOURS(4,:) = [1 0.5 0]; % orange
-    COLOURS(1,:) = [1 0 1];  % magenta
-    COLOURS(6,:) = [1 0 0]; % red
-    COLOURS(7,:) = [0.1 0.5 0 ]; % dark green
-    COLOURS(8,:) = [1 1 0];  %yellow
-    COLOURS(9,:) = [0.5 0 0]; % dark red
-    COLOURS(10,:)=[0 0 0]; %black
-    COLOURS(11,:) = [0.5 0.5 0.5];% gray
-    COLOURS(12,:) = [0 0.5 0];  %dark green
+
+    if (isempty(anccols))
+        COLOURS(5,:) = [0.5 0 1];  % red-blue 
+        COLOURS(2,:) = [0 1 0]; % green
+        COLOURS(3,:) = [0 1 1];    %cyan
+        COLOURS(4,:) = [1 0.5 0]; % orange
+        COLOURS(1,:) = [1 0 1];  % magenta
+        COLOURS(6,:) = [1 0 0]; % red
+        COLOURS(7,:) = [0.1 0.5 0 ]; % dark green
+        COLOURS(8,:) = [1 1 0];  %yellow
+        COLOURS(9,:) = [0.5 0 0]; % dark red
+        COLOURS(10,:)=[0 0 0]; %black
+        COLOURS(11,:) = [0.5 0.5 0.5];% gray
+        COLOURS(12,:) = [0 0.5 0];  %dark green
+    else    
+        COLOURS = anccols;
+    end
     
     for anchor = 1:num_anchors
         plot(points(anclabels(anchor), 1), ...
