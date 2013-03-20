@@ -20,7 +20,7 @@ function params = getparams(id, N, radius)
     params.CTOF.takeout = [];
     params.FTOC.takeout = [];
     params.comments = '';
-    params.anchors = 8;
+    params.anchors = 5;
     params.tolerance = 150;
    
     % Preprocessing function - this function is given params
