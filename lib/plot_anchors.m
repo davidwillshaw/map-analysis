@@ -1,6 +1,9 @@
 function anclabels = plot_anchors(points, num_anchors, anclabels, ...
                                   ancsize, anccols)
-    
+    if (nargin <= 4) 
+        anccols = [];
+    end
+        
     num_points = length(points);
     if isempty(anclabels)
         anchors = ceil(rand(num_anchors,1).*num_points);

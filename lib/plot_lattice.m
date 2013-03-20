@@ -94,13 +94,13 @@ elseif (isfield(params, 'AncLabels'))
     num_anchors=length(anclabels);
 else
     if (strcmp(direction, 'FTOC'))
-        [anclabels, anccols] = get_anchors(params.FTOC.field_points, ...
-                                           params.FTOC.points_in_subgraph, ...
-                                           num_anchors, AncShape);
+        anclabels = get_anchors(params.FTOC.field_points, ...
+                                params.FTOC.points_in_subgraph, ...
+                                num_anchors, AncShape);
     else
-        [anclabels, anccols] = get_anchors(params.CTOF.coll_points, ...
-                                           params.CTOF.points_in_subgraph, ...
-                                           num_anchors, AncShape);
+        anclabels = get_anchors(params.CTOF.coll_points, ...
+                                params.CTOF.points_in_subgraph, ...
+                                num_anchors, AncShape);
     end
 end
 
@@ -240,8 +240,7 @@ if (Lattice)
         [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
         print_links(cross_points, field_coords, list_of_crossings, 'r');
     end
-    anchors = plot_anchors(field_coords, num_anchors, anclabels, ...
-                           ancsize, anccols);
+    anchors = plot_anchors(field_coords, num_anchors, anclabels, ancsize);
 
     if strcmp(direction,'FTOC')
         if ectoptions ==1 |ectoptions ==2 |ectoptions ==3 | ectoptions ==4
@@ -289,7 +288,7 @@ if (Lattice)
         [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
         print_links(cross_points, coll_coords, list_of_crossings, 'r');
     end 
-    plot_anchors(coll_coords, num_anchors, anclabels, ancsize, anccols);
+    plot_anchors(coll_coords, num_anchors, anclabels, ancsize);
 end
     
 % Set axis properties for FTOC Field ellipse plot
