@@ -65,25 +65,16 @@ else
     p = struct();
 end
 
-AxisStyle = 'crosshairs'; % Other option is 'box'
-if (isfield(p, 'AxisStyle'))
-    AxisStyle = p.AxisStyle;
-end
+AxisStyle = check_arg(p, 'AxisStyle', {'crosshairs', 'box'});
 
-ErrorType = 'none'; % Other options are 'sem'
-if (isfield(p, 'ErrorType'))
-    ErrorType = p.ErrorType;
-end
+ErrorType = check_arg(p, 'ErrorType', {'none', 'sem', 'sd'});
 
-Subgraph = false; % Other option is 'sem'
+Subgraph = false; 
 if (isfield(p, 'Subgraph'))
     Subgraph = p.Subgraph;
 end
 
-AncShape = 'Cross';
-if isfield(p, 'AncShape')
-    AncShape = p.AncShape;
-end
+AncShape = check_arg(p, 'AncShape', {'Cross', 'Horizontal', 'Vertical'});
 
 num_anchors = params.anchors;
 if (isfield(p, 'AncLabels'))
@@ -339,6 +330,24 @@ function draw_crosshairs(s)
          [s.ymean s.ymean],  ...
          'Color',[0.7 0.7 0.7], 'Linewidth',1)
 end
+
+
+function val = check_arg(p, arg, allowed) 
+    val = allowed{1};
+    if isfield(p, arg)
+        val = getfield(p, arg);
+        if (~ismember(val, allowed))
+            argstr = [];
+            for i=1:length(allowed)
+                argstr = [argstr sprintf('''%s'' ', allowed{i})];
+            end
+            error(['''' val ''' is not an allowed option for ''' ...
+                   arg '''. Select one of ' argstr '.'])
+        end
+    end
+end    
+
+
 
 % Local Variables:
 % matlab-indent-level: 4
