@@ -42,7 +42,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %
 %   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
 %       scalebars (as in all figures in Willshaw et al. 2013). If
-%       'box', plot conventional axes.
+%       'box', plot conventional axes. If 'none', plot no axes.
 %    
 %   - AncShape: Shape described by anchors. Can be 'cross' (default),
 %       'horizontal' or 'vertical'. The number of anchors along a
@@ -76,7 +76,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         p = struct();
     end
 
-    AxisStyle = check_arg(p, 'AxisStyle', {'crosshairs', 'box'});
+    AxisStyle = check_arg(p, 'AxisStyle', {'crosshairs', 'box', 'none'});
 
     ErrorType = check_arg(p, 'ErrorType', {'none', 'sem', 'sd'});
 
@@ -324,13 +324,18 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
     % Set axis properties for FTOC Field ellipse plot
     subplot(h1)
     hold on
-    if (strcmp(AxisStyle, 'crosshairs'))
+    switch(AxisStyle)
+      case 'crosshairs'
         draw_crosshairs(params.field);
         axis off
         draw_scalebar(params.field)
-    else
+      case 'none'
+        axis off
+      case 'box'
         set(gca, 'FontSize', 16)
         axis on
+      otherwise
+        axis off
     end
     set_axis_props(params.field)
     title(params.field.title);
@@ -340,12 +345,17 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
     % Set axis properties for FTOC colliculus ellipse plot
     subplot(h2)
     hold on
-    if (strcmp(AxisStyle, 'crosshairs'))
+    switch(AxisStyle)
+      case 'crosshairs'
         axis off
         draw_scalebar(params.coll)
-    else
+      case 'none'
+        axis off
+      case 'box'
         set(gca, 'FontSize', 16)
         axis on
+      otherwise
+        axis off
     end
     set_axis_props(params.coll)
     title(params.coll.title);
