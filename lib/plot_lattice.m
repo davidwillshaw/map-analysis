@@ -20,13 +20,14 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %       al. 2013). If 'sem', plot standard errors in the mean of
 %       complementary distributions (as in Figure 7C of Willshaw et
 %       al. 2013).
-%
-%   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
-%       scalebars (as in all figures in Willshaw et al. 2013). If
-%       'box', plot conventional axes.
 %    
 %   - Subgraph: If true, plot only distributions around points in the
 %       maxium subgraph; otherwise plot all distributions.
+%
+%   - Lattice: If true (default), print a Lattice.
+%    
+%   - LatticeColour: Colour of lattice. Defaults to black for
+%       'FTOC' direction and blue for 'CTOF' direction
 %
 %   - EctOptions: (for FTOC ONLY)
 %       (i) ectopics marked in the subgraph plot in blue crosses
@@ -38,6 +39,10 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %       EctOptions = 3: as (1) and extents of ectopics shown by a line only
 %       EctOptions = 4: (2) and (3) combined - major and minor plus
 %       line
+%
+%   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
+%       scalebars (as in all figures in Willshaw et al. 2013). If
+%       'box', plot conventional axes.
 %    
 %   - AncLabels: If provided, specifies numbered points for anchors.
 %
@@ -45,11 +50,10 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %
 %   - AncShape: Shape described by anchors. Can be 'Cross'
 %       (default), 'Horizontal' or 'Vertical'    
-%    
-%   - LatticeColour: Colour of lattice. Defaults to black for
-%       'FTOC' direction and blue for 'CTOF' direction
-%     
-%   - Lattice: If true (default), print a Lattice.
+%
+%   - Outline: Whether to draw an outline around the field or
+%       colliculus. Can be 'none' (default), 'field', 'colliculus', or
+%       'both'.
 %
 %   - PointNumbers: If true (default false), print ids of points at
 %       their respective locations.
@@ -57,10 +61,12 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 % See also: plot_angles, plot_superposed
 
     if (nargin > 4) 
-        p = validateInput(varargin, {'ErrorType', 'AxisStyle', 'Subgraph', ...
+        p = validateInput(varargin, {'ErrorType',  'Subgraph', ...
                             'AncLabels', 'AncSize', 'AncShape', ...
-                            'LatticeColour', ...
-                            'EctOptions', 'Lattice', 'PointNumbers'});
+                            'Lattice', 'LatticeColour', ...
+                            'AxisStyle', 'Outline', ...
+                            'EctOptions', ...
+                            'PointNumbers'});
     else
         p = struct();
     end
@@ -123,7 +129,10 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
     if isfield(p, 'PointNumbers')
         PointNumbers = p.PointNumbers;
     end
-
+    
+    Outline = check_arg(p, 'Outline', {'none', 'field', 'colliculus', ...
+                   'both'});
+    
     % Clear axes
     subplot(h1)
     cla
@@ -280,6 +289,24 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
             print_links(cross_points, coll_coords, list_of_crossings, 'r');
         end 
         plot_anchors(coll_coords, num_anchors, anclabels, ancsize);
+    end
+
+    % Outline of field
+    subplot(h1)
+    if (strcmp(Outline, 'field') || strcmp(Outline, 'both'))
+        X = params.full_field(:, 1);
+        Y = params.full_field(:, 2);
+        k = convhull(X, Y);
+        plot(X(k), Y(k), 'k-');
+    end
+    
+    % Outline of colliculus
+    subplot(h2)
+    if (strcmp(Outline, 'colliculus') || strcmp(Outline, 'both'))
+        X = params.full_coll(:, 1);
+        Y = params.full_coll(:, 2);
+        k = convhull(X, Y);
+        plot(X(k), Y(k), 'k-');
     end
     
     % Set axis properties for FTOC Field ellipse plot
