@@ -44,12 +44,16 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %       scalebars (as in all figures in Willshaw et al. 2013). If
 %       'box', plot conventional axes.
 %    
+%   - AncShape: Shape described by anchors. Can be 'Cross' (default),
+%       'Horizontal' or 'Vertical'. The number of anchors along a
+%       horizontal or vertical is specified by params.anchors.
+%
 %   - AncLabels: If provided, specifies numbered points for anchors.
 %
+%   - AncColours: A 3-column matrix with each row specifying the
+%       RGB value of an anchor.
+%    
 %   - AncSize: Size of anchors.
-%
-%   - AncShape: Shape described by anchors. Can be 'Cross'
-%       (default), 'Horizontal' or 'Vertical'    
 %
 %   - Outline: Whether to draw an outline around the field or
 %       colliculus. Can be 'none' (default), 'field', 'colliculus', or
@@ -63,6 +67,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
     if (nargin > 4) 
         p = validateInput(varargin, {'ErrorType',  'Subgraph', ...
                             'AncLabels', 'AncSize', 'AncShape', ...
+                            'AncColours', ...
                             'Lattice', 'LatticeColour', ...
                             'AxisStyle', 'Outline', ...
                             'EctOptions', ...
@@ -106,6 +111,11 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         ancsize = p.AncSize;
     end
 
+    anccols = [];
+    if isfield(p, 'AncColours')
+        anccols = p.AncColours;
+    end
+    
     Lattice = true;
     if isfield(p, 'Lattice')
         Lattice = p.Lattice;
@@ -240,7 +250,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
             [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
             print_links(cross_points, field_coords, list_of_crossings, 'r');
         end
-        anchors = plot_anchors(field_coords, num_anchors, anclabels, ancsize);
+        anchors = plot_anchors(field_coords, num_anchors, anclabels, ...
+                               ancsize, anccols);
 
         if strcmp(direction,'FTOC')
             if ectoptions ==1 |ectoptions ==2 |ectoptions ==3 | ectoptions ==4
@@ -288,7 +299,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
             [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
             print_links(cross_points, coll_coords, list_of_crossings, 'r');
         end 
-        plot_anchors(coll_coords, num_anchors, anclabels, ancsize);
+        plot_anchors(coll_coords, num_anchors, anclabels, ancsize, ...
+                     anccols);
     end
 
     % Outline of field
