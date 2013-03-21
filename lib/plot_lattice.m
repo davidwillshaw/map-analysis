@@ -44,8 +44,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %       scalebars (as in all figures in Willshaw et al. 2013). If
 %       'box', plot conventional axes.
 %    
-%   - AncShape: Shape described by anchors. Can be 'Cross' (default),
-%       'Horizontal' or 'Vertical'. The number of anchors along a
+%   - AncShape: Shape described by anchors. Can be 'cross' (default),
+%       'horizontal' or 'vertical'. The number of anchors along a
 %       horizontal or vertical is specified by params.anchors.
 %
 %   - AncLabels: If provided, specifies numbered points for anchors.
@@ -85,7 +85,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         Subgraph = p.Subgraph;
     end
 
-    AncShape = check_arg(p, 'AncShape', {'Cross', 'Horizontal', 'Vertical'});
+    AncShape = check_arg(p, 'AncShape', {'cross', 'horizontal', 'vertical'});
 
     num_anchors = params.anchors;
     if (isfield(p, 'AncLabels'))

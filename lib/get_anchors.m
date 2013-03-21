@@ -9,12 +9,12 @@ function [anclabels, anccolours] = get_anchors(points, points_in_subgraph, ...
     x = [];
     y = [];
 
-    if (strcmp(ancshape, 'Horizontal') || strcmp(ancshape, 'Cross'))
+    if (strcmp(ancshape, 'horizontal') || strcmp(ancshape, 'cross'))
         x = min(X) + (max(X) - min(X))*linspace(0, 1, num_anchors);
         y = min(Y) + (max(Y) - min(Y))*0.5*ones(1, num_anchors);
     end          
     
-    if (strcmp(ancshape, 'Vertical') || strcmp(ancshape, 'Cross'))
+    if (strcmp(ancshape, 'vertical') || strcmp(ancshape, 'cross'))
         x = [x, min(X) + (max(X) - min(X))*0.5*ones(1, num_anchors)];
         y = [y, min(Y) + (max(Y) - min(Y))*linspace(0, 1, num_anchors)];
     end
