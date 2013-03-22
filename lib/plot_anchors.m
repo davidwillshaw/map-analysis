@@ -27,6 +27,11 @@ function anclabels = plot_anchors(points, num_anchors, anclabels, ...
     else    
         COLOURS = anccols;
     end
+
+    while (size(COLOURS, 1) < num_anchors)
+        COLOURS = [COLOURS; COLOURS];
+        warning('Not enough colours specified; recycling colours')
+    end
     
     for anchor = 1:num_anchors
         plot(points(anclabels(anchor), 1), ...
