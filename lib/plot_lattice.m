@@ -76,19 +76,19 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         p = struct();
     end
 
-    AxisStyle = check_arg(p, 'AxisStyle', 'crosshairs', ...
-                          {'crosshairs', 'box', 'none'});
+    AxisStyle = validateArg(p, 'AxisStyle', 'crosshairs', ...
+                            {'crosshairs', 'box', 'none'});
 
-    ErrorType = check_arg(p, 'ErrorType', 'none', ...
-                          {'none', 'sem', 'sd'});
+    ErrorType = validateArg(p, 'ErrorType', 'none', ...
+                            {'none', 'sem', 'sd'});
 
     Subgraph = false; 
     if (isfield(p, 'Subgraph'))
         Subgraph = p.Subgraph;
     end
 
-    AncShape = check_arg(p, 'AncShape', 'cross', ...
-                         {'cross', 'horizontal', 'vertical'});
+    AncShape = validateArg(p, 'AncShape', 'cross', ...
+                           {'cross', 'horizontal', 'vertical'});
 
     num_anchors = params.anchors;
     if (isfield(p, 'AncLabels'))
@@ -143,8 +143,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         PointNumbers = p.PointNumbers;
     end
     
-    Outline = check_arg(p, 'Outline', 'none', ...
-                        {'none', 'field', 'colliculus', 'both'});
+    Outline = validateArg(p, 'Outline', 'none', ...
+                          {'none', 'field', 'colliculus', 'both'});
     
     % Clear axes
     subplot(h1)
@@ -384,29 +384,6 @@ function draw_crosshairs(s)
 end
 
 
-function val = check_arg(p, arg, default, allowed) 
-    if (~exist(default))
-        default = false;
-    end
-    if (~iscell(allowed))
-        allowed = false;
-    end
-    
-    if (iscell(allowed))
-        val = default;
-        if isfield(p, arg)
-            val = getfield(p, arg);
-            if (~ismember(val, allowed))
-                argstr = [];
-                for i=1:length(allowed)
-                    argstr = [argstr sprintf('''%s'' ', allowed{i})];
-                end
-                error(['''' val ''' is not an allowed option for ''' ...
-                       arg '''. Select one of ' argstr '.'])
-            end
-        end
-    end
-end    
 
 
 
