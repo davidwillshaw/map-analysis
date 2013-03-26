@@ -2,7 +2,8 @@ function get_summary_stats(dataset_ids, varargin)
 
     if (nargin > 1) 
         p = validateInput(varargin, {'UseCache', 'GetParamsFunc', ...
-                   'GetDatasetsFunc', 'GetDatasetIdsFunc'});
+                   'GetDatasetsFunc', 'GetDatasetIdsFunc', ...
+                   'Baseline'});
     else
         p = struct();
     end
@@ -22,6 +23,8 @@ function get_summary_stats(dataset_ids, varargin)
         GetParamsFunc = p.GetParamsFunc;
     end
 
+    Baseline = validateArg(p, 'Baseline', true, {});
+    
     % Collect data analysis
     num_datasets = 0;
     ss = {};
@@ -31,7 +34,7 @@ function get_summary_stats(dataset_ids, varargin)
             [dataset_ids, filenames, args, datasets]  = eval([GetDatasetsFunc '()']);
             num_datasets = length(datasets);
             for i = 1:num_datasets
-                ss{i} = run_data(datasets{i});
+                ss{i} = run_data(datasets{i}, 'Baseline', Baseline);
             end
         else 
             % Get params object on each call to run_data_id()

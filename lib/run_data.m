@@ -1,5 +1,13 @@
-function params = run_data(params)
+function params = run_data(params, varargin)
+    
+    if nargin > 1
+        p = validateInput(varargin, {'Baseline'});
+    else
+        p = struct();
+    end
 
+    Baseline = validateArg(p, 'Baseline', true, {});
+    
     ectopicnodes = 1;
     if (length(params.preprocess_function) > 0) 
        if (exist(params.preprocess_function) == 2) 
@@ -61,13 +69,15 @@ function params = run_data(params)
     disp('--> scatters...')
     params = get_subgraph_scatters(params,'FTOC');
     params = get_subgraph_scatters(params,'CTOF');
-    disp('--> baseline...')
-    params = find_baseline(params, 'FTOC', 5);
-    params = find_baseline(params, 'CTOF', 5);
-    disp('-->lower bound...')
-    if (license('checkout', 'optimization_toolbox'))
-        params = find_prob_subgraph(params,'FTOC');
-        params = find_prob_subgraph(params,'CTOF');
+    if (Baseline)
+        disp('--> baseline...')
+        params = find_baseline(params, 'FTOC', 5);
+        params = find_baseline(params, 'CTOF', 5);
+        disp('-->lower bound...')
+        if (license('checkout', 'optimization_toolbox'))
+            params = find_prob_subgraph(params,'FTOC');
+            params = find_prob_subgraph(params,'CTOF');
+        end
     end
     if params.stats.num_ectopics >= 5
         disp('--> ectopics...')
