@@ -87,7 +87,8 @@ function params = Dgetparams(id)
 %       N=105;
         N = 88;
 %        RANSTART=43;
-        RANSTART =10000;
+%        RANSTART =10000;
+        RANSTART = 10596;
         EE = [60 40 2.3562 160 140];
     end
 
