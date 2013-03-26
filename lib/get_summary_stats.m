@@ -1,8 +1,8 @@
-function get_summary_stats(datasets, varargin)
-    
+function get_summary_stats(dataset_ids, varargin)
 
     if (nargin > 1) 
-        p = validateInput(varargin, {'UseCache', 'GetParamsFunc'});
+        p = validateInput(varargin, {'UseCache', 'GetParamsFunc', ...
+                   'GetDatasetsFunc', 'GetDatasetIdsFunc'});
     else
         p = struct();
     end
@@ -11,32 +11,44 @@ function get_summary_stats(datasets, varargin)
         UseCache = p.UseCache;
     end
 
-    GetDatasetsFunc = 'getdatasets';
-    if (isfield(p, 'GetDatasetsFunc'))
-        GetDatasetsFunc = p.GetDatasetsFunc;
-    end
+    GetDatasetIdsFunc = validateArg(p, 'GetDatasetIdsFunc', ...
+                                    'getdatasets', {});
+
+    GetDatasetsFunc = validateArg(p, 'GetDatasetsFunc', ...
+                                  '', {});
 
     GetParamsFunc = 'getparams';
     if (isfield(p, 'GetParamsFunc'))
         GetParamsFunc = p.GetParamsFunc;
     end
-    
-    if isempty(datasets)
-        datasets = eval([GetDatasetsFunc '()']);
-    end
-
-    
-    num_datasets = length(datasets);
 
     % Collect data analysis
+    num_datasets = 0;
     ss = {};
-    for i = 1:num_datasets
-        id = datasets(i);
-        disp(id);
-        ss{i} = run_data_id(id, 0, 'UseCache', UseCache, ...
-                            'GetParamsFunc', GetParamsFunc);
+    if isempty(dataset_ids)
+        if (length(GetDatasetsFunc) > 0) 
+            % Get all params objects and then run through
+            [dataset_ids, filenames, args, datasets]  = eval([GetDatasetsFunc '()']);
+            num_datasets = length(datasets);
+            for i = 1:num_datasets
+                ss{i} = run_data(datasets{i});
+            end
+        else 
+            % Get params object on each call to run_data_id()
+            dataset_ids = eval([GetDatasetIdsFunc '()']);
+            num_datasets = length(dataset_ids);
+            for i = 1:num_datasets
+                id = dataset_ids(i);
+                disp(id);
+                ss{i} = run_data_id(id, 0, 'UseCache', UseCache, ...
+                                'GetParamsFunc', GetParamsFunc);
+            end
+        end
     end
     
+    if (num_datasets == 0)
+        error('No datasets specified or found')
+    end
     
     % Prepare FTOC output
     for i = 1:num_datasets
