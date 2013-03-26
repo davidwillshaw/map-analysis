@@ -34,9 +34,9 @@ if (~Subgraph)
     end
 else
     if (strcmp(direction, 'FTOC')) 
-        angles = -params.FTOC.subgraph_angles
-        norm_links = params.FTOC.subgraph_norm_links
-        flipped_links = params.FTOC.subgraph_flipped_links
+        angles = -params.FTOC.subgraph_angles;
+        norm_links = params.FTOC.subgraph_norm_links;
+        flipped_links = params.FTOC.subgraph_flipped_links;
     else
         angles = -params.CTOF.subgraph_angles;
         norm_links = params.CTOF.subgraph_norm_links;
