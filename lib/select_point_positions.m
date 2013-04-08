@@ -176,6 +176,24 @@ function params = select_point_positions(params, direction)
         choose_dists = choose_dists + max(max(choose_dists))*eye(numpoints);
         params.FTOC.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
     end
+    
+    % Find out how often points belong to centres
+    used_inds = zeros(size(x_active));
+    for i=1:size(chosen, 1)
+        within_radius = find_within_radius(chosen(i,:), radius, ...
+                                           [x_active y_active]);
+        used_inds(within_radius) = used_inds(within_radius) + 1;
+    end
+    used_hist = hist(used_inds, 0:20);
+    if strcmp(direction, 'FTOC')
+        params.FTOC.point_use_hist = hist(used_inds, 0:20)
+        params.stats.FTOC.point_use_mean = mean(used_inds);
+        params.stats.FTOC.point_use_max  = max(used_inds);
+    else
+        params.CTOF.point_use_hist = hist(used_inds, 0:20)
+        params.stats.CTOF.point_use_mean = mean(used_inds);
+        params.stats.CTOF.point_use_max  = max(used_inds);
+    end
 end
 
 % Local Variables:
