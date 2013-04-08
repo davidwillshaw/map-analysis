@@ -2,16 +2,13 @@ function h = plot_angles(params, direction, h, varargin)
 % PLOT_ANGLES - Plot angle distribution
 %   
 if (nargin > 3) 
-    p = validateInput(varargin, {'AxisStyle', 'Subgraph', ...
-                        'Colour'});
+    p = validateInput(varargin, {'Subgraph', 'Colour', 'Title'});
 else
     p = struct();
 end
 
-Subgraph = false; 
-if (isfield(p, 'Subgraph'))
-    Subgraph = p.Subgraph;
-end
+Subgraph = validateArg(p, 'Subgraph', false, {}); 
+Title    = validateArg(p, 'Title',    true, {}); 
 
 if strcmp(direction,'CTOF')
     color = 'b';
@@ -50,7 +47,9 @@ circ_plot(angles(norm_links>0), 'hist', color, 40, false, true, ...
 hold on
 circ_plot(angles(flipped_links>0),'hist', 'r', 40, false, true, ...
           'linewidth', 2, 'color', 'r');
-title(params.datalabel);    
+if (Title)
+    title(params.datalabel);    
+end
 
 % Local Variables:
 % matlab-indent-level: 4
