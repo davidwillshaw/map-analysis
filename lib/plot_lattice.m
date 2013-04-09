@@ -29,6 +29,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %   - LatticeColour: Colour of lattice. Defaults to black for
 %       'FTOC' direction and blue for 'CTOF' direction
 %
+%   - LatticeLineWidth: Line width of lattice. Defaults to 0.5.
+%    
 %   - EctOptions: (for FTOC ONLY)
 %       (i) ectopics marked in the subgraph plot in blue crosses
 %       (ii) options shown by value of ectoptions:
@@ -69,6 +71,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
                             'AncLabels', 'AncSize', 'AncShape', ...
                             'AncColours', ...
                             'Lattice', 'LatticeColour', ...
+                            'LatticeLineWidth', ...
                             'AxisStyle', 'Outline', ...
                             'EctOptions', ...
                             'PointNumbers'});
@@ -132,7 +135,11 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
     if isfield(p, 'LatticeColour')
         LatticeColour = p.LatticeColour;
     end
-
+    LatticeLineWidth = 0.5;
+    if isfield(p, 'LatticeLineWidth')
+        LatticeLineWidth = p.LatticeLineWidth;
+    end
+    
     ectoptions = 0;
     if isfield(p, 'EctOptions')
         ectoptions = p.EctOptions;
@@ -238,20 +245,24 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         subplot(h1)
         % Full graph
         if (~Subgraph)
-            print_links(1:num_points, field_coords, list_of_neighbours, LatticeColour);
+            print_links(1:num_points, field_coords, list_of_neighbours, ...
+                        LatticeColour, LatticeLineWidth);
             hold on
             [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
-            print_links(cross_points, field_coords, list_of_crossings, 'r');
+            print_links(cross_points, field_coords, list_of_crossings, ...
+                        'r', LatticeLineWidth);
         else
             % Subgraph only
-            print_links(points_in_subgraph, field_coords, list_of_neighbours, LatticeColour);
+            print_links(points_in_subgraph, field_coords, ...
+                        list_of_neighbours, LatticeColour, LatticeLineWidth);
             hold on
             %   plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'or','MarkerFaceColor', 'r', 'MarkerSize',1);
             if ectoptions == 0
                 plot(field_coords(points_not_in_subgraph,1),field_coords(points_not_in_subgraph,2),'xr');
             end
             [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
-            print_links(cross_points, field_coords, list_of_crossings, 'r');
+            print_links(cross_points, field_coords, list_of_crossings, ...
+                        'r', LatticeLineWidth);
         end
         anchors = plot_anchors(field_coords, num_anchors, anclabels, ...
                                ancsize, anccols);
@@ -267,12 +278,15 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
         % Lattice on Colliculus
         subplot(h2)
         if (~Subgraph)
-            print_links(1:num_points, coll_coords, list_of_neighbours, LatticeColour);
+            print_links(1:num_points, coll_coords, list_of_neighbours, ...
+                        LatticeColour, LatticeLineWidth);
             hold on
             [cross_points,list_of_crossings] = make_cross_list(1:num_points,sets_of_intersections);
-            print_links(cross_points, coll_coords, list_of_crossings, 'r');
+            print_links(cross_points, coll_coords, list_of_crossings, ...
+                        'r', LatticeLineWidth);
         else   
-            print_links(points_in_subgraph, coll_coords, list_of_neighbours, LatticeColour);
+            print_links(points_in_subgraph, coll_coords, ...
+                        list_of_neighbours, LatticeColour, LatticeLineWidth);
             hold on
             if strcmp(direction,'FTOC')
                 %   plot(coll_coords(setdiff(points_not_in_subgraph,ectopics),1),coll_coords(setdiff(points_not_in_subgraph,ectopics),2),'or','MarkerFaceColor', 'r')
@@ -300,7 +314,8 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
                 %D-----------------------------------------------------------------------------------------------------------------------------------------------------
             end
             [cross_points,list_of_crossings] = make_cross_list(points_in_subgraph,sets_of_intersections);
-            print_links(cross_points, coll_coords, list_of_crossings, 'r');
+            print_links(cross_points, coll_coords, list_of_crossings, ...
+                        'r', LatticeLineWidth);
         end 
         plot_anchors(coll_coords, num_anchors, anclabels, ancsize, ...
                      anccols);
