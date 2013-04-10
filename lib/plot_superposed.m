@@ -21,20 +21,18 @@ function h = plot_superposed(params, direction, h, varargin)
 %   The following properties control what is plotted and the
 %   appearance of the plot:
 %   
-%   - AxisStyle: If 'crosshairs' (default), plot crosshairs and
-%       scalebars (as in all figures in Willshaw et al. 2013). If
-%       'box', plot conventional axes.
+%   - Scalebar: If true (default), plot scalebars.
 % 
 % See also plot_lattice, plot_angles, find_overall_dispersion, get_centred_points
     
     if (nargin > 3) 
-        p = validateInput(varargin, {'ErrorType', 'AxisStyle'});
+        p = validateInput(varargin, {'ErrorType', 'Scalebar'});
     else
         p = struct();
     end
-    AxisStyle = 'crosshairs'; % Other option is 'box'
-    if (isfield(p, 'AxisStyle'))
-        AxisStyle = p.AxisStyle;
+    Scalebar = true;
+    if (isfield(p, 'Scalebar'))
+        Scalebar = p.Scalebar;
     end
 
     %FTOC
@@ -85,14 +83,12 @@ function h = plot_superposed(params, direction, h, varargin)
              'YTick', tick, ...
              'XTickLabel', ticklabel, ...
              'YTickLabel', ticklabel)
+    axis off
 
-    if (strcmp(AxisStyle, 'box'))
-        set(gca, 'FontSize', 16)
-    else %AxisStyle == 'crosshairs')
+    if (Scalebar)
         draw_scalebar(props, 'scale', props.scale*bs, ...
                       'XLim', lim, 'YLim', lim, ...
                       'colour', 'w')
-        axis off
     end
 end
 
