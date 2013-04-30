@@ -51,7 +51,6 @@ function params = Dgetparams(id)
 
 %beta 2 KO
     if id==155
-%       N=130;
         N=120;
         RANSTART=9833;
         EE = [46 62 120 133 110];
