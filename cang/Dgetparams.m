@@ -15,6 +15,7 @@ function params = Dgetparams(id)
 %        N = 175;
 %        RANSTART = 3456;
          RANSTART = 1013;
+         FTOClabels =[];
 	 N = 178;
     end
 
@@ -29,6 +30,9 @@ function params = Dgetparams(id)
         EE = [71 58 2.1 125 165];
         N = 175;
         RANSTART = 232323;
+        FTOClabels = [99 102 104:109]
+        % A10_random for randomised R->C axis
+        % FTOClabels = [99 102 104 1 05 114];
     end
 
     if id==15
@@ -51,6 +55,7 @@ function params = Dgetparams(id)
         N=120;
         RANSTART=9833;
         EE = [46 62 120 133 110];
+        FTOClabels = [66 68:71 73];
     end
 
     if id==156
@@ -90,12 +95,14 @@ function params = Dgetparams(id)
 %        RANSTART =10000;
         RANSTART = 10596;
         EE = [60 40 2.3562 160 140];
+        FTOClabels = [48:53 55];
     end
 
     if id==84
         N=115;
         RANSTART=9833;
         EE = [50 45 2.3562 156 106];
+        FTOClabels = [64:71]
     end
 
     if id==94
@@ -103,6 +110,7 @@ function params = Dgetparams(id)
 	N = 205;
         RANSTART=431;
         EE = [70 60 0.7584 140 130];
+        FTOClabels = [92:98 101];
     end
 
     if id==161
@@ -110,6 +118,7 @@ function params = Dgetparams(id)
         N = 95;
         RANSTART=9833;
         EE = [35 50 -10 127 123];
+        FTOClabels = [32 35 37:39 42 43];
     end
 
     if id==162
@@ -117,6 +126,7 @@ function params = Dgetparams(id)
         N = 142;
         RANSTART=431;
         EE = [70 50 -10 135 140];
+        FTOClabels = [100:103 106];
     end
 
 %Hom TKO
@@ -126,6 +136,7 @@ function params = Dgetparams(id)
         N= 125;
         RANSTART=10101;
         EE = [60 45 0.784 130 130];
+        FTOClabels = [91 93:97];
     end
 
     if id==54;
@@ -133,6 +144,7 @@ function params = Dgetparams(id)
         N = 106;
         RANSTART=22431;
         EE = [45 55 1.1636 146 109];
+        FTOClabels = [31 33 38 69 71:73];
     end
 
     if id==55
@@ -140,6 +152,7 @@ function params = Dgetparams(id)
         N=110;
         RANSTART=431;
         EE = [48 60 0.7995 152 112];
+        FTOClabels =[42:49];
     end
 
     if id==56
@@ -148,12 +161,14 @@ function params = Dgetparams(id)
         N=150;
         RANSTART=4664;
         EE = [72 52 0.8 175 130];
+        FTOClabels = [56:57 59:65];
     end
 
     if id==58
         N=167;
         RANSTART=10101;
         EE = [72 52 2.3562 160 145];
+        FTOClabels = [60 64:66 146 147 149 152 155];
     end
 
 %COMBO TKO from paper
@@ -196,7 +211,7 @@ function params = Dgetparams(id)
     
     % Scaling
 
-    % The the size in degrees of one unit of distance in the colliculus
+    % The size in degrees of one unit of distance in the colliculus
     params.field.scale = 1; 
     % Length of scalebar in colliculus in degrees
     params.field.scalebar = 20; 
@@ -207,6 +222,7 @@ function params = Dgetparams(id)
     % Length of scalebar in colliculus in um
     params.coll.scalebar = 250;
 
+    params.FTOC.labels = FTOClabels;
     % Field plotting properties
     params.field.title = 'Field';
     params.field.xlabel = '';
