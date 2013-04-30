@@ -1,4 +1,5 @@
 function params = Dgetparams(id)
+% FTOC labels put in for the 2013 Paper
 
     if id ==999
 %   zebrafish trial
