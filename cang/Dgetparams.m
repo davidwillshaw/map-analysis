@@ -25,6 +25,7 @@ function params = Dgetparams(id)
 %       N = 175;
         N = 173;
         RANSTART = 98;
+        FTOClabels =[];
     end
 
     if id==10
@@ -42,12 +43,14 @@ function params = Dgetparams(id)
 %       RANSTART = 55;
 	N = 138;
         RANSTART = 987564;
+        FTOClabels =[];
     end
 
     if id==73
         EE = [65 55 2.3562 122 142];
         N = 158;
         RANSTART = 983310;
+        FTOClabels =[];
     end
 
 %beta 2 KO
@@ -62,6 +65,7 @@ function params = Dgetparams(id)
         N=120;
         RANSTART=9833;
         EE = [43 58.5 120 136 166];
+        FTOClabels =[];
     end
 
     if id==163
@@ -69,6 +73,7 @@ function params = Dgetparams(id)
 	N = 77;
         RANSTART=9833;
         EE = [45 38 2.1 163 153];
+        FTOClabels =[];
     end
 
     if id==165
@@ -76,6 +81,7 @@ function params = Dgetparams(id)
 %       RANSTART=9833;
         RANSTART = 119833;
         EE = [54 42 2.1 170 144];
+        FTOClabels =[];
     end
 
     if id==262;
@@ -84,6 +90,7 @@ function params = Dgetparams(id)
 	N = 120;
         RANSTART = 993131;
         EE = [60 42 2.1 139 159];
+        FTOClabels =[];
     end
 
 %Het TKO
