@@ -9,7 +9,7 @@ function params = find_largest_subgraph(params,direction,ectopicnodes)
 %fully connected graph. It returns two lists, one with the nodes in the
 %largest connected subgraph and one with the nodes that have been removed.
 %
-%Needs: sets_of_intersections, list_of_neighbours,takeout,numpoints
+  %Needs: sets_of_intersections, list_of_neighbours,takeout,numpoints,neighbours
 %Returns: points_in_subgraph, points_not_in_subgraph
 
     if (~exist('ectopicnodes'))
@@ -59,12 +59,20 @@ function params = find_largest_subgraph(params,direction,ectopicnodes)
         params.CTOF.points_in_subgraph = points_in_subgraph;
         params.CTOF.points_not_in_subgraph = points_not_in_subgraph;
         params.stats.CTOF.num_nodes_in_subgraph = length(points_in_subgraph);
+        PP = points_in_subgraph;
+;       sum1=sum(sum(params.CTOF.neighbours(:,:)));
+        sum2=sum(sum(params.CTOF.neighbours(PP,PP)));
+        params.CTOF.percent_edges_in_subgraph=100*sum2/sum1;
     end
     
     if strcmp(direction, 'FTOC')
         params.FTOC.points_in_subgraph = points_in_subgraph;
         params.FTOC.points_not_in_subgraph = points_not_in_subgraph;
         params.stats.FTOC.num_nodes_in_subgraph = length(points_in_subgraph);
+        PP = points_in_subgraph;
+;       sum1=sum(sum(params.FTOC.neighbours(:,:)));
+        sum2=sum(sum(params.FTOC.neighbours(PP,PP)));
+        params.FTOC.percent_edges_in_subgraph=100*sum2/sum1;
     end
     
     
