@@ -175,7 +175,7 @@ function params = Dgetparams(id)
         N=167;
         RANSTART=10101;
         EE = [72 52 2.3562 160 145];
-        FTOClabels = [60 64:66 146 147 149 152 155];
+        FTOClabels =  [24 26 27 29 30 31 147 149 150 151 155];
     end
 
 %COMBO TKO from paper
