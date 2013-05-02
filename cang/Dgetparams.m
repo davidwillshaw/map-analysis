@@ -25,6 +25,7 @@ function params = Dgetparams(id)
 %       N = 175;
         N = 173;
         RANSTART = 98;
+        FTOClabels =[];
     end
 
     if id==10
@@ -42,12 +43,14 @@ function params = Dgetparams(id)
 %       RANSTART = 55;
 	N = 138;
         RANSTART = 987564;
+        FTOClabels =[];
     end
 
     if id==73
         EE = [65 55 2.3562 122 142];
         N = 158;
         RANSTART = 983310;
+        FTOClabels =[];
     end
 
 %beta 2 KO
@@ -62,6 +65,7 @@ function params = Dgetparams(id)
         N=120;
         RANSTART=9833;
         EE = [43 58.5 120 136 166];
+        FTOClabels =[];
     end
 
     if id==163
@@ -69,6 +73,7 @@ function params = Dgetparams(id)
 	N = 77;
         RANSTART=9833;
         EE = [45 38 2.1 163 153];
+        FTOClabels =[];
     end
 
     if id==165
@@ -76,6 +81,7 @@ function params = Dgetparams(id)
 %       RANSTART=9833;
         RANSTART = 119833;
         EE = [54 42 2.1 170 144];
+        FTOClabels =[];
     end
 
     if id==262;
@@ -84,6 +90,7 @@ function params = Dgetparams(id)
 	N = 120;
         RANSTART = 993131;
         EE = [60 42 2.1 139 159];
+        FTOClabels =[];
     end
 
 %Het TKO
@@ -168,7 +175,7 @@ function params = Dgetparams(id)
         N=167;
         RANSTART=10101;
         EE = [72 52 2.3562 160 145];
-        FTOClabels = [60 64:66 146 147 149 152 155];
+        FTOClabels =  [24 26 27 29 30 31 147 149 150 151 155];
     end
 
 %COMBO TKO from paper
