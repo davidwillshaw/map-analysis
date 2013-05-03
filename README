@@ -8,9 +8,14 @@ Each directory contains the following:
 
 * lib: The core code. 
 
-* cang: Code specific to analysis of the data of Cang &al
-  (2008). Generate figures by typing "figures" at Matlab prompt, and
-  statistics by typing get_summary_stats([]).
+* cang: Code specific to analysis of the data of Cang &al (2008). To
+  generate figures, type "figures" at Matlab prompt.  To generate a
+  CSV file of statistics ("summary_stats.csv"), type
+  "get_summary_stats([])". 
+
+* misc: An R script to extract statistics presented in the paper from
+  the "summary_stats.csv" file generated as explained above. To run
+  the script, start R and type 'source("check-summary-stats.R")'.
 
 * old: Redundant code - much can probably be dispensed with.
 
