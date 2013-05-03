@@ -6,7 +6,7 @@ clean <- function(dat) {
 ## Display 2 sig fig
 options(digits=3)
 
-dat <- clean(read.csv("cang/summary_stats.csv"))
+dat <- clean(read.csv("../cang/summary_stats.csv"))
 write.csv(dat, "summary_stats-clean.csv")
 dat$type <- dat$datalabel
 dat$type <- gsub("Wild type.*", "WT", dat$type)
