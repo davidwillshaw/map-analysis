@@ -19,23 +19,6 @@ Each directory contains the following:
 
 * old: Redundant code - much can probably be dispensed with.
 
-Git branches
-============
-
-master            - the main branch
-
-adrianna-final    - files as Adrianna left them, complete wtith figures
-
-dw-figs-for-paper - Import of all M-files in David's
-                    Computing/Matlab/MapPrecision11/Adriannas_legacy/Figs_for_paper
-                    directory  
-
-dw-figs-for-paper-clean 
-                  - Cleaned up version of above
-
-merge-sim-exp     - Branch in which work on merging experiment- and
-                    simulation-specific code was carried out 
-
 
 Git tags
 ========
@@ -51,3 +34,20 @@ adrianna-dw-changes    - David Willshaw's changes to Adrianna's
 pre-directory-reorg    - The state of code just before reorganisation
                          into lib and cang directories
 
+
+Git branches (only master has been pushed to GitHub)
+====================================================
+
+master            - the main branch
+
+adrianna-final    - files as Adrianna left them, complete wtith figures
+
+dw-figs-for-paper - Import of all M-files in David's
+                    Computing/Matlab/MapPrecision11/Adriannas_legacy/Figs_for_paper
+                    directory  
+
+dw-figs-for-paper-clean 
+                  - Cleaned up version of above
+
+merge-sim-exp     - Branch in which work on merging experiment- and
+                    simulation-specific code was carried out 
