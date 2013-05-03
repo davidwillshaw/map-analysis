@@ -15,7 +15,7 @@ Each directory contains the following:
 
 * misc: An R script to extract statistics presented in the paper from
   the "summary_stats.csv" file generated as explained above. To run
-  the script, start R and type 'source("check-summary-stats.R")'.
+  the script, start R and type 'source("analyse-summary-stats.R")'.
 
 * old: Redundant code - much can probably be dispensed with.
 
