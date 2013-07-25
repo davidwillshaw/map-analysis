@@ -164,6 +164,14 @@ function params = select_point_positions(params, direction)
         choose_dists = compute_dist(chosen');
         choose_dists = choose_dists + max(max(choose_dists))*eye(numpoints);
         params.CTOF.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
+        MM = params.CTOF.mean_min_spacing;
+        LL = params.CTOF.lower_mean_min_spacing;
+        UU = params.CTOF.upper_mean_min_spacing;
+        
+        if MM  < LL || MM > UU 
+           disp(['Spacing between nodes of ',num2str(MM),' not within bounds']);
+           return
+        end
     end
     
     if strcmp(direction, 'FTOC')
@@ -175,6 +183,7 @@ function params = select_point_positions(params, direction)
         choose_dists = compute_dist(chosen');
         choose_dists = choose_dists + max(max(choose_dists))*eye(numpoints);
         params.FTOC.mean_min_spacing = mean(min(choose_dists))*numpoints/(numpoints-1);
+
     end
     
     % Find out how often points belong to centres
@@ -186,11 +195,11 @@ function params = select_point_positions(params, direction)
     end
     used_hist = hist(used_inds, 0:20);
     if strcmp(direction, 'FTOC')
-        params.FTOC.point_use_hist = hist(used_inds, 0:20)
+        params.FTOC.point_use_hist = hist(used_inds, 0:20);
         params.stats.FTOC.point_use_mean = mean(used_inds);
         params.stats.FTOC.point_use_max  = max(used_inds);
     else
-        params.CTOF.point_use_hist = hist(used_inds, 0:20)
+        params.CTOF.point_use_hist = hist(used_inds, 0:20);
         params.stats.CTOF.point_use_mean = mean(used_inds);
         params.stats.CTOF.point_use_max  = max(used_inds);
     end
