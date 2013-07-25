@@ -140,9 +140,12 @@ function params = Dgetparams(id)
 
     if id==4
 %       N=135;
-        N= 125;
-        RANSTART=10101;
+%        N= 125;
+%        RANSTART=10101;
+        N = 117;
+        RANSTART = 5666;
         EE = [60 45 0.784 130 130];
+%        EE = [60 45 0.784 150 100];
         FTOClabels = [91 93:97];
     end
 
@@ -178,11 +181,42 @@ function params = Dgetparams(id)
         FTOClabels =  [24 26 27 29 30 31 147 149 150 151 155];
     end
 
+% Beta2 A2 A5 knockout
+    if id==17
+        N=150;
+        RANSTART=10101;
+        EE = [60 60 -0.3 155 140];
+        FTOClabels =  [24 26 27 29 30 31 147 149 150 151 155];
+    end
+ 
+    if id==18
+       N=115;
+       RANSTART=99999;
+        EE = [50 50 -0.3 175 160];
+        FTOClabels =  [24 26 27 29 30 31];
+    end
+
+    if id==27
+        N=110;
+        RANSTART=10101;
+        EE = [50 50 -0.7 155 165];
+        FTOClabels =  [24 26 27 29 30 31];
+    end
+
+    if id==38
+      N=80;
+        RANSTART=98761;
+        EE = [48 57 -0.3 150 105];
+        FTOClabels =  [24 26 27 29 30 31];
+    end
+
 %COMBO TKO from paper
     if id==1002
-        N=190;
+        N=210;
+%  Query N = 210
         RANSTART=242;
         EE = [60 70 0.9 125 100];
+        FTOClabels = [1 2 3 4];
     end
 
 % Ephrin A3 Ki/Ki
@@ -190,7 +224,18 @@ function params = Dgetparams(id)
         EE = [78 63 0.7853 130 120];
         N = 200;
         RANSTART = 48823;
+        FTOClabels = [1 2 3 4];
     end
+
+%  Michael Siebrecht 12345
+
+    if id == 12345
+        EE = [50 50 0  75 80];
+        N = 200;
+        RANSTART = 48823;
+        FTOClabels = [1 2 3 4];
+    end
+
 
     params = getparams(id, N);
     params.ellipse.ra = EE(1);
@@ -207,7 +252,10 @@ function params = Dgetparams(id)
     params.field_min_points = 10;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
-    
+
+    params.CTOF.lower_mean_min_spacing  = 5.9;    
+    params.CTOF.upper_mean_min_spacing  = 6.1;    
+
     % Preprocessing function
     params.preprocess_function = 'Dpreprocess';
     params.thresh_scatter = 10;
