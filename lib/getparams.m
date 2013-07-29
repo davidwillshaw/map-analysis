@@ -22,7 +22,9 @@ function params = getparams(id, N, radius)
     params.comments = '';
     params.anchors = 5;
     params.tolerance = 150;
-   
+    params.CTOF.lower_mean_min_spacing = 0;   
+    params.CTOF.upper_mean_min_spacing = 50;   
+
     % Preprocessing function - this function is given params
     % before any other processing takes place. It must return params.
     params.preprocess_function = '';
