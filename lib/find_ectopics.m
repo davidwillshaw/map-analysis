@@ -88,7 +88,7 @@ function params = find_ectopics(params)
     params.stats.num_ectopics = length(ect);
     ect_dists = diag(compute_dist(major_projection(ect,:),minor_projection(ect,:)'));
     params.stats.ect_dist_mean = mean(ect_dists);
-    params.stats.ect_dist_std = std(ect_dists);
+    params.stats.ect_dist_std = std(ect_dists,1);
 %D   added by David
     params.FTOC.stats.ectopics=ect;
 
