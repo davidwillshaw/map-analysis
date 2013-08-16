@@ -49,8 +49,9 @@ function params = find_ectopics(params)
 %        criteria for ectopics:
 %        (i) have at least 10 points in each cluster
 %        (ii)  distance between means  > summed standard deviations 
-%        (iii) distance between means greater than 50 microns
-         if length(I1)>9 && length(I2)>9 && ddist > 1.1*(sd_1+sd_2) && ddist >6
+
+%        if length(I1)>9 && length(I2)>9 && ddist > 1.1*(sd_1+sd_2) && ddist >6
+         if length(I1)>9 && length(I2)>9 && ddist > 1.1*(sd_1+sd_2)
 %	disp(['ectopic!']);
 %        pause
          

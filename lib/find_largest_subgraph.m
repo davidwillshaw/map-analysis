@@ -46,6 +46,7 @@ function params = find_largest_subgraph(params,direction,ectopicnodes)
         count = hist(active_sets_of_intersections(:),intersection_points);
         [~,sorted_points] = sort(count,'descend');
         intersection_points = intersection_points(sorted_points);
+
         points_to_remove = find_worst_point(intersection_points,...
             active_list_of_neighbours,active_sets_of_intersections);
         points_not_in_subgraph = [points_not_in_subgraph; points_to_remove'];
