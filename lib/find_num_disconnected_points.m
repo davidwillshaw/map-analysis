@@ -46,10 +46,15 @@ function [num_nodes_removed, num_links_removed, nodes_removed] = find_num_discon
     [~, max_subgraph_location] = max(subgraph_sizes);
     nodes_removed = subgraph;
     nodes_removed(max_subgraph_location,:) = [];
-    nodes_removed = nodes_removed(nodes_removed>0);
+    nodes_removed = nodes_removed(nodes_removed>0)
     if iscolumn(nodes_removed)
             nodes_removed = nodes_removed';
     end
+
+    if iscolumn(nodes_to_remove)
+            nodes_to_remove = nodes_to_remove';
+    end
+
     nodes_removed = [nodes_removed,nodes_to_remove];
     num_nodes_removed = length(nodes_removed);
     links_to_remove = ismember(sets_of_intersections,nodes_removed);
