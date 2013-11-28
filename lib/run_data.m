@@ -32,12 +32,15 @@ function params = run_data(params, varargin)
     params = create_projection(params, 'FTOC');
 
 %D  Fix for randomising FTOC along RC axis   OFF
-%   NN = length(params.FTOC.coll_points(:,2));
-%   params.FTOC.coll_points(:,2) = params.FTOC.coll_points(randperm(NN),2);
+%D  Note - FtoC ONLY
+%    NN = length(params.FTOC.coll_points(:,2));
+%    params.FTOC.coll_points(:,2) = params.FTOC.coll_points(randperm(NN),2);
+
+
     disp('Finding ectopics...')
     params = find_ectopics(params);
-    params = triangulation(params,'CTOF');
-    params = triangulation(params,'FTOC');
+    params = triangulate(params,'CTOF');
+    params = triangulate(params,'FTOC');
     disp('Finding crossings...')
     params = find_crossings(params, 'CTOF');
     params = find_crossings(params, 'FTOC');
@@ -65,7 +68,14 @@ function params = run_data(params, varargin)
     params = find_link_angles(params,'FTOC',0);
     params = find_link_angles(params,'CTOF',1);
     params = find_link_angles(params,'CTOF',0);
-    
+
+    disp('--> polarity...')
+    [ML_whole ML_sub RC_whole RC_sub] = single_axis_order(params);
+    params.FTOC.wholemap_ML= ML_whole;
+    params.FTOC.submap_ML= ML_sub;
+    params.FTOC.wholemap_RC= RC_whole;
+    params.FTOC.submap_RC= RC_sub;
+
     disp('--> scatters...')
     params = get_subgraph_scatters(params,'FTOC');
     params = get_subgraph_scatters(params,'CTOF');
