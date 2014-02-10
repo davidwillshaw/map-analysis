@@ -1,12 +1,10 @@
 function new_field_positions =rotate_field(params)
 
-angle = -20;
+angle = params.FTOC.field_rotation_angle;
 
 neighbours = params.FTOC.list_of_neighbours;
 
 fp = params.FTOC.field_points;
-
-
 
 nnlength = size(neighbours,1);
 

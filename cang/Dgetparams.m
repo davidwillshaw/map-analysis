@@ -395,6 +395,7 @@ function params = Dgetparams(id)
     params.coll.scalebar = 250;
 
     params.FTOC.labels = FTOClabels;
+    params.FTOC.field_rotation_angle = -20;
     % Field plotting properties
     params.field.title = 'Field';
     params.field.xlabel = '';

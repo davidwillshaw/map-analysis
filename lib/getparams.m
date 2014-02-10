@@ -24,6 +24,7 @@ function params = getparams(id, N, radius)
     params.tolerance = 150;
     params.CTOF.lower_mean_min_spacing = 0;   
     params.CTOF.upper_mean_min_spacing = 50;   
+    params.FTOC.field_rotation_angle=0;
 
     % Preprocessing function - this function is given params
     % before any other processing takes place. It must return params.
