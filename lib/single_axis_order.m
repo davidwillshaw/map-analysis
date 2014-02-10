@@ -1,4 +1,4 @@
-function [ML_whole ML_sub RC_whole RC_sub] = single_axis_order(params)
+function params = single_axis_order(params)
 
 neighbours = params.FTOC.list_of_neighbours;
 take_out = params.FTOC.points_not_in_subgraph;
@@ -47,6 +47,10 @@ IBAD = find(DISCRIM < 0);
   
 RC_sub =100*length(IGOOD)/(length(IGOOD)+length(IBAD));
 
+params.FTOC.wholemap_ML=ML_whole;
+params.FTOC.submap_ML=ML_sub;
+params.FTOC.wholemap_RC=RC_whole;
+params.FTOC.submap_RC=RC_sub;
 
 
 

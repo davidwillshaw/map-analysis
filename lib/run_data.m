@@ -69,12 +69,9 @@ function params = run_data(params, varargin)
     params = find_link_angles(params,'CTOF',1);
     params = find_link_angles(params,'CTOF',0);
 
+
     disp('--> polarity...')
-    [ML_whole ML_sub RC_whole RC_sub] = single_axis_order(params);
-    params.FTOC.wholemap_ML= ML_whole;
-    params.FTOC.submap_ML= ML_sub;
-    params.FTOC.wholemap_RC= RC_whole;
-    params.FTOC.submap_RC= RC_sub;
+    params=single_axis_order(params);
 
     disp('--> scatters...')
     params = get_subgraph_scatters(params,'FTOC');
