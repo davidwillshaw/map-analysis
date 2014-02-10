@@ -1,29 +1,137 @@
 function params = Dgetparams(id)
+% New value of N and RANSTART set by hand - 17 Sept 2013
+% Impossible to match up with Replications method?
 % FTOC labels put in for the 2013 Paper
 
+  CTOFlabels = [];
+
     if id ==999
-%   zebrafish trial
+%   zebrafinch trial
         EE = [190 160 0.50 260 225];
         N=10;
         RANSTART =12345;
     end
+
+    if id ==88000
+%   wildtype cortex data from Frank Sengpiel
+      EE = [48 68 0.2 123 85];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 88022
+%   cortex data from Frank Sengpiel SABBACK22
+      EE = [48 75 0.5 113 92];
+        N=160;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 88175
+%   cortex data from Frank Sengpiel FRAX175
+        EE = [42 62 0.5 103 87];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 88176
+%   cortex data from Frank Sengpiel TDPV176
+      EE = [38 68 0.5 95 90];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 881760
+%   cortex data from Frank Sengpiel TDPV176recomposed complete??
+      EE = [38 68 0.5 95 90];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 881761
+%   cortex data from Frank Sengpiel TDPV176recomposed first half
+      EE = [38 68 0.5 95 90];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 881762
+%   cortex data from Frank Sengpiel TDPV176recomposed second half
+      EE = [38 68 0.5 95 90];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 88178
+%   cortex data from Frank Sengpiel FRAX178
+        EE = [38 68 0.5 138 68];
+        N=130;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+    if id == 88253
+%   cortex data from Frank Sengpiel TDPV253NORM
+      EE = [48 72 0.5 106 90];
+        N=160;
+%        N=300;
+%        N=700;
+        RANSTART =12345;
+	FTOClabels = [17 53 70:72 74 80:82 99 126];
+        CTOFlabels = [8 39 63:65 67 68 72 99 120];
+    end
+
+%--------------------------------------------------------
+
+
+
 %  field radius changed from 1.6 to 1.7 7 Dec 2011
 
 %    All parameters will give a mean minimum distance between collicular points of 6
 %WT
     if id == 6
         EE = [68 60 0.95 119 154];
-%        N = 175;
+%        N = 15;
 %        RANSTART = 3456;
          RANSTART = 1013;
          FTOClabels =[];
-	 N = 178;
+	 N = 175;
     end
 
     if id==80
         EE = [70 60 135 110 140];
 %       N = 175;
-        N = 173;
+        N = 160;
         RANSTART = 98;
         FTOClabels =[];
     end
@@ -35,20 +143,25 @@ function params = Dgetparams(id)
         FTOClabels = [99 102 104:109]
         % A10_random for randomised R->C axis
         % FTOClabels = [99 102 104 1 05 114];
+
+%   15 Sept 2013
+         RANSTART = 236763;
+        % RANSTART = 236319;
+        N = 159;
     end
 
     if id==15
         EE = [60 50 2.3562 118 138];
 %       N = 134;
 %       RANSTART = 55;
-	N = 138;
-        RANSTART = 987564;
+	N = 127;
+        RANSTART = 910264;
         FTOClabels =[];
     end
 
     if id==73
         EE = [65 55 2.3562 122 142];
-        N = 158;
+        N = 148;
         RANSTART = 983310;
         FTOClabels =[];
     end
@@ -70,7 +183,7 @@ function params = Dgetparams(id)
 
     if id==163
 %       N=75;
-	N = 77;
+	N = 70;
         RANSTART=9833;
         EE = [45 38 2.1 163 153];
         FTOClabels =[];
@@ -114,15 +227,17 @@ function params = Dgetparams(id)
 
     if id==94
 %       N=210;
-	N = 205;
-        RANSTART=431;
+%	N = 205;
+%        RANSTART=431;
+        N=197;
+        RANSTART = 185202759;
         EE = [70 60 0.7584 140 130];
         FTOClabels = [92:98 101];
     end
 
     if id==161
 %       N=97;
-        N = 95;
+        N = 92;
         RANSTART=9833;
         EE = [35 50 -10 127 123];
         FTOClabels = [32 35 37:39 42 43];
@@ -130,7 +245,7 @@ function params = Dgetparams(id)
 
     if id==162
 %	N=157;
-        N = 142;
+        N = 144;
         RANSTART=431;
         EE = [70 50 -10 135 140];
         FTOClabels = [100:103 106];
@@ -142,7 +257,7 @@ function params = Dgetparams(id)
 %       N=135;
 %        N= 125;
 %        RANSTART=10101;
-        N = 117;
+        N = 120;;
         RANSTART = 5666;
         EE = [60 45 0.784 130 130];
 %        EE = [60 45 0.784 150 100];
@@ -151,7 +266,7 @@ function params = Dgetparams(id)
 
     if id==54;
 %       N=116;
-        N = 106;
+        N = 105;
         RANSTART=22431;
         EE = [45 55 1.1636 146 109];
         FTOClabels = [31 33 38 69 71:73];
@@ -168,23 +283,24 @@ function params = Dgetparams(id)
     if id==56
         N=165;
 %	RANSTART=98765;
-        N=150;
+        N=149;
         RANSTART=4664;
         EE = [72 52 0.8 175 130];
         FTOClabels = [56:57 59:65];
     end
 
     if id==58
-        N=167;
+%        N=167;
         RANSTART=10101;
+        N=162;
         EE = [72 52 2.3562 160 145];
         FTOClabels =  [24 26 27 29 30 31 147 149 150 151 155];
     end
 
-% Beta2 A2 A5 knockout
+% Beta2 A2 A5 knockout combo
     if id==17
-        N=150;
-        RANSTART=10101;
+        N=147;
+        RANSTART=113121;
         EE = [60 60 -0.3 155 140];
         FTOClabels =  [24 26 27 29 30 31 147 149 150 151 155];
     end
@@ -245,10 +361,11 @@ function params = Dgetparams(id)
     params.ellipse.y0 = EE(5);
     params.ellipse_size = pi*EE(1)*EE(2);
     params.ranstart = RANSTART;
-    params.coll_radius = 3;
+    params.coll_radius= 3;
     params.coll_min_points = (pi*params.coll_radius^2)/3;
-%    params.field_radius = 3.0;
-    params.field_radius = 1.7;
+    params.field_radius = 1.7
+%   params.field_radius = 3.0;
+%   params.field_radius = 1.13;
     params.field_min_points = 10;
     params.thresh.elev = 0.9;
     params.thresh.azim = 0;
@@ -296,6 +413,7 @@ function params = Dgetparams(id)
     params.field.SuperposedHistLim = 20;
     
     % Colliculus plotting properties
+    params.CTOF.labels = CTOFlabels;
     params.coll.title = 'Colliculus';
     params.coll.xlabel = 'Anterior-Posterior';
     params.coll.ylabel = 'Medial-Lateral';
