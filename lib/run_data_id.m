@@ -37,7 +37,7 @@ function params = run_data_id(id, ectopicnodes, varargin)
     params = eval([GetParamsFunc, '(', num2str(id), ')']);
     
     % Call run_data itself
-    params = run_data(params);
+    params = run_data(params,'Baseline',0);
     
     CACHE = setfield(CACHE, idstr, params);
     

@@ -1,4 +1,4 @@
-function params = Dremove_high_scatter(params)
+function params = Dremove_high_scatter_new(params)
 % Takes in a list of all active pixels
 % Looks at each pixel and its surrounding pixels
 
@@ -51,14 +51,21 @@ if thresh_scatter < 999
         from_points = from_coords(within_radius,:);
         to_points = to_coords(within_radius,:);
 
+        ll = length(to_points(:,1));
+        
+	two_clusters=0;
+        if ll > minclustersize
+
         [IDX2, C2] = kmeans(to_points,2, 'replicates',5);
+
+
+%              measuring two clusters if there are enough points
+
         I1=find(IDX2==1);
         I2=find(IDX2==2);
 	ddist =0;
 
-	ll = length(to_points(:,1));
-%              measuring two clusters if there are enough points
-	if ll >= minclustersize2
+
 	    to_points(I1,:);
             to_points(I2,:);
             len1=length(I1);
@@ -84,7 +91,7 @@ if thresh_scatter < 999
            C2(2,:);
 
            ddist= sqrt((C2(1,1)-C2(2,1))^2 + (C2(1,2)-C2(2,2))^2);
-        end
+
 
 %        criteria for double collicular projection
 %        (i) have at least <minclustersize> points in each cluster
@@ -96,6 +103,7 @@ if thresh_scatter < 999
 %        if length(I1)>= minclustersize & length(I2) >= minclustersize & ddist >= 1.1*(sd_1+sd_2) &  ddist  >= 10
 	   two_clusters = 1;
 	end
+      end
 	if two_clusters == 0
 	   num_to_points = size(to_points,1);
 %                  looking at one cluster now if large enough

@@ -2,7 +2,189 @@ function params = load_data(params)
 
     DATA = params.id;
 
- 
+%    Frank's data from cortex 9th Sept 2013
+
+    if DATA == 88000
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/vert.mat
+       load Raw_data/hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel';
+    end
+
+%  Frank's data 18 Oct 2013
+
+    if DATA == 88022
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/22_vert.mat
+       load Raw_data/22_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- SABBACK22';
+    end
+
+    if DATA == 88175
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/175_vert.mat
+       load Raw_data/175_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- FRAX175';
+    end
+
+
+    if DATA == 88176
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/176_vert.mat
+       load Raw_data/176_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- TDPV176';
+    end
+
+
+    if DATA == 881760
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/1760_vert.mat
+       load Raw_data/1760_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- TDPV176recomp_full??';
+    end
+
+
+    if DATA == 881761
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/1761_vert.mat
+       load Raw_data/1761_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- TDPV176recomp_firsthalf';
+    end
+
+   if DATA == 881762
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/1762_vert.mat
+       load Raw_data/1762_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- TDPV176recomp_secondhalf';
+    end
+
+    if DATA == 88178
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/178_vert.mat
+       load Raw_data/178_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- FRAX178';
+    end
+
+    if DATA == 88253
+
+       load Raw_data/WTmaps4Willshaw19May09.mat
+
+       load Raw_data/253_vert.mat
+       load Raw_data/253_hori.mat
+
+       Elev_amp = handles.contra_mag_map;
+       [S1 S2] = size(Elev_amp);
+       Elev_amp = Elev_amp([S1:-1:1],:);
+       Azim_amp = handles.ipsi_mag_map;
+       Azim_amp = Azim_amp([S1:-1:1],:);
+
+       Elev_phase = handles.contra_phase_info;
+       Elev_phase = Elev_phase([S1:-1:1],:);
+       Azim_phase = handles.ipsi_phase_info;
+       Azim_phase= Azim_phase([S1:-1:1],:);
+       ss = 'Cortex Sengpiel- TDPV253norm';
+    end
+
+
+  
+
+
     if DATA == 999
        load Raw_data/EphA3Kimaps4Willshaw.mat
 
@@ -78,10 +260,9 @@ function params = load_data(params)
        Azim_phase =AA*Azim_phase-50;
        Elev_phase =AA*Elev_phase-50;
     end
-    
 
     
- if DATA == 115
+    if DATA == 115
         load Raw_data/EphA3Kimaps4Willshaw.mat
         Azim_amp = EphA3ki_e115_Azim_amp;
         Elev_amp = EphA3ki_e115_Elev_amp;
@@ -279,6 +460,42 @@ function params = load_data(params)
         ss = 'Wild type 080 ';
     end
 
+% beta2EphrinA-- combo
+% sent by JC 9 July 2013
+    if DATA == 17
+        load Raw_data/CKOmaps4Willshaw.mat
+         Azim_amp = m17_Azim_amp;
+        Elev_amp = m17_Elev_amp;
+        Azim_phase =  m17_Azim_phase;
+        Elev_phase =  m17_Elev_phase;
+        ss = 'Beta2 A2--A5-- ';
+    end
+
+    if DATA == 18
+        load Raw_data/CKOmaps4Willshaw.mat
+         Azim_amp = m18_Azim_amp;
+        Elev_amp = m18_Elev_amp;
+        Azim_phase =  m18_Azim_phase;
+        Elev_phase =  m18_Elev_phase;
+        ss = 'Beta2 A2--A5-- ';
+    end
+    if DATA == 27
+        load Raw_data/CKOmaps4Willshaw.mat
+         Azim_amp = m27_Azim_amp;
+        Elev_amp = m27_Elev_amp;
+        Azim_phase =  m27_Azim_phase;
+        Elev_phase =  m27_Elev_phase;
+        ss = 'Beta2 A2--A5-- ';
+    end
+
+    if DATA == 38
+        load Raw_data/CKOmaps4Willshaw.mat
+         Azim_amp = m38_Azim_amp;
+        Elev_amp = m38_Elev_amp;
+        Azim_phase =  m38_Azim_phase;
+        Elev_phase =  m38_Elev_phase;
+        ss = 'Beta2 A2--A5-- ';
+    end
 
 % Data extracted from Cang et al. 2008. These were processed with the
 % image_from_paper.m program which crops and normalises the colours.
@@ -292,6 +509,22 @@ function params = load_data(params)
         load Raw_data/ComboDataFromPaper.mat
         ss = 'combo TKO fig6 from paper';
     end
+
+%  Data from Michael Siebrecht - mouse cortex. 31 May 2013
+
+   if DATA == 12345
+        load Raw_data/MapPlusROI.mat
+        Azim_amp = azi_strength;
+        Elev_amp = elev_strength;
+        Azim_phase = azi_phase;
+        Elev_phase = elev_phase;
+        ss = 'Siebrecht cortex 12345';
+%     Fudge to get MapAnsColor
+        load Raw_data/WTmaps4Willshaw19May09.mat
+   end
+
+
+%   Assume Siebrecht data should also be normalised to +/- 50
 
     if DATA ~= 6 && DATA ~= 1001 && DATA ~= 1002 && DATA ~=999
         Azim_phase = Azim_phase*50/180;

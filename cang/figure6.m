@@ -1,10 +1,12 @@
-function figure6()
+function figure6(p)
 % FIGURE6 - Plot figure 6 from Willshaw & al 2013
-%   
+%
+figure(6)   
 clf
 
 % WT
-p = Drun_data(10, 1, 'UseCache', true);
+
+%p = Drun_data(10, 1, 'UseCache', true);
 
 % FTOC
 h1 = subplot2(2, 3, 1);
