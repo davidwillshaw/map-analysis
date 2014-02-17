@@ -170,7 +170,10 @@ function params = select_point_positions(params, direction)
         
         if MM  < LL || MM > UU 
            disp(['Spacing between nodes of ',num2str(MM),' not within bounds']);
-           return
+        end
+
+       if MM  >= LL && MM <= UU 
+           disp(['Spacing between nodes of ',num2str(MM),' within bounds']);
         end
     end
     
