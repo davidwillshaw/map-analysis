@@ -38,7 +38,9 @@ function params = run_data(params, varargin)
 
 
     disp('Finding ectopics...')
-    params = find_ectopics(params);
+    params = find_ectopics(params,'FTOC');
+    params = find_ectopics(params,'CTOF');
+
     params = triangulate(params,'CTOF');
     params = triangulate(params,'FTOC');
     disp('Finding crossings...')
@@ -86,9 +88,15 @@ function params = run_data(params, varargin)
             params = find_prob_subgraph(params,'CTOF');
         end
     end
-    if params.stats.num_ectopics >= 5
+
+    if params.stats.FTOC.num_ectopics >= 5
         disp('--> ectopics...')
-        params = ectopic_order_stats(params);
+      params = ectopic_order_stats(params,'FTOC');
+    end
+
+    if params.stats.CTOF.num_ectopics >= 5
+        disp('--> ectopics...')
+      params = ectopic_order_stats(params,'CTOF');
     end
 
     if (length(params.postprocess_function) > 0) 

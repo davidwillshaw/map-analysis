@@ -22,7 +22,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 %       al. 2013).
 %    
 %   - Subgraph: If true, plot only distributions around points in the
-%       maxium subgraph; otherwise plot all distributions.
+%       maximum subgraph; otherwise plot all distributions.
 %
 %   - Lattice: If true (default), print a Lattice.
 %    
@@ -227,7 +227,7 @@ function h = plot_lattice(params, direction, h1, h2, varargin)
 
         if strcmp(direction,'FTOC')
             %D      inserted details of the ectopics
-            ectopics=params.FTOC.stats.ectopics;
+            ectopics=params.stats.FTOC.ectopics;
             major_projection = params.FTOC.major_projection;
             minor_projection = params.FTOC.minor_projection;
             mean_projection = params.FTOC.mean_projection;

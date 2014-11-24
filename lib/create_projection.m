@@ -12,7 +12,7 @@ function params = create_projection(params, direction)
 %   params.stats.FTOC.coll_area. The area is scaled by a factor
 %   (params.coll.scale)^2.
 % 
-%   The functions works analagously in the 'CTOF' direction.
+%   The functions works analogously in the 'CTOF' direction.
 %    
 
     if strcmp(direction, 'FTOC')
@@ -48,6 +48,7 @@ function params = create_projection(params, direction)
         % projected_points(:,2) = projected_points(randperm(num_points),2);
 
         params.FTOC.coll_points = projected_points;
+        params.FTOC.candidates=[1:num_points];
         % FIXME: Do we need to set params.FTOC.mean_projection?
         params.FTOC.mean_projection = projected_points;
         area = area*params.coll.scale^2;
@@ -57,6 +58,7 @@ function params = create_projection(params, direction)
     if strcmp(direction, 'CTOF')
         % projected_points(:,2) = projected_points(randperm(num_points),2);
         params.CTOF.field_points = projected_points;
+        params.CTOF.candidates=[1:num_points];
         area = area*params.field.scale^2;        
         params.stats.CTOF.field_area = area;
     end

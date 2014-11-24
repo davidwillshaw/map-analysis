@@ -41,7 +41,8 @@ function h = plot_superposed(params, direction, h, varargin)
         overall_dispersion_xrad = params.stats.FTOC.overall_dispersion_xrad;
         overall_dispersion_yrad = params.stats.FTOC.overall_dispersion_yrad;
         overall_dispersion_angle = ...
-            params.stats.FTOC.overall_dispersion_angle; 
+            params.stats.FTOC.overall_dispersion_angle;
+ 
         bs = params.coll.SuperposedHistBinSize;
         histlim = params.coll.SuperposedHistLim;
         props = params.coll;
@@ -56,7 +57,7 @@ function h = plot_superposed(params, direction, h, varargin)
     end        
         
     % Superposed distribution on colliculus
-    subplot(h)
+	subplot(h);
         
     % Plot the histogram
     edges = ((-histlim - bs/2):bs:(histlim + bs/2))';
@@ -65,7 +66,7 @@ function h = plot_superposed(params, direction, h, varargin)
     ticklabel = ({num2str(-histlim*params.coll.scale), '0', ...
                   num2str(histlim*params.coll.scale)});
     N = hist3(centred_points,'edges', {edges, edges});
-    imagesc(N')
+    imagesc(N');
     hold on
         
     % Draw ellipse round histogram
@@ -74,11 +75,11 @@ function h = plot_superposed(params, direction, h, varargin)
                               overall_dispersion_angle, ...
                               mean(centred_points(:,1)) + tick(2), ...
                               mean(centred_points(:,2)) + tick(2));
-    plot(x_ell,y_ell,'w','LineWidth', 2)
+plot(x_ell,y_ell,'w','LineWidth', 2);
 
     % Set axis properties
     set_axis_props(props)
-    axis([1, tick(3), 1, tick(3)])
+      axis([1, tick(3), 1, tick(3)]);
     set(gca, 'XTick', tick, ...
              'YTick', tick, ...
              'XTickLabel', ticklabel, ...
@@ -88,7 +89,7 @@ function h = plot_superposed(params, direction, h, varargin)
     if (Scalebar)
         draw_scalebar(props, 'scale', props.scale*bs, ...
                       'XLim', lim, 'YLim', lim, ...
-                      'colour', 'w')
+                      'colour', 'w');
     end
 end
 
