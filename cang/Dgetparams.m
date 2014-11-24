@@ -190,7 +190,8 @@ function params = Dgetparams(id)
     end
 
     if id==165
-        N=115;
+        N=115
+;
 %       RANSTART=9833;
         RANSTART = 119833;
         EE = [54 42 2.1 170 144];
@@ -283,7 +284,8 @@ function params = Dgetparams(id)
     if id==56
         N=165;
 %	RANSTART=98765;
-        N=149;
+        N=149; 
+%       N=155 - was used instead of 149 when filtering was shut off;
         RANSTART=4664;
         EE = [72 52 0.8 175 130];
         FTOClabels = [56:57 59:65];
@@ -340,7 +342,7 @@ function params = Dgetparams(id)
         EE = [78 63 0.7853 130 120];
         N = 200;
         RANSTART = 48823;
-        FTOClabels = [1 2 3 4];
+        FTOClabels =[53 64 66 62 58 4 24 39 83 140 181];
     end
 
 %  Michael Siebrecht 12345

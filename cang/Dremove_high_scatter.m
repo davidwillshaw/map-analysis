@@ -136,7 +136,7 @@ end
         percent_change = 100*(1-numb_pixels_finally_active/numb_pixels_originally_active)     
 	numb_pixels_examined
 
-	params.prefiltered_active_pixels = params.active_pixels;
+	params.prefiltered_active_pixels = params.active_pixels
 	params.active_pixels = active_pixels;
 
 	
