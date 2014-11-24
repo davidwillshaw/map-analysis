@@ -112,7 +112,7 @@ function params = load_data(params)
 
        Elev_amp = handles.contra_mag_map;
        [S1 S2] = size(Elev_amp);
-       Elev_amp = Elev_amp([S1:-1:1],:);
+      Elev_amp = Elev_amp([S1:-1:1],:);
        Azim_amp = handles.ipsi_mag_map;
        Azim_amp = Azim_amp([S1:-1:1],:);
 
